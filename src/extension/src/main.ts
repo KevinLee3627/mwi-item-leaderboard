@@ -1,4 +1,10 @@
 import { unsafeWindow } from '$';
+import {
+  ServerMessage,
+  LinkMetadata,
+  ServerMessageType,
+  ChatMessageReceived,
+} from './types';
 
 declare global {
   interface Window {
@@ -7,53 +13,7 @@ declare global {
   }
 }
 
-interface ServerMessage {
-  type: ServerMessageType;
-}
-
-enum ServerMessageType {
-  ChatMessageReceived = 'chat_message_received',
-}
-
-interface ChatMessageReceived extends ServerMessage {
-  message: {
-    cannotBlock: boolean;
-    channelTypeHrid: string; // turn to enum
-    characterID: number;
-    chatIconHrid: string;
-    id: number;
-    isDeleted: boolean;
-    isModMessage: boolean;
-    isSystemMessage: boolean;
-    linksMetadata: string; // Will be an array, need to parse it
-    message: string;
-    receiverCharacterID: number;
-    receiverName: string;
-    senderName: string;
-    specialChatIconHrid: string;
-    timestamp: string; // ISO String
-  };
-}
-
-enum LinkType {
-  Item = '/chat_link_types/item',
-}
-
-interface LinkMetadata {
-  linkType: LinkType;
-  insertIndex: number;
-  itemHrid: string;
-  itemEnhancementLevel: number;
-  itemCount: number;
-  skillHrid: string; // will be "" if not applicable
-  skillLevel: number;
-  skillExperience: number;
-  abilityHrid: string;
-  abilityLevel: number;
-  abilityExperience: number;
-}
-
-class CustomSocket extends WebSocket {
+export class CustomSocket extends WebSocket {
   constructor(url: string | URL, protocols?: string | string[]) {
     super(url, protocols);
     this.addEventListener('message', (e) => {
