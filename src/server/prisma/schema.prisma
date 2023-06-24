@@ -17,8 +17,8 @@ model Player {
 }
 
 model Item {
-  id               Int
-  hrid             String   @id
+  id               Int      @id @default(autoincrement())
+  hrid             String
   displayName      String
   enhancementLevel Int?
   Record           Record[]
@@ -28,8 +28,8 @@ model Record {
   id       Int      @id @default(autoincrement())
   ts       DateTime
   num      Int
-  item     Item     @relation(fields: [itemHrid], references: [hrid])
-  itemHrid String
+  item     Item     @relation(fields: [id], references: [id])
+  itemId   String
   player   Player   @relation(fields: [playerId], references: [id])
   playerId Int
 }
