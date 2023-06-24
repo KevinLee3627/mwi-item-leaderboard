@@ -8,7 +8,8 @@
   },
   "workspaces": [
     "src/client",
-    "src/server"
+    "src/server",
+    "src/extension"
   ],
   "keywords": [],
   "author": "",
