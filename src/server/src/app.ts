@@ -7,7 +7,12 @@ app.use(helmet());
 app.use(express.json());
 
 app.get('/test', async (req, res, next) => {
+  console.log('test received');
+});
+
+app.post('/test', async (req, res, next) => {
   console.log('got it!');
+  console.log(req.body);
   return res.json({ message: 'message received' });
 });
 
