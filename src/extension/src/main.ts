@@ -4,6 +4,7 @@ import {
   LinkMetadata,
   ServerMessageType,
   ChatMessageReceived,
+  LinkType,
 } from './types';
 
 declare global {
@@ -24,7 +25,7 @@ export class CustomSocket extends WebSocket {
 
       const linkMetadata: LinkMetadata[] = JSON.parse(message.linksMetadata);
       const linkedItems = linkMetadata.filter(
-        (item) => item.itemHrid.length > 0
+        (item) => item.linkType === LinkType.Item
       );
 
       if (linkedItems.length === 0) return;
