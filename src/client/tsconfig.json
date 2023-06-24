@@ -7,7 +7,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "nodenext",
+    "moduleResolution": "Node",
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
