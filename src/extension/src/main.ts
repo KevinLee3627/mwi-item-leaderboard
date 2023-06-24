@@ -1,5 +1,4 @@
 import { unsafeWindow } from '$';
-import axios from 'axios';
 import {
   ServerMessage,
   LinkMetadata,
@@ -18,6 +17,8 @@ declare global {
 export class CustomSocket extends WebSocket {
   constructor(url: string | URL, protocols?: string | string[]) {
     super(url, protocols);
+
+    console.log('asdfasdf');
 
     console.log('asda');
 
@@ -44,10 +45,16 @@ export class CustomSocket extends WebSocket {
       // profit
 
       try {
-        const res = await axios.get('http://localhost:8443/test');
-        console.log(res);
-      } catch (error) {
-        console.log(error);
+        const res = await fetch('http://localhost:8443/test', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(linkedItems),
+        });
+        console.log(res.json());
+      } catch (err) {
+        console.error(err);
       }
     });
 

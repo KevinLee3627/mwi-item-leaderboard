@@ -1,5 +1,5 @@
 {
-  "name": "item-server",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -39,8 +39,12 @@
     "vitest": "^0.31.4"
   },
   "dependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/ws": "^8.5.5",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "helmet": "^7.0.0",
+    "ws": "^8.13.0",
     "zod": "^3.21.4"
   }
 }

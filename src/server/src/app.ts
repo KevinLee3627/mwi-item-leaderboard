@@ -1,5 +1,6 @@
 import express, { type Request, type Response } from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 
 export const app = express();
 
@@ -8,7 +9,14 @@ app.use(express.json());
 
 app.get('/test', async (req, res, next) => {
   console.log('test received');
+  res.json({ message: 'test received!' });
 });
+
+const corsOptions = {
+  origin: ['https://test.milkywayidle.com', 'https://milkywayidle.com'],
+};
+
+app.use(cors(corsOptions));
 
 app.post('/test', async (req, res, next) => {
   console.log('got it!');
