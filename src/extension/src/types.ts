@@ -43,3 +43,19 @@ export interface LinkMetadata {
   abilityLevel: number;
   abilityExperience: number;
 }
+
+export interface PayloadItem {
+  itemHrid: string;
+  itemName: string;
+  count: number;
+  enhancementLevel: number;
+}
+
+export interface Payload {
+  items: PayloadItem[];
+  player: {
+    id: number;
+    name: string;
+  };
+  ts: string; // ISO8601 string
+}

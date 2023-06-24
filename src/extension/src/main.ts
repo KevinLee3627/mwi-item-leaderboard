@@ -1,10 +1,12 @@
 import { unsafeWindow } from '$';
+import axios from 'axios';
 import {
   ServerMessage,
   LinkMetadata,
   ServerMessageType,
   ChatMessageReceived,
   LinkType,
+  PayloadItem,
 } from './types';
 
 declare global {
@@ -35,24 +37,36 @@ export class CustomSocket extends WebSocket {
 
       if (linkedItems.length === 0) return;
 
-      // Get the sender
-      const sender = message.senderName;
-      console.log(`Sent by: ${sender}`);
-      // Get the linked items
+      const payloadItems: PayloadItem[] = linkedItems.map((item) => {
+        return {
+          itemHrid: item.itemHrid,
+          itemName: item.itemHrid
+            .replace('/items/', '')
+            .split('_')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' '),
+          count: item.itemCount,
+          enhancementLevel: item.itemEnhancementLevel,
+        };
+      });
 
-      console.log(linkedItems);
-      // Send the items to a database
-      // profit
-
+      console.log(payloadItems);
       try {
-        const res = await fetch('http://localhost:8443/test', {
-          method: 'POST',
+        const payload = {
+          items: payloadItems,
+          player: {
+            id: message.characterID,
+            name: message.senderName,
+          },
+        };
+
+        const res = await axios.post('http://localhost:8443/test', payload, {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(linkedItems),
         });
-        console.log(res.json());
+
+        console.log(res);
       } catch (err) {
         console.error(err);
       }
