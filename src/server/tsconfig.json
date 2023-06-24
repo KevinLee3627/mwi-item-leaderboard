@@ -15,13 +15,13 @@
     "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     /* Modules */
     "module": "commonjs" /* Specify what module code is generated. */,
-    "rootDir": "." /* Specify the root folder within your source files. */,
+    "rootDir": "./src" /* Specify the root folder within your source files. */,
     "paths": {
       "src/*": ["./src/*"]
     },
     /* Emit */
     // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
-    "outDir": "./" /* Specify an output folder for all emitted files. */,
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
 
     /* Interop Constraints */
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
@@ -33,6 +33,6 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/*.ts", "./vitest.config.ts"],
-  "exclude": ["node_modules", "dist/*.js"],
+  "include": ["src/*.ts"],
+  "exclude": ["node_modules", "dist/*.js"]
 }

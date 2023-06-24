@@ -1,5 +1,5 @@
 {
-  "name": "ts-template",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "test:coverage": "npx vitest --coverage",
     "prepare": "cd ../.. && husky install src/server/.husky",
     "lint": "npx eslint --max-warnings 0",
-    "format": "npx prettier -w"
+    "format": "npx prettier -w",
+    "start": "npx tsc && node dist/index.js"
   },
   "author": "",
   "license": "MIT",
