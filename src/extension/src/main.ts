@@ -1,4 +1,5 @@
 import { unsafeWindow } from '$';
+import axios from 'axios';
 import {
   ServerMessage,
   LinkMetadata,
@@ -17,7 +18,10 @@ declare global {
 export class CustomSocket extends WebSocket {
   constructor(url: string | URL, protocols?: string | string[]) {
     super(url, protocols);
-    this.addEventListener('message', (e) => {
+
+    console.log('asda');
+
+    this.addEventListener('message', async (e) => {
       const data: ServerMessage = JSON.parse(e.data);
 
       if (!isChatMessageReceived(data)) return;
@@ -38,6 +42,13 @@ export class CustomSocket extends WebSocket {
       console.log(linkedItems);
       // Send the items to a database
       // profit
+
+      try {
+        const res = await axios.get('http://localhost:8443/test');
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     // Only set the correct socket and skip the one Vite is using
