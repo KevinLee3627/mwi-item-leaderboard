@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import { PrismaClient } from '@prisma/client';
 
 export const app = express();
 
@@ -21,6 +22,21 @@ app.use(cors(corsOptions));
 app.post('/test', async (req, res, next) => {
   console.log('got it!');
   console.log(req.body);
+  const prisma = new PrismaClient();
+  await prisma.player.upsert({
+    where: {
+      id: req.body.player.id,
+    },
+    update: {
+      id: req.body.player.id,
+      displayName: req.body.player.name,
+    },
+    create: {
+      id: req.body.player.id,
+      displayName: req.body.player.name,
+    },
+  });
+
   return res.json({ message: 'message received' });
 });
 
