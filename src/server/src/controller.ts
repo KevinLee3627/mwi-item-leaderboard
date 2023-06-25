@@ -20,14 +20,27 @@ const upload = asyncHandler(async (req, res, next) => {
 });
 
 const getItemLeaderboard = asyncHandler(async (req, res, next) => {
-  // Hrid without the /items/
-  const itemHrid = req.query.itemHrid;
-  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
-    res.json({ message: 'Item not found.' });
+  const { itemHrid, limit } = req.query;
+
+  if (typeof limit !== 'string') {
+    res.status(400).json({ message: 'limit should be an integer.' });
     return;
   }
 
-  const results = await getItemLeaderboardService(itemHrid);
+  if (isNaN(parseInt(limit))) {
+    res.status(400).json({ message: 'limit should be an integer.' });
+    return;
+  }
+
+  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
+    res.status(400).json({ message: 'Item not found.' });
+    return;
+  }
+
+  const results = await getItemLeaderboardService({
+    itemHrid,
+    limit: parseInt(limit, 10),
+  });
   res.json({ message: 'Items retrieved.', results });
 });
 

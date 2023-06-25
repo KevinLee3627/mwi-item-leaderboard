@@ -1,6 +1,14 @@
 import { PrismaClient, type Record } from '@prisma/client';
 
-export async function getItemLeaderboard(itemHrid: string): Promise<Record[]> {
+interface GetItemLeaderboardParams {
+  itemHrid: string;
+  limit: number;
+}
+
+export async function getItemLeaderboard({
+  itemHrid,
+  limit,
+}: GetItemLeaderboardParams): Promise<Record[]> {
   const prisma = new PrismaClient();
 
   const results: Record[] = await prisma.record.findMany({
@@ -13,6 +21,7 @@ export async function getItemLeaderboard(itemHrid: string): Promise<Record[]> {
     orderBy: {
       num: 'desc',
     },
+    take: limit,
   });
 
   console.log(results);
