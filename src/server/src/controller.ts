@@ -1,6 +1,7 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { Payload } from 'extension';
 import { upload as uploadService } from './services/upload';
+import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -18,6 +19,12 @@ const upload = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Record(s) inserted' });
 });
 
+const getItemLeaderboard = asyncHandler(async (req, res, next) => {
+  const results = await getItemLeaderboardService('/items/coin');
+  res.json({ message: 'Items retrieved.', results });
+});
+
 export const controller = {
   upload,
+  getItemLeaderboard,
 };
