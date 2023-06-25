@@ -20,7 +20,14 @@ const upload = asyncHandler(async (req, res, next) => {
 });
 
 const getItemLeaderboard = asyncHandler(async (req, res, next) => {
-  const results = await getItemLeaderboardService('/items/coin');
+  // Hrid without the /items/
+  const itemHrid = req.query.itemHrid;
+  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
+    res.json({ message: 'Item not found.' });
+    return;
+  }
+
+  const results = await getItemLeaderboardService(itemHrid);
   res.json({ message: 'Items retrieved.', results });
 });
 
