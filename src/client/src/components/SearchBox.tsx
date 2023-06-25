@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Select from 'react-select';
 
 interface SearchBoxProps<T> {
@@ -7,8 +6,6 @@ interface SearchBoxProps<T> {
 }
 
 export function SearchBox<T>(props: SearchBoxProps<T>) {
-  const [text, setText] = useState('');
-
   return (
     <div>
       <Select
