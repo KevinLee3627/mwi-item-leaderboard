@@ -17,12 +17,14 @@ interface Res<T> {
 
 function App() {
   const { data, loading } = useFetch<Res<ItemMetadata>>({
-    url: 'http://localhost:8443/api/v1/items',
+    url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
     method: 'GET',
   });
 
   const { data: coinData } = useFetch<Res<GetItemLeaderboardReturn>>({
-    url: 'https://1c9d-24-14-32-183.ngrok-free.app/api/v1/item?itemHrid=/items/coin&limit=5',
+    url: `${
+      import.meta.env.VITE_API_BASE as string
+    }/api/v1/item?itemHrid=/items/coin&limit=5`,
     method: 'GET',
   });
 
