@@ -1,17 +1,7 @@
-interface LeaderboardProps {
-  data: LeaderboardDatum[];
-}
+import { GetItemLeaderboardReturn } from 'server';
 
-export interface LeaderboardDatum {
-  ts: string;
-  num: number;
-  itemHrid: string;
-  itemEnhancementLevel: number;
-  playerId: number;
-  player: {
-    id: number;
-    displayName: string;
-  };
+interface LeaderboardProps {
+  data: GetItemLeaderboardReturn[];
 }
 
 export function Leaderboard(props: LeaderboardProps) {

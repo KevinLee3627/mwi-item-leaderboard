@@ -1,7 +1,8 @@
 import './App.css';
-import { Leaderboard, LeaderboardDatum } from './components/Leaderboard';
+import { Leaderboard } from './components/Leaderboard';
 import { SearchBox } from './components/SearchBox';
 import { useFetch } from './hooks/useFetch';
+import { GetItemLeaderboardReturn } from 'server';
 
 export interface ItemMetadata {
   hrid: string;
@@ -20,7 +21,7 @@ function App() {
     method: 'GET',
   });
 
-  const { data: coinData } = useFetch<Res<LeaderboardDatum>>({
+  const { data: coinData } = useFetch<Res<GetItemLeaderboardReturn>>({
     url: 'https://1c9d-24-14-32-183.ngrok-free.app/api/v1/item?itemHrid=/items/coin&limit=5',
     method: 'GET',
   });

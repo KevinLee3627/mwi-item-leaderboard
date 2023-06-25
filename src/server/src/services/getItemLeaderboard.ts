@@ -1,11 +1,9 @@
-import { type Player, PrismaClient, type Record } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 interface GetItemLeaderboardParams {
   itemHrid: string;
   limit: number;
 }
-
-export interface GetItemLeaderboardReturn extends Record, Player {}
 
 export async function getItemLeaderboard({
   itemHrid,
