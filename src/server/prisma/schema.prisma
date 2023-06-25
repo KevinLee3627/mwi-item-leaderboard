@@ -17,19 +17,22 @@ model Player {
 }
 
 model Item {
-  hrid             String   @id
+  hrid             String
   displayName      String
-  enhancementLevel Int?
+  enhancementLevel Int
   Record           Record[]
+
+  @@id([hrid, enhancementLevel])
 }
 
 model Record {
-  ts       DateTime
-  num      Int
-  item     Item     @relation(fields: [itemId], references: [hrid])
-  itemId   String
-  player   Player   @relation(fields: [playerId], references: [id])
-  playerId Int
+  ts                   DateTime
+  num                  Int
+  item                 Item     @relation(fields: [itemHrid, itemEnhancementLevel], references: [hrid, enhancementLevel])
+  itemHrid             String
+  itemEnhancementLevel Int
+  player               Player   @relation(fields: [playerId], references: [id])
+  playerId             Int
 
-  @@id([itemId, playerId])
+  @@id([itemHrid, itemEnhancementLevel, playerId])
 }

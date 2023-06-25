@@ -7,6 +7,7 @@ import {
   ChatMessageReceived,
   LinkType,
   PayloadItem,
+  Payload,
 } from './types';
 
 declare global {
@@ -52,12 +53,13 @@ export class CustomSocket extends WebSocket {
 
       console.log(payloadItems);
       try {
-        const payload = {
+        const payload: Payload = {
           items: payloadItems,
           player: {
             id: message.characterID,
             name: message.senderName,
           },
+          ts: new Date().toISOString(),
         };
 
         const res = await axios.post('http://localhost:8443/test', payload, {
