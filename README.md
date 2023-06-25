@@ -1,3 +1,7 @@
+# TODO
+
+- Ignore trade channel
+
 # CHANGELOG
 
 ### 2023-06-25

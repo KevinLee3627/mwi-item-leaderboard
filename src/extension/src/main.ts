@@ -31,6 +31,8 @@ export class CustomSocket extends WebSocket {
       if (!isChatMessageReceived(data)) return;
       const message = data.message;
 
+      if (message.channelTypeHrid === '/chat_channel_types/trade') return;
+
       const linkMetadata: LinkMetadata[] = JSON.parse(message.linksMetadata);
       const linkedItems = linkMetadata.filter(
         (item) => item.linkType === LinkType.Item
