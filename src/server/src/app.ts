@@ -9,16 +9,7 @@ export const app = express();
 app.use(helmet());
 app.use(express.json());
 
-app.get('/test', async (req, res, next) => {
-  console.log('test received');
-  res.json({ message: 'test received!' });
-});
-
-const corsOptions = {
-  origin: ['https://test.milkywayidle.com', 'https://milkywayidle.com'],
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.post('/test', async (req, res, next) => {
   console.log('got it!');

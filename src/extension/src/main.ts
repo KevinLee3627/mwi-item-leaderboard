@@ -62,7 +62,7 @@ export class CustomSocket extends WebSocket {
           ts: new Date().toISOString(),
         };
 
-        const res = await axios.post('http://localhost:8443/test', payload, {
+        const res = await axios.post('http://localhost:8443', payload, {
           headers: {
             'Content-Type': 'application/json',
           },
