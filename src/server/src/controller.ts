@@ -2,6 +2,7 @@ import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { Payload } from 'extension';
 import { upload as uploadService } from './services/upload';
 import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
+import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -44,7 +45,27 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Items retrieved.', results });
 });
 
+const getPlayerItems = asyncHandler(async (req, res, next) => {
+  const { playerId } = req.query;
+  if (typeof playerId !== 'string') {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  if (isNaN(parseInt(playerId))) {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  const results = await getPlayerItemsService({
+    playerId: parseInt(playerId, 10),
+  });
+
+  res.json({ message: 'Items retrieved.', results });
+});
+
 export const controller = {
   upload,
   getItemLeaderboard,
+  getPlayerItems,
 };
