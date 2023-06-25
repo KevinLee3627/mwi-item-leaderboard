@@ -3,6 +3,7 @@ import type { Payload } from 'extension';
 import { upload as uploadService } from './services/upload';
 import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
 import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
+import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -64,8 +65,15 @@ const getPlayerItems = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Items retrieved.', results });
 });
 
+const getItemMetadata = asyncHandler(async (req, res, next) => {
+  const results = await getItemMetadataService();
+
+  res.json({ message: 'Request fulfilled.', results });
+});
+
 export const controller = {
   upload,
   getItemLeaderboard,
   getPlayerItems,
+  getItemMetadata,
 };
