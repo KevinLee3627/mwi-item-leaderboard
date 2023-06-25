@@ -21,6 +21,11 @@ function App() {
 
   return (
     <>
+      <h1 className='text-2xl text-center'>MWI Item Leaderboard</h1>
+      <p className='text-center'>v0.1</p>
+      <p className='text-center'>
+        Contact Granttank on Discord for suggestions or issues
+      </p>
       <SearchBox
         options={data?.results.map((itemMetadata) => ({
           value: itemMetadata.hrid,
