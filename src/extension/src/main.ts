@@ -62,11 +62,15 @@ export class CustomSocket extends WebSocket {
           ts: new Date().toISOString(),
         };
 
-        const res = await axios.post('http://localhost:8443', payload, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const res = await axios.post(
+          `${import.meta.env.VITE_API_BASE}/api/v1/upload`,
+          payload,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
         console.log(res);
       } catch (err) {
