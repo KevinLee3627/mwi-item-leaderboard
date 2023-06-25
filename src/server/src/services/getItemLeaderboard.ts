@@ -4,6 +4,9 @@ export async function getItemLeaderboard(itemHrid: string): Promise<Record[]> {
   const prisma = new PrismaClient();
 
   const results: Record[] = await prisma.record.findMany({
+    include: {
+      player: true,
+    },
     where: {
       itemHrid,
     },
