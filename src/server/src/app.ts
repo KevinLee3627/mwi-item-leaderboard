@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(router);
+app.use('/api/v1', router);
 
 app.use((err: unknown, req: Request, res: Response) => {
   console.error(err);
