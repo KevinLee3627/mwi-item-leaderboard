@@ -1,17 +1,19 @@
-import { PrismaClient, type Record } from '@prisma/client';
+import { type Player, PrismaClient, type Record } from '@prisma/client';
 
 interface GetItemLeaderboardParams {
   itemHrid: string;
   limit: number;
 }
 
+export interface GetItemLeaderboardReturn extends Record, Player {}
+
 export async function getItemLeaderboard({
   itemHrid,
   limit,
-}: GetItemLeaderboardParams): Promise<Record[]> {
+}: GetItemLeaderboardParams): Promise<unknown> {
   const prisma = new PrismaClient();
 
-  const results: Record[] = await prisma.record.findMany({
+  const results = await prisma.record.findMany({
     include: {
       player: true,
     },
