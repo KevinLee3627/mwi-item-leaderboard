@@ -1,10 +1,10 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { Payload } from 'extension';
 import { upload as uploadService } from './services/upload';
 
-export async function asyncHandler(
+export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
-) {
+): RequestHandler {
   return function (req: Request, res: Response, next: NextFunction) {
     asyncFn(req, res, next).catch(next);
   };
