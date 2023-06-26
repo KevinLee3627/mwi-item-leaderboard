@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import Select from 'react-select';
+import { ItemMetadata } from '../App';
 
 export interface Option {
   label: string;
-  value: string;
+  value: ItemMetadata;
 }
 
 interface SearchBoxProps {

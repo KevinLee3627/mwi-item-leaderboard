@@ -22,7 +22,7 @@ const upload = asyncHandler(async (req, res, next) => {
 });
 
 const getItemLeaderboard = asyncHandler(async (req, res, next) => {
-  const { itemHrid, limit } = req.query;
+  const { itemHrid, limit, enhancementLevel } = req.query;
 
   if (typeof limit !== 'string') {
     res.status(400).json({ message: 'limit should be an integer.' });
@@ -39,9 +39,19 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
     return;
   }
 
+  if (
+    typeof enhancementLevel !== 'string' &&
+    typeof enhancementLevel !== 'undefined'
+  ) {
+    res.status(400).json({ message: 'enhancementLevel should be an integer' });
+    return;
+  }
+
   const results = await getItemLeaderboardService({
     itemHrid,
     limit: parseInt(limit, 10),
+    enhancementLevel:
+      enhancementLevel == null ? 0 : parseInt(enhancementLevel, 10),
   });
   res.json({ message: 'Items retrieved.', results });
 });
