@@ -8,7 +8,7 @@ import { useState } from 'react';
 export interface ItemMetadata {
   hrid: string;
   displayName: string;
-  enhancementLevel: string;
+  enhancementLevel: number;
 }
 
 interface Res<T> {
@@ -42,9 +42,13 @@ function App() {
         options={
           data
             ? data.results.map((itemMetadata) => {
+                const enhanceLevel =
+                  itemMetadata.enhancementLevel > 0
+                    ? `+${itemMetadata.enhancementLevel}`
+                    : '';
                 return {
                   value: itemMetadata.hrid,
-                  label: itemMetadata.displayName,
+                  label: `${itemMetadata.displayName} ${enhanceLevel}`,
                 };
               })
             : []
