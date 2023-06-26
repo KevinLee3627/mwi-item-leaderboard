@@ -1,7 +1,15 @@
 export function Changelog() {
   return (
     <div className='mx-auto grid place-items-center'>
-      <button className='btn' onClick={() => window.changelogModal.showModal()}>
+      <button
+        className='btn'
+        onClick={() => {
+          const modal = document.getElementById(
+            'changelogModal'
+          ) as HTMLDialogElement;
+          modal.showModal();
+        }}
+      >
         Changelog
       </button>
       <dialog id='changelogModal' className='modal'>
