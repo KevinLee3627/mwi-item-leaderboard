@@ -1,10 +1,10 @@
 # TODO
 
-- Ignore trade channel
+- Ignore trade channel ✅ 2023-06-26
 - Handle enhancement levels
 - Add ability levels?
 - More human-friendly date
-- Ignore cowbells
+- Ignore cowbells ✅ 2023-06-26
 - Make larger numbers easier to read
 
 # CHANGELOG

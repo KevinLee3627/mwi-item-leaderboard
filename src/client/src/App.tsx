@@ -1,10 +1,16 @@
 import './App.css';
 import { Leaderboard } from './components/Leaderboard';
-import { Option, SearchBox } from './components/SearchBox';
+import { SearchBox } from './components/SearchBox';
 import { useFetch } from './hooks/useFetch';
 import { GetItemLeaderboardReturn } from 'server';
 import { useState } from 'react';
 import { Changelog } from './components/Changelog';
+import { EnhanceLevelPicker } from './components/EnhanceLevelPicker';
+
+export interface Option<T> {
+  label: string;
+  value: T;
+}
 
 export interface ItemMetadata {
   hrid: string;
@@ -18,7 +24,8 @@ interface Res<T> {
 }
 
 function App() {
-  const [selected, setSelected] = useState<Option | null>();
+  const [selected, setSelected] = useState<Option<ItemMetadata> | null>();
+  const [enhanceLevel, setEnhanceLevel] = useState<Option<number> | null>();
 
   const { data, loading } = useFetch<Res<ItemMetadata>>({
     url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
@@ -28,7 +35,7 @@ function App() {
   const { data: leaderboardData } = useFetch<Res<GetItemLeaderboardReturn>>({
     url: `${import.meta.env.VITE_API_BASE as string}/api/v1/item?itemHrid=${
       selected?.value.hrid
-    }&enhancementLevel=${selected?.value.enhancementLevel}&limit=10`,
+    }&enhancementLevel=${enhanceLevel?.value ?? 0}&limit=10`,
     method: 'GET',
   });
 
@@ -49,26 +56,22 @@ function App() {
           linked in chat!
         </strong>
       </p>
-      <SearchBox
-        options={
-          data
-            ? data.results
-                .map((item) => {
-                  const enhanceLevel =
-                    item.enhancementLevel > 0
-                      ? `+${item.enhancementLevel}`
-                      : '';
-                  return {
-                    value: item,
-                    label: `${item.displayName} ${enhanceLevel}`,
-                  };
-                })
-                .sort((a, b) => a.label.localeCompare(b.label))
-            : []
-        }
-        loading={loading}
-        setSelected={setSelected}
-      />
+      <div className='flex space-around'>
+        <SearchBox
+          options={data?.results
+            .filter((item) => item.enhancementLevel === 0)
+            .map((item) => {
+              return {
+                value: item,
+                label: `${item.displayName} `,
+              };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label))}
+          loading={loading}
+          setSelected={setSelected}
+        />
+        <EnhanceLevelPicker setSelected={setEnhanceLevel} />
+      </div>
       <Leaderboard data={leaderboardData?.results ?? []} />
     </div>
   );

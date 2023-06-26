@@ -1,16 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
 import Select from 'react-select';
-import { ItemMetadata } from '../App';
-
-export interface Option {
-  label: string;
-  value: ItemMetadata;
-}
+import { ItemMetadata, Option } from '../App';
 
 interface SearchBoxProps {
-  options: Option[];
+  options?: Option<ItemMetadata>[];
   loading: boolean;
-  setSelected: Dispatch<SetStateAction<Option | undefined | null>>;
+  setSelected: Dispatch<
+    SetStateAction<Option<ItemMetadata> | undefined | null>
+  >;
 }
 
 export function SearchBox(props: SearchBoxProps) {
