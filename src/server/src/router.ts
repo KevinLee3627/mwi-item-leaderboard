@@ -27,3 +27,7 @@ router.post(
   },
   controller.upload
 );
+
+router.use('*', (req, res, next) => {
+  res.json({ message: 'nothing to see here' });
+});
