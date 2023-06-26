@@ -43,6 +43,12 @@ function App() {
         Contact Granttank on Discord or Granttank2 in-game for
         suggestions/issues
       </p>
+      <p>
+        <strong>
+          To add your items here, whisper Granttank2 in game with your items
+          linked in chat!
+        </strong>
+      </p>
       <SearchBox
         options={
           data
