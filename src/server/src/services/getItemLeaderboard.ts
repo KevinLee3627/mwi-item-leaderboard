@@ -22,7 +22,5 @@ export async function getItemLeaderboard({
     take: limit,
   });
 
-  console.log(results);
-
   return results;
 }
