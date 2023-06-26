@@ -12,6 +12,10 @@ app.use(cors());
 
 app.use('/api/v1', router);
 
+app.use('*', (req, res, next) => {
+  res.json({ message: 'nothing to see here' });
+});
+
 app.use((err: unknown, req: Request, res: Response) => {
   console.error(err);
   res.status(500).json({ message: 'Error!' });
