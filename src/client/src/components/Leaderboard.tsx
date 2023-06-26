@@ -7,7 +7,7 @@ interface LeaderboardProps {
 export function Leaderboard(props: LeaderboardProps) {
   const rows = props.data.map((entry) => {
     return (
-      <tr key={entry.playerId} className='text-center'>
+      <tr key={entry.playerId} className='text-left'>
         <td className='p-2'>{entry.player.displayName}</td>
         <td className='p-2'>{entry.num}</td>
         <td className='p-2'>{entry.itemEnhancementLevel}</td>
@@ -16,7 +16,7 @@ export function Leaderboard(props: LeaderboardProps) {
     );
   });
   return (
-    <table className='table-auto'>
+    <table className='mx-auto'>
       <thead className='border-b-2 border-black'>
         <tr className='text-left p-4'>
           <td className='p-2'>Player</td>

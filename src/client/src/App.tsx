@@ -32,7 +32,7 @@ function App() {
   });
 
   return (
-    <>
+    <div className='w-8/12 h-full mx-auto'>
       <h1 className='text-2xl text-center'>MWI Item Leaderboard</h1>
       <p className='text-center'>v0.1</p>
       <p className='text-center'>
@@ -53,7 +53,7 @@ function App() {
         setSelected={setSelected}
       />
       <Leaderboard data={leaderboardData?.results ?? []} />
-    </>
+    </div>
   );
 }
 
