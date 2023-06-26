@@ -21,9 +21,7 @@ export class CustomSocket extends WebSocket {
   constructor(url: string | URL, protocols?: string | string[]) {
     super(url, protocols);
 
-    console.log('asdfasdf');
-
-    console.log('asda');
+    console.log('running!');
 
     this.addEventListener('message', async (e) => {
       const data: ServerMessage = JSON.parse(e.data);
@@ -70,6 +68,7 @@ export class CustomSocket extends WebSocket {
           {
             headers: {
               'Content-Type': 'application/json',
+              token: import.meta.env.VITE_API_TOKEN,
             },
           }
         );
