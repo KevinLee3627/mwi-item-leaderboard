@@ -11,7 +11,6 @@ export async function getItemLeaderboard({
   limit,
   enhancementLevel,
 }: GetItemLeaderboardParams): Promise<unknown> {
-  console.log(enhancementLevel);
   const results = await prisma.record.findMany({
     include: {
       player: true,
