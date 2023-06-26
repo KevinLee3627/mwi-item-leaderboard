@@ -10,7 +10,6 @@ export function Leaderboard(props: LeaderboardProps) {
       <tr key={entry.playerId} className='hover text-left'>
         <td className='p-2'>{entry.player.displayName}</td>
         <td className='p-2'>{entry.num.toLocaleString()}</td>
-        <td className='p-2'>{entry.itemEnhancementLevel}</td>
         <td className='p-2'>{new Date(entry.ts).toLocaleString()}</td>
       </tr>
     );
@@ -21,7 +20,6 @@ export function Leaderboard(props: LeaderboardProps) {
         <tr className='text-left p-4'>
           <td className='p-2'>Player</td>
           <td className='p-2'>#</td>
-          <td className='p-2'>Enhancement Level</td>
           <td className='p-2'>Last Updated</td>
         </tr>
       </thead>
