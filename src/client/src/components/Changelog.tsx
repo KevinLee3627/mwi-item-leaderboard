@@ -27,6 +27,7 @@ export function Changelog() {
             <li>Added separate picker for choosing enhancement levels</li>
             <li>Format number to locale</li>
             <li>Format dates to locale</li>
+            <li>Removed Cowbells from leaderboard</li>
           </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
