@@ -24,14 +24,12 @@ function App() {
     method: 'GET',
   });
 
-  const { data: coinData } = useFetch<Res<GetItemLeaderboardReturn>>({
+  const { data: leaderboardData } = useFetch<Res<GetItemLeaderboardReturn>>({
     url: `${import.meta.env.VITE_API_BASE as string}/api/v1/item?itemHrid=${
       selected?.value
     }&limit=5`,
     method: 'GET',
   });
-
-  console.log(coinData);
 
   return (
     <>
@@ -54,10 +52,7 @@ function App() {
         loading={loading}
         setSelected={setSelected}
       />
-      <p>
-        selected {selected?.label}, {selected?.value}
-      </p>
-      <Leaderboard data={coinData?.results ?? []} />
+      <Leaderboard data={leaderboardData?.results ?? []} />
     </>
   );
 }

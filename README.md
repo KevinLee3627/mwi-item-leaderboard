@@ -1,6 +1,7 @@
 # TODO
 
 - Ignore trade channel
+- Handle enhancement levels
 
 # CHANGELOG
 
