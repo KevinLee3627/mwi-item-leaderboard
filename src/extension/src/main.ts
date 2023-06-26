@@ -33,7 +33,8 @@ export class CustomSocket extends WebSocket {
 
       const linkMetadata: LinkMetadata[] = JSON.parse(message.linksMetadata);
       const linkedItems = linkMetadata.filter(
-        (item) => item.linkType === LinkType.Item
+        (item) =>
+          item.linkType === LinkType.Item && item.itemHrid !== '/items/cowbell'
       );
 
       if (linkedItems.length === 0) return;
