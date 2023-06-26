@@ -41,16 +41,18 @@ function App() {
       <SearchBox
         options={
           data
-            ? data.results.map((itemMetadata) => {
-                const enhanceLevel =
-                  itemMetadata.enhancementLevel > 0
-                    ? `+${itemMetadata.enhancementLevel}`
-                    : '';
-                return {
-                  value: itemMetadata.hrid,
-                  label: `${itemMetadata.displayName} ${enhanceLevel}`,
-                };
-              })
+            ? data.results
+                .map((item) => {
+                  const enhanceLevel =
+                    item.enhancementLevel > 0
+                      ? `+${item.enhancementLevel}`
+                      : '';
+                  return {
+                    value: item.hrid,
+                    label: `${item.displayName} ${enhanceLevel}`,
+                  };
+                })
+                .sort((a, b) => a.label.localeCompare(b.label))
             : []
         }
         loading={loading}
