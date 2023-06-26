@@ -12,7 +12,7 @@ interface SearchBoxProps {
 
 export function SearchBox(props: SearchBoxProps) {
   return (
-    <div className='w-6/12 mx-auto '>
+    <div className='w-6/12 mx-auto flex-1 '>
       <Select
         isSearchable
         options={props?.options}

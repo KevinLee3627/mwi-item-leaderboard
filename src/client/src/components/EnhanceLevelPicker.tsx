@@ -16,7 +16,7 @@ const options = Array(21)
 
 export function EnhanceLevelPicker(props: EnhanceLevelPickerProps) {
   return (
-    <div className='w-2/12 mx-auto '>
+    <div className='w-2/12 mx-auto'>
       <Select
         isSearchable
         options={options}

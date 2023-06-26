@@ -56,7 +56,7 @@ function App() {
           linked in chat!
         </strong>
       </p>
-      <div className='flex space-around'>
+      <div className='flex w-6/12 mx-auto'>
         <SearchBox
           options={data?.results
             .filter((item) => item.enhancementLevel === 0)
