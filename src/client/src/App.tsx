@@ -4,6 +4,7 @@ import { Option, SearchBox } from './components/SearchBox';
 import { useFetch } from './hooks/useFetch';
 import { GetItemLeaderboardReturn } from 'server';
 import { useState } from 'react';
+import { Changelog } from './components/Changelog';
 
 export interface ItemMetadata {
   hrid: string;
@@ -34,9 +35,13 @@ function App() {
   return (
     <div className='w-8/12 h-full mx-auto'>
       <h1 className='text-2xl text-center'>MWI Item Leaderboard</h1>
-      <p className='text-center'>v0.1</p>
+      <div>
+        <p className='text-center'>v0.2</p>
+        <Changelog />
+      </div>
       <p className='text-center'>
-        Contact Granttank on Discord for suggestions or issues
+        Contact Granttank on Discord or Granttank2 in-game for
+        suggestions/issues
       </p>
       <SearchBox
         options={
