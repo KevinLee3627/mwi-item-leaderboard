@@ -14,13 +14,21 @@ interface SearchBoxProps {
 
 export function SearchBox(props: SearchBoxProps) {
   return (
-    <div className='w-6/12 mx-auto'>
+    <div className='w-6/12 mx-auto '>
       <Select
         isSearchable
         options={props?.options}
         placeholder={props.loading ? 'Loading options...' : 'Search items'}
         onChange={(newValue) => {
           props.setSelected(newValue);
+        }}
+        styles={{
+          option: (base) => {
+            return {
+              ...base,
+              color: 'black',
+            };
+          },
         }}
       />
     </div>
