@@ -9,9 +9,9 @@ export function Leaderboard(props: LeaderboardProps) {
     return (
       <tr key={entry.playerId} className='hover text-left'>
         <td className='p-2'>{entry.player.displayName}</td>
-        <td className='p-2'>{entry.num}</td>
+        <td className='p-2'>{entry.num.toLocaleString()}</td>
         <td className='p-2'>{entry.itemEnhancementLevel}</td>
-        <td className='p-2'>{entry.ts}</td>
+        <td className='p-2'>{new Date(entry.ts).toLocaleString()}</td>
       </tr>
     );
   });

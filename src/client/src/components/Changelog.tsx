@@ -24,6 +24,9 @@ export function Changelog() {
             <li>
               Items with different enhancement levels are now shown separately
             </li>
+            <li>Added separate picker for choosing enhancement levels</li>
+            <li>Format number to locale</li>
+            <li>Format dates to locale</li>
           </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
