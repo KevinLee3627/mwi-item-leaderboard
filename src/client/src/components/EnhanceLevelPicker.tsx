@@ -20,7 +20,7 @@ export function EnhanceLevelPicker(props: EnhanceLevelPickerProps) {
       <Select
         isSearchable
         options={options}
-        defaultValue={{ label: '+0', value: 0 }}
+        defaultValue={options[0]}
         placeholder={'Enhancement level'}
         onChange={(newValue) => {
           props.setSelected(newValue);
