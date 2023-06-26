@@ -13,6 +13,19 @@ export function asyncHandler(
   };
 }
 
+const auth = asyncHandler(async (req, res, next) => {
+  if (req.headers.token == null) {
+    next(new Error('Missing token.'));
+    return;
+  }
+  if (req.headers.token !== (process.env.API_TOKEN as string)) {
+    next(new Error('Invalid/missing token.'));
+    return;
+  }
+
+  next();
+});
+
 const upload = asyncHandler(async (req, res, next) => {
   const data: Payload = req.body;
   // TODO: Add Zod validation
@@ -82,6 +95,7 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
 });
 
 export const controller = {
+  auth,
   upload,
   getItemLeaderboard,
   getPlayerItems,
