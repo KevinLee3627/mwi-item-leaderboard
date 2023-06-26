@@ -8,9 +8,6 @@ export async function getItemMetadata(): Promise<Item[]> {
       displayName: true,
       enhancementLevel: true,
     },
-    orderBy: {
-      displayName: 'asc',
-    },
   });
 
   return results;
