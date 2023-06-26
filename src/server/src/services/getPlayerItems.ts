@@ -1,4 +1,5 @@
-import { PrismaClient, type Record } from '@prisma/client';
+import { type Record } from '@prisma/client';
+import { prisma } from '../index';
 
 interface GetPlayerItemsParams {
   playerId: number;
@@ -7,8 +8,6 @@ interface GetPlayerItemsParams {
 export async function getPlayerItems({
   playerId,
 }: GetPlayerItemsParams): Promise<Record[]> {
-  const prisma = new PrismaClient();
-
   const results: Record[] = await prisma.record.findMany({
     include: {
       player: true,

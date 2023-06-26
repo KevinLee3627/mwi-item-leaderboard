@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../index';
 
 interface GetItemLeaderboardParams {
   itemHrid: string;
@@ -9,8 +9,6 @@ export async function getItemLeaderboard({
   itemHrid,
   limit,
 }: GetItemLeaderboardParams): Promise<unknown> {
-  const prisma = new PrismaClient();
-
   const results = await prisma.record.findMany({
     include: {
       player: true,
