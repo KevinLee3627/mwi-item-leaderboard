@@ -5,6 +5,7 @@ import { GetItemLeaderboardReturn } from 'server';
 import { useState } from 'react';
 import { Changelog } from '../components/Changelog';
 import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
+import { ApiRes } from '../types/ApiRes';
 
 export interface Option<T> {
   label: string;
@@ -17,21 +18,16 @@ export interface ItemMetadata {
   enhancementLevel: number;
 }
 
-interface Res<T> {
-  message: string;
-  results: T[];
-}
-
 export function Home() {
   const [selected, setSelected] = useState<Option<ItemMetadata> | null>();
   const [enhanceLevel, setEnhanceLevel] = useState<Option<number> | null>();
 
-  const { data, loading } = useFetch<Res<ItemMetadata>>({
+  const { data, loading } = useFetch<ApiRes<ItemMetadata>>({
     url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
     method: 'GET',
   });
 
-  const { data: leaderboardData } = useFetch<Res<GetItemLeaderboardReturn>>({
+  const { data: leaderboardData } = useFetch<ApiRes<GetItemLeaderboardReturn>>({
     url: `${import.meta.env.VITE_API_BASE as string}/api/v1/item?itemHrid=${
       selected?.value.hrid
     }&enhancementLevel=${enhanceLevel?.value ?? 0}&limit=10`,
