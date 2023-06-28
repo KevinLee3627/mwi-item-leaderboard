@@ -53,10 +53,12 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
   }
 
   if (
-    typeof enhancementLevel !== 'string' &&
-    typeof enhancementLevel !== 'undefined'
+    typeof enhancementLevel === 'undefined' ||
+    typeof enhancementLevel !== 'string'
   ) {
-    res.status(400).json({ message: 'enhancementLevel should be an integer' });
+    res
+      .status(400)
+      .json({ message: 'enhancementLevel should be an integer or "all"' });
     return;
   }
 
@@ -64,7 +66,7 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
     itemHrid,
     limit: parseInt(limit, 10),
     enhancementLevel:
-      enhancementLevel == null ? 0 : parseInt(enhancementLevel, 10),
+      enhancementLevel === 'all' ? 'all' : parseInt(enhancementLevel, 10),
   });
   res.json({ message: 'Items retrieved.', results });
 });

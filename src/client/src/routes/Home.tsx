@@ -20,12 +20,16 @@ export interface ItemMetadata {
 
 export function Home() {
   const [selected, setSelected] = useState<Option<ItemMetadata> | null>();
-  const [enhanceLevel, setEnhanceLevel] = useState<Option<number> | null>();
+  const [enhanceLevel, setEnhanceLevel] = useState<Option<
+    number | string
+  > | null>();
 
   const { data, loading } = useFetch<ApiRes<ItemMetadata>>({
     url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
     method: 'GET',
   });
+
+  console.log(enhanceLevel);
 
   const { data: leaderboardData } = useFetch<ApiRes<GetItemLeaderboardReturn>>({
     url: `${import.meta.env.VITE_API_BASE as string}/api/v1/item?itemHrid=${
