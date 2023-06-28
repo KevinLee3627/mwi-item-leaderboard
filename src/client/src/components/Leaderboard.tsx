@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { GetItemLeaderboardReturn } from 'server';
 
 interface LeaderboardProps {
@@ -8,7 +9,11 @@ export function Leaderboard(props: LeaderboardProps) {
   const rows = props.data.map((entry) => {
     return (
       <tr key={entry.playerId} className='hover text-left'>
-        <td className='p-2'>{entry.player.displayName}</td>
+        <td className='p-2 underline'>
+          <Link to={`/mwi-item-leaderboard/player/${entry.player.id}`}>
+            {entry.player.displayName}
+          </Link>
+        </td>
         <td className='p-2'>{entry.num.toLocaleString()}</td>
         <td className='p-2'>{new Date(entry.ts).toLocaleString()}</td>
       </tr>

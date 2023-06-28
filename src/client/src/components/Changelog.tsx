@@ -35,6 +35,7 @@ export function Changelog() {
               Fixed bug where certain equipment did not appear in search box
             </li>
             <li>Basic UI changes</li>
+            <li>Added basic player pages</li>
           </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
