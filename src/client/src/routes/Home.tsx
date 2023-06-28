@@ -1,10 +1,10 @@
-import { Leaderboard } from './Leaderboard';
-import { SearchBox } from './SearchBox';
+import { Leaderboard } from '../components/Leaderboard';
+import { SearchBox } from '../components/SearchBox';
 import { useFetch } from '../hooks/useFetch';
 import { GetItemLeaderboardReturn } from 'server';
 import { useState } from 'react';
-import { Changelog } from './Changelog';
-import { EnhanceLevelPicker } from './EnhanceLevelPicker';
+import { Changelog } from '../components/Changelog';
+import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
 
 export interface Option<T> {
   label: string;

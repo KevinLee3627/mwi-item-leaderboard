@@ -1,6 +1,16 @@
 import { Dispatch, SetStateAction } from 'react';
 import Select from 'react-select';
-import { ItemMetadata, Option } from '../App';
+
+export interface Option<T> {
+  label: string;
+  value: T;
+}
+
+export interface ItemMetadata {
+  hrid: string;
+  displayName: string;
+  enhancementLevel: number;
+}
 
 interface SearchBoxProps {
   options?: Option<ItemMetadata>[];
