@@ -29,6 +29,12 @@ export function Changelog() {
             <li>Format dates to locale</li>
             <li>Removed Cowbells from leaderboard</li>
           </ul>
+          <h1 className='font-bold text-lg'>v0.3 - 2023-06-27</h1>
+          <ul className='list-disc'>
+            <li>
+              Fixed bug where certain equipment did not appear in search box
+            </li>
+          </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
           <button>close</button>
