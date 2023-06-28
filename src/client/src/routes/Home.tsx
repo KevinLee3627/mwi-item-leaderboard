@@ -58,7 +58,6 @@ export function Home() {
       <div className='flex w-6/12 mx-auto'>
         <SearchBox
           options={data?.results
-            .filter((item) => item.enhancementLevel === 0)
             .map((item) => {
               return {
                 value: item,
