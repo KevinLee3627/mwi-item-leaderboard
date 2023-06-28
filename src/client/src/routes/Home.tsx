@@ -3,9 +3,9 @@ import { SearchBox } from '../components/SearchBox';
 import { useFetch } from '../hooks/useFetch';
 import { GetItemLeaderboardReturn } from 'server';
 import { useState } from 'react';
-import { Changelog } from '../components/Changelog';
 import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
 import { ApiRes } from '../types/ApiRes';
+import { Header } from '../components/Header';
 
 export interface Option<T> {
   label: string;
@@ -35,16 +35,8 @@ export function Home() {
   });
 
   return (
-    <div className='w-8/12 h-full mx-auto'>
-      <h1 className='text-2xl text-center'>MWI Item Leaderboard</h1>
-      <div>
-        <p className='text-center'>v0.2</p>
-        <Changelog />
-      </div>
-      <p className='text-center'>
-        Contact Granttank on Discord or Granttank2 in-game for
-        suggestions/issues
-      </p>
+    <div className='w-full h-full mx-auto'>
+      <Header />
       <p className='text-center'>
         <strong>
           To add your items here, whisper Granttank2 in game with your items
