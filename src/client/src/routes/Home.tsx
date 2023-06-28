@@ -58,7 +58,7 @@ export function Home() {
         />
         <EnhanceLevelPicker setSelected={setEnhanceLevel} />
       </div>
-      <Leaderboard data={leaderboardData?.results ?? []} />
+      {selected && <Leaderboard data={leaderboardData?.results ?? []} />}
     </div>
   );
 }
