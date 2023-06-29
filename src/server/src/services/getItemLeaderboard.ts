@@ -32,7 +32,8 @@ export async function getItemLeaderboard({
       SELECT *, p.id AS playerId, p.displayName as playerName FROM rankCTE
       JOIN Player p
         ON p.id = rankCTE.playerId
-      WHERE rnk IN (1,2,3)`;
+      WHERE rnk <= 10`;
+    console.log(_results);
     if (Array.isArray(_results)) {
       const results = _results.map((result) => {
         return {
