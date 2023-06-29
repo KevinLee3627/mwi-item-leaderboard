@@ -52,6 +52,7 @@ export function Changelog() {
               level was set to 'all'
             </li>
             <li>Custom domain name!</li>
+            <li>Added 'rank' column to leaderboards</li>
           </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
