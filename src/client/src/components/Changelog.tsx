@@ -37,6 +37,13 @@ export function Changelog() {
             <li>Basic UI changes</li>
             <li>Added basic player pages</li>
           </ul>
+          <h1 className='font-bold text-lg'>v0.4 - 2023-06-28</h1>
+          <ul className='list-disc'>
+            <li>
+              Allow users to choose 'all' in enhancement level picker to see top
+              3 of each enhancement level
+            </li>
+          </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
           <button>close</button>
