@@ -47,6 +47,11 @@ export function Changelog() {
           <h1 className='font-bold text-lg'>v0.5 - 2023-06-29</h1>
           <ul className='list-disc'>
             <li>Basic linking between players and items in UI</li>
+            <li>
+              Changed leaderboard to show top 10 of each enhancement level when
+              level was set to 'all'
+            </li>
+            <li>Custom domain name!</li>
           </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>

@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Leaderboard } from './components/Leaderboard';
 import { ErrorPage } from './error-page';
 import './index.css';
 import { Home } from './routes/Home';
 import { Player } from './routes/Player';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Home />,
