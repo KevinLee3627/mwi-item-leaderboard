@@ -14,11 +14,12 @@ export function Changelog() {
       </button>
       <dialog id='changelogModal' className='modal'>
         <form method='dialog' className='modal-box'>
-          <h1 className='font-bold text-lg'>v0.1 - 2023-06-25</h1>
+          <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
+          <h2 className='font-bold text-lg'>v0.1 - 2023-06-25</h2>
           <ul className='list-disc'>
             <li>Initial release</li>
           </ul>
-          <h1 className='font-bold text-lg'>v0.2 - 2023-06-26</h1>
+          <h2 className='font-bold text-lg'>v0.2 - 2023-06-26</h2>
           <ul className='list-disc'>
             <li>Items are now sorted alphabetically</li>
             <li>
@@ -29,7 +30,7 @@ export function Changelog() {
             <li>Format dates to locale</li>
             <li>Removed Cowbells from leaderboard</li>
           </ul>
-          <h1 className='font-bold text-lg'>v0.3 - 2023-06-27</h1>
+          <h2 className='font-bold text-lg'>v0.3 - 2023-06-27</h2>
           <ul className='list-disc'>
             <li>
               Fixed bug where certain equipment did not appear in search box
@@ -37,14 +38,14 @@ export function Changelog() {
             <li>Basic UI changes</li>
             <li>Added basic player pages</li>
           </ul>
-          <h1 className='font-bold text-lg'>v0.4 - 2023-06-28</h1>
+          <h2 className='font-bold text-lg'>v0.4 - 2023-06-28</h2>
           <ul className='list-disc'>
             <li>
               Allow users to choose 'all' in enhancement level picker to see top
               3 of each enhancement level
             </li>
           </ul>
-          <h1 className='font-bold text-lg'>v0.5 - 2023-06-29</h1>
+          <h2 className='font-bold text-lg'>v0.5 - 2023-06-29</h2>
           <ul className='list-disc'>
             <li>Basic linking between players and items in UI</li>
             <li>

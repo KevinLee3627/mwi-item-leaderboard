@@ -24,7 +24,7 @@ const router = createHashRouter([
           const res = await axios.get(
             `${
               import.meta.env.VITE_API_BASE as string
-            }/api/v1/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=10`
+            }/api/v1/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
           );
           return res.data.results;
         },
