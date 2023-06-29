@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { GetItemLeaderboardReturn } from 'server';
 
-interface LeaderboardProps {
-  data: GetItemLeaderboardReturn[];
-}
-
-export function Leaderboard(props: LeaderboardProps) {
-  const rows = props.data.map((entry) => {
+export function Leaderboard() {
+  const res = useLoaderData() as GetItemLeaderboardReturn[];
+  console.log(res);
+  const rows = res.map((entry, i) => {
     return (
-      <tr key={entry.playerId} className='hover text-left'>
+      <tr key={i} className='hover text-left'>
         <td className='p-2 underline'>
           <Link to={`/mwi-item-leaderboard/player/${entry.player.id}`}>
             {entry.player.displayName}

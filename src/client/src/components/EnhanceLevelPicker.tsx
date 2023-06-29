@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 
 export interface Option {
@@ -6,13 +7,15 @@ export interface Option {
   value: number | string;
 }
 
-interface EnhanceLevelPickerProps {
-  setSelected: Dispatch<SetStateAction<Option | null | undefined>>;
-}
+export function EnhanceLevelPicker() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = useRef(new URLSearchParams(location.search.slice(1)));
 
-export function EnhanceLevelPicker({ setSelected }: EnhanceLevelPickerProps) {
+  const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
+
   const options = [
-    { label: 'all', value: 'all' },
+    { value: 'all', label: 'all' },
     ...Array(21)
       .fill(0)
       .map((_, i) => ({ value: i, label: `+${i}` })),
@@ -20,18 +23,35 @@ export function EnhanceLevelPicker({ setSelected }: EnhanceLevelPickerProps) {
 
   // Set the picker value to all on page start
   useEffect(() => {
-    setSelected({ label: 'all', value: 'all' });
-  }, [setSelected]);
+    setDefaultLevel({ label: 'all', value: 'all' });
+    const enhancementLevel = searchParams.current.get('enhancementLevel');
+    if (enhancementLevel == null) return;
+
+    if (enhancementLevel === 'all') {
+      setDefaultLevel({ value: 'all', label: 'all' });
+      return;
+    }
+
+    const lvl = parseInt(enhancementLevel, 10);
+    setDefaultLevel({ value: lvl, label: String(enhancementLevel) });
+  }, []);
 
   return (
     <div className='w-2/12 mx-auto'>
       <Select
         isSearchable
         options={options}
-        defaultValue={options[0]}
+        defaultValue={{
+          label: searchParams.current.get('enhancementLevel'),
+          value: defaultLevel?.value,
+        }}
         placeholder={'Enhancement level'}
         onChange={(newValue) => {
-          setSelected(newValue);
+          const searchParams = new URLSearchParams(location.search.slice(1));
+
+          searchParams.set('enhancementLevel', String(newValue?.value));
+          // Take the current location, replace the enhancementLevel
+          navigate(`/mwi-item-leaderboard/item?${searchParams.toString()}`);
         }}
         styles={{
           option: (base) => {

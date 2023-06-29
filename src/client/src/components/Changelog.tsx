@@ -44,6 +44,10 @@ export function Changelog() {
               3 of each enhancement level
             </li>
           </ul>
+          <h1 className='font-bold text-lg'>v0.5 - 2023-06-29</h1>
+          <ul className='list-disc'>
+            <li>Basic linking between players and items in UI</li>
+          </ul>
         </form>
         <form method='dialog' className='modal-backdrop'>
           <button>close</button>
