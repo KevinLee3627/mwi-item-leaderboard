@@ -8,7 +8,7 @@ export function Leaderboard() {
     return (
       <tr key={i} className='hover text-left'>
         <td className='p-2 underline'>
-          <Link to={`/mwi-item-leaderboard/player/${entry.player.id}`}>
+          <Link to={`/player/${entry.player.id}`}>
             {entry.player.displayName}
           </Link>
         </td>

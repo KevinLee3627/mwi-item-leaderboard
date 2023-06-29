@@ -51,7 +51,7 @@ export function EnhanceLevelPicker() {
 
           searchParams.set('enhancementLevel', String(newValue?.value));
           // Take the current location, replace the enhancementLevel
-          navigate(`/mwi-item-leaderboard/item?${searchParams.toString()}`);
+          navigate(`/item?${searchParams.toString()}`);
         }}
         styles={{
           option: (base) => {

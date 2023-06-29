@@ -10,7 +10,7 @@ import { Player } from './routes/Player';
 
 const router = createBrowserRouter([
   {
-    path: '/mwi-item-leaderboard',
+    path: '/',
     element: <Home />,
     errorElement: <ErrorPage />,
     children: [
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/mwi-item-leaderboard/player/:playerId',
+    path: '/player/:playerId',
     element: <Player />,
   },
 ]);
