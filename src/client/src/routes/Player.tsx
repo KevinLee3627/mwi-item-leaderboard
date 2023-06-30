@@ -22,12 +22,14 @@ export function Player() {
         <div className='flex'>
           <div className='stat'>
             <div className='stat-title'># Unique Items</div>
-            <div className='stat-value'>{data.length}</div>
+            <div className='stat-value'>{data.length.toLocaleString()}</div>
             <div className='stat-desc invisible'>lol centering</div>
           </div>
           <div className='stat'>
             <div className='stat-title'>Total # of Items</div>
-            <div className='stat-value'>{getTotalNumber(data)}</div>
+            <div className='stat-value'>
+              {getTotalNumber(data).toLocaleString()}
+            </div>
             <div className='stat-desc'>not including coins</div>
           </div>
         </div>
