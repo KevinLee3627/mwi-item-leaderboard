@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { useFetch } from '../hooks/useFetch';
+import { ItemMetadata } from './SearchBox';
+import { ApiRes } from '../types/ApiRes';
+import { useSearchParams } from 'react-router-dom';
 
 export interface Option {
   label: string;
@@ -11,20 +14,9 @@ export interface Option {
 export function EnhanceLevelPicker() {
   const navigate = useNavigate();
   const location = useLocation();
-  const searchParams = useRef(new URLSearchParams(location.search.slice(1)));
+  const [searchParams] = useSearchParams();
 
   const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
-
-  // const options = [
-  //   { value: 'all', label: 'all' },
-  //   ...Array(21)
-  //     .fill(0)
-  //     .map((_, i) => ({ value: i, label: `+${i}` })),
-  // ];
-
-  // const { data: levelData } = useFetch({
-  //   url: `${import.meta.env.VITE_API_BASE}/api/v1/`,
-  // });
 
   const [options, setOptions] = useState<Option[]>([
     { value: 'all', label: 'all' },
@@ -33,7 +25,7 @@ export function EnhanceLevelPicker() {
   // Set the picker value to all on page start
   useEffect(() => {
     setDefaultLevel({ label: 'all', value: 'all' });
-    const enhancementLevel = searchParams.current.get('enhancementLevel');
+    const enhancementLevel = searchParams.get('enhancementLevel');
     if (enhancementLevel == null) return;
 
     if (enhancementLevel === 'all') {
@@ -43,7 +35,27 @@ export function EnhanceLevelPicker() {
 
     const lvl = parseInt(enhancementLevel, 10);
     setDefaultLevel({ value: lvl, label: String(enhancementLevel) });
-  }, []);
+  }, [searchParams]);
+
+  // Only allow users to pick enhancement levels that exist
+  const { data: levelData } = useFetch<ApiRes<ItemMetadata>>({
+    url: `${
+      import.meta.env.VITE_API_BASE
+    }/api/v1/item?itemHrid=${searchParams.get('itemHrid')}`,
+    method: 'GET',
+  });
+
+  useEffect(() => {
+    const all: Option = { label: 'all', value: 'all' };
+    const availableLevels =
+      levelData?.results.map(({ enhancementLevel }) => {
+        return {
+          label: `+${enhancementLevel.toString()}`,
+          value: enhancementLevel,
+        };
+      }) ?? [];
+    setOptions([...availableLevels, all]);
+  }, [levelData?.results]);
 
   return (
     <div className='w-2/12 mx-auto'>
@@ -51,7 +63,7 @@ export function EnhanceLevelPicker() {
         isSearchable
         options={options}
         defaultValue={{
-          label: searchParams.current.get('enhancementLevel'),
+          label: searchParams.get('enhancementLevel'),
           value: defaultLevel?.value,
         }}
         placeholder={'Enhancement level'}
