@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
+import { useFetch } from '../hooks/useFetch';
 
 export interface Option {
   label: string;
@@ -14,12 +15,20 @@ export function EnhanceLevelPicker() {
 
   const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
 
-  const options = [
+  // const options = [
+  //   { value: 'all', label: 'all' },
+  //   ...Array(21)
+  //     .fill(0)
+  //     .map((_, i) => ({ value: i, label: `+${i}` })),
+  // ];
+
+  // const { data: levelData } = useFetch({
+  //   url: `${import.meta.env.VITE_API_BASE}/api/v1/`,
+  // });
+
+  const [options, setOptions] = useState<Option[]>([
     { value: 'all', label: 'all' },
-    ...Array(21)
-      .fill(0)
-      .map((_, i) => ({ value: i, label: `+${i}` })),
-  ];
+  ]);
 
   // Set the picker value to all on page start
   useEffect(() => {
@@ -51,7 +60,7 @@ export function EnhanceLevelPicker() {
 
           searchParams.set('enhancementLevel', String(newValue?.value));
           // Take the current location, replace the enhancementLevel
-          navigate(`/item?${searchParams.toString()}`);
+          navigate(`/leaderboard?${searchParams.toString()}`);
         }}
         styles={{
           option: (base) => {

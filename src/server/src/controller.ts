@@ -3,6 +3,7 @@ import type { Payload } from 'extension';
 import { upload as uploadService } from './services/upload';
 import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
 import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
+import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 
 export function asyncHandler(
@@ -90,10 +91,22 @@ const getPlayerItems = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Items retrieved.', results });
 });
 
-const getItemMetadata = asyncHandler(async (req, res, next) => {
-  const results = await getItemMetadataService();
+const getAllItemMetadata = asyncHandler(async (req, res, next) => {
+  const results = await getAllItemMetadataService();
 
   res.json({ message: 'Request fulfilled.', results });
+});
+
+const getItemMetadata = asyncHandler(async (req, res, next) => {
+  const { itemHrid } = req.query;
+
+  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
+    res.status(400).json({ message: 'Item not found.' });
+    return;
+  }
+  const results = await getItemMetadataService(itemHrid);
+
+  res.json({ message: 'Item retrieved.', results });
 });
 
 export const controller = {
@@ -101,5 +114,6 @@ export const controller = {
   upload,
   getItemLeaderboard,
   getPlayerItems,
+  getAllItemMetadata,
   getItemMetadata,
 };
