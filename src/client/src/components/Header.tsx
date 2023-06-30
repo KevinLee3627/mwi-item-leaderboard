@@ -4,14 +4,17 @@ import { IssueModal } from './IssueModal';
 
 export function Header() {
   return (
-    <div className='w-full h-12 p-4 bg-primary flex items-center justify-between'>
-      <Link to='/' className='font-bold text-white'>
+    <div className='navbar w-full h-12 p-4 bg-primary flex items-center justify-between'>
+      <Link to='/' className='flex-1 font-bold text-white'>
         MWI Display Case
       </Link>
-      <div className='flex gap-4'>
-        <Changelog />
-        <IssueModal />
+      <div className='px-4'>
+        <Link to='/search/player' className='text-white font-bold'>
+          Player Search
+        </Link>
       </div>
+      <Changelog />
+      <IssueModal />
     </div>
   );
 }

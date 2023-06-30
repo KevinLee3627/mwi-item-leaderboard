@@ -16,6 +16,13 @@ export function Changelog() {
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
 
+          <h2 className='font-bold text-lg'>
+            v0.7 - Player Search! - 2023-06-30
+          </h2>
+          <ul className='list-disc'>
+            <li>Added player search page</li>
+          </ul>
+
           <h2 className='font-bold text-lg'>v0.6 - 2023-06-30</h2>
           <ul className='list-disc'>
             <li>
