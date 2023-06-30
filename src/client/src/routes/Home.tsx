@@ -6,11 +6,6 @@ import { Header } from '../components/Header';
 import { Outlet } from 'react-router';
 import { ItemMetadata } from '../components/ItemSearchBox';
 
-export interface Option<T> {
-  label: string;
-  value: T;
-}
-
 export function Home() {
   const { data, loading } = useFetch<ApiRes<ItemMetadata>>({
     url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,

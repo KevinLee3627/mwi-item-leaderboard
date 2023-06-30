@@ -5,6 +5,7 @@ import { getItemLeaderboard as getItemLeaderboardService } from './services/getI
 import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
+import { searchPlayer as searchPlayerService } from './services/searchPlayer';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -109,6 +110,18 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Item retrieved.', results });
 });
 
+const searchPlayer = asyncHandler(async (req, res, next) => {
+  const { q } = req.query;
+  if (q == null || typeof q !== 'string' || q.length === 0) {
+    res.status(400).json({ message: 'Empty query string' });
+    return;
+  }
+
+  const results = await searchPlayerService({ query: q });
+
+  res.json({ message: 'Players retrieved.', results });
+});
+
 export const controller = {
   auth,
   upload,
@@ -116,4 +129,5 @@ export const controller = {
   getPlayerItems,
   getAllItemMetadata,
   getItemMetadata,
+  searchPlayer,
 };
