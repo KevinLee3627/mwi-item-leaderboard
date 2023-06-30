@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { useFetch } from '../hooks/useFetch';
-import { ItemMetadata } from './SearchBox';
+import { ItemMetadata } from './ItemSearchBox';
 import { ApiRes } from '../types/ApiRes';
 import { useSearchParams } from 'react-router-dom';
 
