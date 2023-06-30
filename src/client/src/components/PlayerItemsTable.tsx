@@ -12,7 +12,7 @@ export function PlayerItemsTable(props: PlayerItemsTableProps) {
       <tr key={i} className='hover text-left'>
         <td className='p-2 underline'>
           <Link
-            to={`/item/?itemHrid=${entry.itemHrid}&enhancementLevel=${entry.itemEnhancementLevel}&limit=10`}
+            to={`/item/?itemHrid=${entry.itemHrid}&enhancementLevel=${entry.itemEnhancementLevel}&limit=100`}
           >
             {hridToDisplayName(entry.itemHrid)}
           </Link>

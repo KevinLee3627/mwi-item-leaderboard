@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Leaderboard } from './components/Leaderboard';
 import { ErrorPage } from './error-page';
 import './index.css';
@@ -10,7 +10,7 @@ import { Player } from './routes/Player';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,

@@ -50,7 +50,7 @@ export function SearchBox(props: SearchBoxProps) {
             navigate(`/item?${searchParams.toString()}`);
           } else {
             navigate(
-              `/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=all&limit=10`
+              `/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=all&limit=100`
             );
           }
         }}

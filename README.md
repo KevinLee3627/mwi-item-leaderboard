@@ -9,12 +9,13 @@
 - Add player pages ✅ 2023-06-27
 - Add links to items from player pages ✅ 2023-06-29
 - Add links to players from item pages ✅ 2023-06-27
-- Make player pages look nicer
+- Make player pages look nicer ✅ 2023-06-29
 - Add logging to backend
 - Some equipment not showing ✅ 2023-06-27
 - Add theme-switching
 - Add sorting to leaderboards - sort by clicking on headers
 - Add player search
+- Possibly add leaderboard limit picker?
 
 # CHANGELOG
 
