@@ -26,6 +26,7 @@ export function Changelog() {
             <li>Custom domain name!</li>
             <li>Added 'rank' column to leaderboards</li>
             <li>Updated styling - using 'night' theme from daisyui</li>
+            <li>Made player pages look much better</li>
           </ul>
 
           <h2 className='font-bold text-lg'>v0.4 - 2023-06-28</h2>

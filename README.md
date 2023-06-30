@@ -13,6 +13,8 @@
 - Add logging to backend
 - Some equipment not showing ✅ 2023-06-27
 - Add theme-switching
+- Add sorting to leaderboards - sort by clicking on headers
+- Add player search
 
 # CHANGELOG
 

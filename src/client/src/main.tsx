@@ -8,6 +8,8 @@ import './index.css';
 import { Home } from './routes/Home';
 import { Player } from './routes/Player';
 
+const apiBase = import.meta.env.VITE_API_BASE as string;
+
 const router = createHashRouter([
   {
     path: '/',
@@ -22,9 +24,7 @@ const router = createHashRouter([
           const itemHrid = queryParams.get('itemHrid');
           const enhancementLevel = queryParams.get('enhancementLevel');
           const res = await axios.get(
-            `${
-              import.meta.env.VITE_API_BASE as string
-            }/api/v1/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
+            `${apiBase}/api/v1/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
           );
           return res.data.results;
         },
@@ -34,6 +34,14 @@ const router = createHashRouter([
   {
     path: '/player/:playerId',
     element: <Player />,
+    errorElement: <ErrorPage />,
+    loader: async ({ params }) => {
+      const res = await axios.get(
+        `${apiBase}/api/v1/player?playerId=${params.playerId}`
+      );
+      console.log(res.data);
+      return res.data.results;
+    },
   },
 ]);
 
