@@ -17,14 +17,14 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'item',
+        path: 'leaderboard',
         element: <Leaderboard />,
         loader: async ({ request }) => {
           const queryParams = new URL(request.url).searchParams;
           const itemHrid = queryParams.get('itemHrid');
           const enhancementLevel = queryParams.get('enhancementLevel');
           const res = await axios.get(
-            `${apiBase}/api/v1/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
+            `${apiBase}/api/v1/leaderboard?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
           );
           return res.data.results;
         },
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/player/:playerId',
+    path: 'player/:playerId',
     element: <Player />,
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {

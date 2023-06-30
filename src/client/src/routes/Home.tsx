@@ -4,16 +4,11 @@ import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
 import { ApiRes } from '../types/ApiRes';
 import { Header } from '../components/Header';
 import { Outlet } from 'react-router';
+import { ItemMetadata } from '../components/SearchBox';
 
 export interface Option<T> {
   label: string;
   value: T;
-}
-
-export interface ItemMetadata {
-  hrid: string;
-  displayName: string;
-  enhancementLevel: number;
 }
 
 export function Home() {
