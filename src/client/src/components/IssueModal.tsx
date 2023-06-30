@@ -2,7 +2,7 @@ export function IssueModal() {
   return (
     <div className='mx-auto grid place-items-center'>
       <button
-        className='btn'
+        className='text-white h-full px-4'
         onClick={() => {
           const modal = document.getElementById(
             'issueModal'
