@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Player {
-  id          Int      @id
-  displayName String
-  Record      Record[]
+  id            Int             @id
+  displayName   String
+  Record        Record[]
+  AbilityRecord AbilityRecord[]
 }
 
 model Item {
@@ -35,4 +36,22 @@ model Record {
   playerId             Int
 
   @@id([itemHrid, itemEnhancementLevel, playerId])
+}
+
+model Ability {
+  hrid        String          @id
+  displayName String
+  Record      AbilityRecord[]
+}
+
+model AbilityRecord {
+  ts           DateTime
+  ability      Ability  @relation(fields: [abilityHrid], references: [hrid])
+  abilityHrid  String
+  abilityXp    Float
+  abilityLevel Int
+  player       Player   @relation(fields: [playerId], references: [id])
+  playerId     Int
+
+  @@id([abilityHrid, playerId])
 }

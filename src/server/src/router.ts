@@ -14,4 +14,5 @@ router.get('/item', controller.getItemMetadata);
 
 router.get('/search/player', controller.searchPlayer);
 
-router.post('/upload', controller.auth, controller.upload);
+router.post('/upload/item', controller.auth, controller.uploadItem);
+router.post('/upload/ability', controller.auth, controller.uploadAbility);

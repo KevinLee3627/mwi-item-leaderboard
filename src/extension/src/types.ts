@@ -28,6 +28,7 @@ export interface ChatMessageReceived extends ServerMessage {
 
 export enum LinkType {
   Item = '/chat_link_types/item',
+  Ability = '/chat_link_types/ability',
 }
 
 export interface LinkMetadata {
@@ -58,4 +59,20 @@ export interface Payload {
     name: string;
   };
   ts: string; // ISO8601 string
+}
+
+export interface AbilityPayloadItem {
+  abilityHrid: string;
+  abilityName: string;
+  abilityLevel: number;
+  abilityXp: number;
+}
+
+export interface AbilityPayload {
+  abilities: AbilityPayloadItem[];
+  player: {
+    id: number;
+    name: string;
+  };
+  ts: string;
 }

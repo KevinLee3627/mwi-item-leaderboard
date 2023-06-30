@@ -1,6 +1,7 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
-import type { Payload } from 'extension';
-import { upload as uploadService } from './services/upload';
+import type { AbilityPayload, Payload } from 'extension';
+import { uploadAbility as uploadAbilityService } from './services/uploadAbility';
+import { uploadItem as uploadItemService } from './services/uploadItem';
 import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
 import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
@@ -28,10 +29,18 @@ const auth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-const upload = asyncHandler(async (req, res, next) => {
+const uploadItem = asyncHandler(async (req, res, next) => {
   const data: Payload = req.body;
   // TODO: Add Zod validation
-  await uploadService(data);
+  await uploadItemService(data);
+
+  res.json({ message: 'Record(s) inserted' });
+});
+
+const uploadAbility = asyncHandler(async (req, res, next) => {
+  const data: AbilityPayload = req.body;
+  // TODO: Add Zod validation
+  await uploadAbilityService(data);
 
   res.json({ message: 'Record(s) inserted' });
 });
@@ -124,7 +133,8 @@ const searchPlayer = asyncHandler(async (req, res, next) => {
 
 export const controller = {
   auth,
-  upload,
+  uploadAbility,
+  uploadItem,
   getItemLeaderboard,
   getPlayerItems,
   getAllItemMetadata,
