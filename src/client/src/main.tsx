@@ -7,6 +7,7 @@ import { ErrorPage } from './error-page';
 import './index.css';
 import { Home } from './routes/Home';
 import { Player } from './routes/Player';
+import { SearchPlayer } from './routes/SearchPlayer';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
       console.log(res.data);
       return res.data.results;
     },
+  },
+  {
+    path: '/search/player',
+    element: <SearchPlayer />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

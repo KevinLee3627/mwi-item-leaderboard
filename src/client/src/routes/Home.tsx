@@ -1,15 +1,10 @@
-import { SearchBox } from '../components/SearchBox';
+import { SearchBox } from '../components/ItemSearchBox';
 import { useFetch } from '../hooks/useFetch';
 import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
 import { ApiRes } from '../types/ApiRes';
 import { Header } from '../components/Header';
 import { Outlet } from 'react-router';
-import { ItemMetadata } from '../components/SearchBox';
-
-export interface Option<T> {
-  label: string;
-  value: T;
-}
+import { ItemMetadata } from '../components/ItemSearchBox';
 
 export function Home() {
   const { data, loading } = useFetch<ApiRes<ItemMetadata>>({

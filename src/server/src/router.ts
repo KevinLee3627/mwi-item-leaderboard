@@ -12,4 +12,6 @@ router.get('/player', controller.getPlayerItems);
 router.get('/items', controller.getAllItemMetadata);
 router.get('/item', controller.getItemMetadata);
 
+router.get('/search/player', controller.searchPlayer);
+
 router.post('/upload', controller.auth, controller.upload);
