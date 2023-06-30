@@ -1,39 +1,39 @@
-import { SearchBox } from '../components/ItemSearchBox';
-import { useFetch } from '../hooks/useFetch';
-import { EnhanceLevelPicker } from '../components/EnhanceLevelPicker';
-import { ApiRes } from '../types/ApiRes';
 import { Header } from '../components/Header';
 import { Outlet } from 'react-router';
-import { ItemMetadata } from '../components/ItemSearchBox';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+interface Tab<T> {
+  value: T;
+  label: string;
+}
 
 export function Home() {
-  const { data, loading } = useFetch<ApiRes<ItemMetadata>>({
-    url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
-    method: 'GET',
+  const [activeTab, setActiveTab] = useState<string>('item');
+
+  const tabs: Tab<string>[] = [
+    { label: 'Items', value: 'item' },
+    { label: 'Abilities', value: 'ability' },
+  ];
+
+  const tabElems = tabs.map((tab) => {
+    return (
+      <button
+        className={`tab hover:tab-active ${
+          activeTab === tab.value && 'tab-active'
+        }`}
+        onClick={() => setActiveTab(tab.value)}
+      >
+        <Link to={`/leaderboard/${tab.value}`}>{tab.label}</Link>
+      </button>
+    );
   });
 
   return (
     <div className='w-full h-full mx-auto'>
       <Header />
-      <p className='text-center'>
-        <strong>
-          To add your items here, whisper Granttank2 in game with your items
-          linked in chat!
-        </strong>
-      </p>
-      <div className='flex w-6/12 mx-auto'>
-        <SearchBox
-          options={data?.results
-            .map((item) => {
-              return {
-                value: item,
-                label: `${item.displayName}`,
-              };
-            })
-            .sort((a, b) => a.label.localeCompare(b.label))}
-          loading={loading}
-        />
-        <EnhanceLevelPicker />
+      <div className='mx-auto flex place-items-center my-4'>
+        <div className='tabs tabs-boxed mx-auto inline-flex'>{tabElems}</div>
       </div>
       <Outlet />
     </div>
