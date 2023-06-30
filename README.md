@@ -13,8 +13,9 @@
 - Add logging to backend
 - Some equipment not showing ✅ 2023-06-27
 - Add theme-switching
-- Add sorting to leaderboards - sort by clicking on headers
+- Add sorting to leaderboards - sort by clicking on headers ✅ 2023-06-29
 - Add player search
+- Highlight top 3 in leaderboards (gold/silver/bronze)
 - Possibly add leaderboard limit picker?
 
 # CHANGELOG

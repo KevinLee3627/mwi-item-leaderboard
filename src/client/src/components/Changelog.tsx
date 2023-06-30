@@ -28,6 +28,7 @@ export function Changelog() {
             <li>Updated styling - using 'night' theme from daisyui</li>
             <li>Made player pages look much better</li>
             <li>Added sorting to tables</li>
+            <li>Added medals to top 3 players on item leaderboards</li>
           </ul>
 
           <h2 className='font-bold text-lg'>v0.4 - 2023-06-28</h2>
