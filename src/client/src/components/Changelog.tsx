@@ -16,6 +16,14 @@ export function Changelog() {
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
 
+          <h2 className='font-bold text-lg'>v0.6 - 2023-06-30</h2>
+          <ul className='list-disc'>
+            <li>
+              Enhancement level picker will only show levels that exist - no
+              more clicking through 20 levels to see what's up
+            </li>
+          </ul>
+
           <h2 className='font-bold text-lg'>v0.5 - 2023-06-29</h2>
           <ul className='list-disc'>
             <li>Basic linking between players and items in UI</li>
