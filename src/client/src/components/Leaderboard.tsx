@@ -2,6 +2,16 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { GetItemLeaderboardReturn } from 'server';
 import { Table } from './Table';
 
+function getRankIcon(rank: number) {
+  if (rank < 1 || rank > 3) {
+    return '';
+  }
+
+  if (rank === 1) return '🥇';
+  else if (rank === 2) return '🥈';
+  else return '🥉';
+}
+
 export function Leaderboard() {
   const res = useLoaderData() as GetItemLeaderboardReturn[];
 
@@ -26,7 +36,9 @@ export function Leaderboard() {
       row={(entry, i) => {
         return (
           <tr key={i} className='hover text-left'>
-            <td className='p-2 bold'>{entry.rank}</td>
+            <td className='p-2 bold'>
+              {entry.rank} {getRankIcon(entry.rank)}
+            </td>
             <td className='p-2 underline'>
               <Link to={`/player/${entry.playerId}`}>{entry.playerName}</Link>
             </td>
