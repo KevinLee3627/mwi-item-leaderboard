@@ -72,7 +72,7 @@ export function EnhanceLevelPicker() {
 
           searchParams.set('enhancementLevel', String(newValue?.value));
           // Take the current location, replace the enhancementLevel
-          navigate(`/leaderboard?${searchParams.toString()}`);
+          navigate(`/leaderboard/item?${searchParams.toString()}`);
         }}
         styles={{
           option: (base) => {

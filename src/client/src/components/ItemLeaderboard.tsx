@@ -12,7 +12,7 @@ function getRankIcon(rank: number) {
   else return '🥉';
 }
 
-export function Leaderboard() {
+export function ItemLeaderboard() {
   const res = useLoaderData() as GetItemLeaderboardReturn[];
 
   return (

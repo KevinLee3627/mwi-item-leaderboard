@@ -29,7 +29,7 @@ export function PlayerItemsTable({ data }: PlayerItemsTableProps) {
           <tr key={i} className='hover text-left'>
             <td className='p-2 underline'>
               <Link
-                to={`/leaderboard/?itemHrid=${entry.itemHrid}&enhancementLevel=${entry.enhancementLevel}&limit=100`}
+                to={`/leaderboard/item/?itemHrid=${entry.itemHrid}&enhancementLevel=${entry.enhancementLevel}&limit=100`}
               >
                 {hridToDisplayName(entry.itemHrid)}
               </Link>

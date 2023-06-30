@@ -7,6 +7,8 @@ import { getPlayerItems as getPlayerItemsService } from './services/getPlayerIte
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 import { searchPlayer as searchPlayerService } from './services/searchPlayer';
+import { getAllAbility as getAllAbilityService } from './services/getAllAbility';
+import { getAbilityLeaderboard as getAbilityLeaderboardService } from './services/getAbilityLeaderboard';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -119,6 +121,41 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Item retrieved.', results });
 });
 
+const getAllAbility = asyncHandler(async (req, res, next) => {
+  const results = await getAllAbilityService();
+
+  res.json({ message: 'Abilities retrieved.', results });
+});
+
+const getAbilityLeaderboard = asyncHandler(async (req, res, next) => {
+  const { abilityHrid, limit } = req.query;
+
+  if (typeof limit !== 'string') {
+    res.status(400).json({ message: 'limit should be an integer.' });
+    return;
+  }
+
+  if (isNaN(parseInt(limit))) {
+    res.status(400).json({ message: 'limit should be an integer.' });
+    return;
+  }
+
+  if (typeof abilityHrid !== 'string' || abilityHrid.length === 0) {
+    res.status(400).json({ message: 'Ability not found.' });
+    return;
+  }
+
+  const results = await getAbilityLeaderboardService({
+    abilityHrid,
+    limit: parseInt(limit, 10),
+  });
+
+  res.json({
+    message: `Ability leaderboard ${abilityHrid} retrieved.`,
+    results,
+  });
+});
+
 const searchPlayer = asyncHandler(async (req, res, next) => {
   const { q } = req.query;
   if (q == null || typeof q !== 'string' || q.length === 0) {
@@ -140,4 +177,6 @@ export const controller = {
   getAllItemMetadata,
   getItemMetadata,
   searchPlayer,
+  getAllAbility,
+  getAbilityLeaderboard,
 };

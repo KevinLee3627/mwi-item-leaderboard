@@ -7,10 +7,14 @@ router.get('/status', (req, res, next) => {
   res.json({ message: 'OK' });
 });
 
-router.get('/leaderboard', controller.getItemLeaderboard);
 router.get('/player', controller.getPlayerItems);
 router.get('/items', controller.getAllItemMetadata);
 router.get('/item', controller.getItemMetadata);
+
+router.get('/abilities', controller.getAllAbility);
+
+router.get('/leaderboard/item', controller.getItemLeaderboard);
+router.get('/leaderboard/ability', controller.getAbilityLeaderboard);
 
 router.get('/search/player', controller.searchPlayer);
 

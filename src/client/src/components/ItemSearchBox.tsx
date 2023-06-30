@@ -47,10 +47,10 @@ export function SearchBox(props: SearchBoxProps) {
           if (searchParams.size > 0) {
             searchParams.set('itemHrid', String(newValue?.value.hrid));
             // Take the current location, replace the enhancementLevel
-            navigate(`/leaderboard?${searchParams.toString()}`);
+            navigate(`/leaderboard/item?${searchParams.toString()}`);
           } else {
             navigate(
-              `/leaderboard?itemHrid=${newValue?.value.hrid}&enhancementLevel=all&limit=100`
+              `/leaderboard/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=all&limit=100`
             );
           }
         }}
