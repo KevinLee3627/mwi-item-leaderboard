@@ -19,7 +19,7 @@ interface SearchBoxProps {
   loading: boolean;
 }
 
-export function ItemSearchBox(props: SearchBoxProps) {
+export function SearchBox(props: SearchBoxProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = useRef(new URLSearchParams(location.search.slice(1)));
