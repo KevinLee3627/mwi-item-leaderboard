@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'leaderboard',
+        path: 'leaderboard/item',
         element: <ItemLeaderboard />,
         loader: async ({ request }) => {
           const queryParams = new URL(request.url).searchParams;
