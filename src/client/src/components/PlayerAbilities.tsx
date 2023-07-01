@@ -3,11 +3,32 @@ import { GetAbilityLeaderboardReturn } from 'server';
 import { hridToDisplayName } from '../util/hridToDisplayName';
 import { Table } from './Table';
 
+function getTotalLevels(abilities: GetAbilityLeaderboardReturn[]) {
+  return abilities.reduce((acc, val) => {
+    return acc + val.abilityLevel;
+  }, 0);
+}
+function getTotalXp(abilities: GetAbilityLeaderboardReturn[]) {
+  return abilities.reduce((acc, val) => {
+    return acc + val.abilityXp;
+  }, 0);
+}
+
 export function PlayerAbilities() {
   const res = useLoaderData() as GetAbilityLeaderboardReturn[];
   console.log(res);
   return (
     <>
+      <div className='flex'>
+        <div className='stat'>
+          <div className='stat-title'>Total Ability Level</div>
+          <div className='stat-value'>{getTotalLevels(res)} </div>
+        </div>
+        <div className='stat'>
+          <div className='stat-title'>Total Ability XP</div>
+          <div className='stat-value'>{getTotalXp(res).toFixed(1)}</div>
+        </div>
+      </div>
       <Table
         data={res.map((entry, i) => ({
           rank: i + 1,
