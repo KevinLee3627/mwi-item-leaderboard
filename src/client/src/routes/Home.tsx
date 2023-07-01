@@ -21,14 +21,16 @@ export function Home() {
 
   const tabElems = tabs.map((tab) => {
     return (
-      <button
-        className={`tab hover:tab-active ${
-          activeTab === tab.value && 'tab-active'
-        }`}
-        onClick={() => setActiveTab(tab.value)}
-      >
-        <Link to={`/leaderboard/${tab.value}`}>{tab.label}</Link>
-      </button>
+      <Link to={`/leaderboard/${tab.value}`}>
+        <button
+          className={`tab hover:tab-active ${
+            activeTab === tab.value && 'tab-active'
+          }`}
+          onClick={() => setActiveTab(tab.value)}
+        >
+          {tab.label}
+        </button>
+      </Link>
     );
   });
 
