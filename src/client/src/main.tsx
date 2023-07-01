@@ -8,6 +8,7 @@ import {
   GetAllItemMetadataRes,
   GetItemLeaderboardRes,
   GetItemMetadataRes,
+  GetOverallAbilityLevelLeaderboardRes,
 } from 'server';
 import {
   AbilityLeaderboard,
@@ -21,6 +22,7 @@ import './index.css';
 import { Home } from 'routes/Home';
 import { Player } from 'routes/Player';
 import { SearchPlayer } from 'routes/SearchPlayer';
+import { SpecialLeaderboard } from 'components/SpecialLeaderboard';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -86,8 +88,9 @@ const router = createBrowserRouter([
           } satisfies AbilityLeaderboardLoaderData;
         },
       },
+
       {
-        path: '/',
+        index: true,
         element: <ItemLeaderboard />,
         loader: async () => {
           const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
@@ -148,6 +151,19 @@ const router = createBrowserRouter([
     path: '/search/player',
     element: <SearchPlayer />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/leaderboard/special/:leaderboardId',
+    element: <SpecialLeaderboard />,
+    errorElement: <ErrorPage />,
+    loader: async ({ params }) => {
+      const { data } = await axios.get<GetOverallAbilityLevelLeaderboardRes>(
+        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/${
+          params.leaderboardId
+        }`
+      );
+      return { leaderboard: data.leaderboard, title: data.title };
+    },
   },
 ]);
 
