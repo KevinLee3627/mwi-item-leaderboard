@@ -17,7 +17,7 @@ export function EnhanceLevelPicker() {
   const { enhancementLevelData } = useLoaderData() as ItemLeaderboardLoaderData;
 
   const { current: defaultLevel } = useRef<number>(
-    parseInt(searchParams.get('enhancementLevel') ?? '')
+    parseInt(searchParams.get('enhancementLevel') ?? '-1')
   );
   const [options, setOptions] = useState<Option[]>([allOption]);
 
@@ -37,7 +37,7 @@ export function EnhanceLevelPicker() {
         isSearchable
         options={options}
         defaultValue={{
-          label: defaultLevel === -1 ? 'all' : `+${defaultLevel}`,
+          label: defaultLevel === -1 ? allOption.label : `+${defaultLevel}`,
           value: defaultLevel,
         }}
         placeholder={''}

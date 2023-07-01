@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import Select from 'react-select';
 import { hridToDisplayName } from 'util/hridToDisplayName';
 
@@ -21,8 +22,8 @@ interface SearchBoxProps {
 
 export function ItemSearchBox(props: SearchBoxProps) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = useRef(new URLSearchParams(location.search.slice(1)));
+  const [searchParams] = useSearchParams();
+  const { current: itemHrid } = useRef(searchParams.get('itemHrid'));
 
   return (
     <div className='w-6/12 mx-auto flex-1 '>
@@ -30,38 +31,23 @@ export function ItemSearchBox(props: SearchBoxProps) {
         isSearchable
         options={props?.options}
         defaultValue={{
-          label: hridToDisplayName(searchParams.current.get('itemHrid') ?? ''),
+          label: hridToDisplayName(itemHrid ?? ''),
           value: {
-            hrid: searchParams.current.get('itemHrid'),
-            displayName: hridToDisplayName(
-              searchParams.current.get('itemHrid') ?? ''
-            ),
+            hrid: itemHrid,
+            displayName: hridToDisplayName(itemHrid ?? ''),
             enhancementLevel: parseInt(
-              searchParams.current.get('enhancementLevel') ?? '0'
+              searchParams.get('enhancementLevel') ?? '0'
             ),
           },
         }}
         placeholder={props.loading ? 'Loading options...' : 'Search items'}
         onChange={(newValue) => {
-          const searchParams = new URLSearchParams(location.search.slice(1));
-          if (searchParams.size > 0) {
-            searchParams.set('itemHrid', String(newValue?.value.hrid));
-            // Take the current location, replace the enhancementLevel
-            navigate(`/leaderboard/item?${searchParams.toString()}`);
-          } else {
-            navigate(
-              `/leaderboard/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=-1&limit=100`
-            );
-          }
+          searchParams.set('itemHrid', String(newValue?.value.hrid));
+          const enhancementLevel = searchParams.get('enhancementLevel') ?? -1;
+          const nextUrl = `/leaderboard/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=${enhancementLevel}&limit=100`;
+          navigate(nextUrl);
         }}
-        styles={{
-          option: (base) => {
-            return {
-              ...base,
-              color: 'black',
-            };
-          },
-        }}
+        styles={{ option: (base) => ({ ...base, color: 'black' }) }}
       />
     </div>
   );
