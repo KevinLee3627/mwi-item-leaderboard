@@ -1,4 +1,4 @@
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 import type { GetPlayerRes } from 'src/types';
 
 interface GetPlayerParams {

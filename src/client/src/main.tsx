@@ -38,14 +38,21 @@ const router = createBrowserRouter([
           const itemHrid = queryParams.get('itemHrid');
           const enhancementLevel = queryParams.get('enhancementLevel');
 
-          if (itemHrid == null) return [];
-
           const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
             `${apiBase}/api/v1/item`
           );
+
+          if (itemHrid == null)
+            return {
+              itemMetadata,
+              leaderboard: [],
+              enhancementLevelData: [],
+            };
+
           const { data: leaderboard } = await axios.get<GetItemLeaderboardRes>(
             `${apiBase}/api/v1/leaderboard/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
           );
+
           const { data: enhancementLevelData } =
             await axios.get<GetItemMetadataRes>(
               `${apiBase}/api/v1/item?itemHrid=${itemHrid}`

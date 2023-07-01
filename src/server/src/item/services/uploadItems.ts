@@ -1,7 +1,7 @@
 import type { Payload } from 'extension';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
-export async function uploadItem(data: Payload): Promise<void> {
+export async function uploadItems(data: Payload): Promise<void> {
   await prisma.player.upsert({
     where: {
       id: data.player.id,

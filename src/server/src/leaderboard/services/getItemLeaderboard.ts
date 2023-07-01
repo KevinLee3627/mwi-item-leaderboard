@@ -1,4 +1,4 @@
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 interface GetItemLeaderboardParams {
   itemHrid: string;

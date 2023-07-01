@@ -1,5 +1,5 @@
 import { type AbilityRecord } from '@prisma/client';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 interface GetAbilityLeaderboardParams {
   abilityHrid: string;

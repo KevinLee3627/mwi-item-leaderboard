@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { readFileSync } from 'fs';
 import https from 'https';
 import { app } from './app';
 // TODO: Put this somewhere else
-export const prisma = new PrismaClient();
 
 async function main(): Promise<void> {
   const privateKey = readFileSync(process.env.KEY_PATH as string, 'utf8');

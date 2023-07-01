@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { controller } from './controller';
+import { router as playerRouter } from 'src/player/router';
+import { router as leaderboardRouter } from 'src/leaderboard/router';
+import { router as itemRouter } from 'src/item/router';
+import { router as abilityRouter } from 'src/ability/router';
 
 export const router = Router();
 
@@ -7,17 +10,7 @@ router.get('/status', (req, res, next) => {
   res.json({ message: 'OK' });
 });
 
-router.get('/player/:playerId/items', controller.getPlayerItems);
-router.get('/player/:playerId/abilities', controller.getPlayerAbilities);
-router.get('/player/:playerId', controller.getPlayer);
-router.get('/item', controller.getItemMetadata);
-
-router.get('/ability', controller.getAllAbilityMetadata);
-
-router.get('/leaderboard/item', controller.getItemLeaderboard);
-router.get('/leaderboard/ability', controller.getAbilityLeaderboard);
-
-router.get('/search/player', controller.searchPlayer);
-
-router.post('/upload/item', controller.auth, controller.uploadItem);
-router.post('/upload/ability', controller.auth, controller.uploadAbility);
+router.use(playerRouter);
+router.use(leaderboardRouter);
+router.use(itemRouter);
+router.use(abilityRouter);
