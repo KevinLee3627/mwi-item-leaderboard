@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
+  GetAbilityLeaderboardRes,
   GetAllAbilityMetadataRes,
   GetAllItemMetadataRes,
   GetItemLeaderboardRes,
@@ -58,30 +59,24 @@ const router = createBrowserRouter([
         loader: async ({ request }) => {
           // TODO: for the love of god clean this up
           const params = new URL(request.url).searchParams;
-          const data: AbilityLeaderboardLoaderData = {
-            abilities: [],
-            leaderboard: [],
-          };
-          try {
-            const allAbilityData = await axios.get<GetAllAbilityMetadataRes>(
+
+          const { data: allAbilityMetadata } =
+            await axios.get<GetAllAbilityMetadataRes>(
               `${apiBase}/api/v1/ability`
             );
-            data.abilities = allAbilityData.data.sort((a, b) =>
-              a.displayName.localeCompare(b.displayName)
-            );
-          } catch (err) {
-            console.error(err);
-          }
-          try {
-            const abilityHrid = params.get('abilityHrid');
-            const leaderboard = await axios.get(
+
+          const abilityHrid = params.get('abilityHrid');
+          const { data: leaderboard } =
+            await axios.get<GetAbilityLeaderboardRes>(
               `${apiBase}/api/v1/leaderboard/ability?abilityHrid=${abilityHrid}&limit=100`
             );
-            data.leaderboard = leaderboard.data;
-          } catch (err) {
-            console.error(err);
-          }
-          return data;
+
+          return {
+            abilities: allAbilityMetadata.sort((a, b) =>
+              a.displayName.localeCompare(b.displayName)
+            ),
+            leaderboard,
+          } satisfies AbilityLeaderboardLoaderData;
         },
       },
       {
