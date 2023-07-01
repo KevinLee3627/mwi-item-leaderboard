@@ -4,16 +4,7 @@ import { useFetch } from '../hooks/useFetch';
 import { EnhanceLevelPicker } from './EnhanceLevelPicker';
 import { ItemSearchBox } from './ItemSearchBox';
 import { Table } from './Table';
-
-function getRankIcon(rank: number) {
-  if (rank < 1 || rank > 3) {
-    return '';
-  }
-
-  if (rank === 1) return '🥇';
-  else if (rank === 2) return '🥈';
-  else return '🥉';
-}
+import { getRankIcon } from '../util/getRankIcon';
 
 export function ItemLeaderboard() {
   const res = useLoaderData() as GetItemLeaderboardRes;
