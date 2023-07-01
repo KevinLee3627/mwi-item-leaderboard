@@ -11,7 +11,7 @@ interface Tab<T> {
 export function Home() {
   const location = useLocation();
 
-  const defaultTab = location.pathname.includes('item') ? 'item' : 'ability';
+  const defaultTab = location.pathname.includes('ability') ? 'ability' : 'item';
   const [activeTab, setActiveTab] = useState<string>(defaultTab);
 
   const tabs: Tab<string>[] = [
