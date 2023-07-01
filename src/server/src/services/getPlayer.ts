@@ -1,5 +1,5 @@
-import { type Player } from '@prisma/client';
 import { prisma } from '../index';
+import type { GetPlayerRes } from 'src/types';
 
 interface GetPlayerParams {
   playerId: number;
@@ -7,7 +7,7 @@ interface GetPlayerParams {
 
 export async function getPlayer({
   playerId,
-}: GetPlayerParams): Promise<Player> {
+}: GetPlayerParams): Promise<GetPlayerRes> {
   const result = await prisma.player.findUnique({
     where: {
       id: playerId,

@@ -102,7 +102,7 @@ const getPlayer = asyncHandler(async (req, res, next) => {
     playerId: parseInt(playerId, 10),
   });
 
-  res.json({ message: 'Items retrieved.', result });
+  res.json(result);
 });
 
 const getPlayerItems = asyncHandler(async (req, res, next) => {

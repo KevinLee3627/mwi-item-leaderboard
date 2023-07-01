@@ -92,7 +92,7 @@ const router = createBrowserRouter([
       const res = await axios.get(
         `${apiBase}/api/v1/player/${params.playerId}`
       );
-      return res.data.result;
+      return res.data;
     },
     children: [
       {
