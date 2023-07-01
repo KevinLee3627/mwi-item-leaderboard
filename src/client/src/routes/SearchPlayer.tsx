@@ -15,9 +15,7 @@ export function SearchPlayer() {
 
   const getResults = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const res = await axios.get<SearchPlayerRes>(
-      `${import.meta.env.VITE_API_BASE}/api/v1/search/player?q=${
-        e.target.value
-      }`
+      `${import.meta.env.VITE_API_BASE}/api/v1/player?q=${e.target.value}`
     );
     const results = res.data;
     setResults(

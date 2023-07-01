@@ -23,9 +23,9 @@ export function Player() {
     { label: 'Abilities', value: 'abilities' },
   ];
 
-  const tabElems = tabs.map((tab) => {
+  const tabElems = tabs.map((tab, i) => {
     return (
-      <Link to={`/player/${data.id}/${tab.value}`}>
+      <Link to={`/player/${data.id}/${tab.value}`} key={i}>
         <button
           className={`tab hover:tab-active ${
             activeTab === tab.value && 'tab-active'

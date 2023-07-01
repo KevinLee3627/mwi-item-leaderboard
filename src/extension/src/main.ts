@@ -79,7 +79,7 @@ async function parseItems({ message }: ChatMessageReceived) {
     };
 
     const res = await axios.post(
-      `${import.meta.env.VITE_API_BASE}/api/v1/upload/item`,
+      `${import.meta.env.VITE_API_BASE}/api/v1/item`,
       payload,
       {
         headers: {
@@ -133,7 +133,7 @@ async function parseAbilities({ message }: ChatMessageReceived) {
     };
 
     const res = await axios.post(
-      `${import.meta.env.VITE_API_BASE}/api/v1/upload/ability`,
+      `${import.meta.env.VITE_API_BASE}/api/v1/ability`,
       payload,
       {
         headers: {
