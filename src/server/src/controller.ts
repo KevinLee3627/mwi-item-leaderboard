@@ -1,25 +1,18 @@
-import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { AbilityPayload, Payload } from 'extension';
 import { uploadAbility as uploadAbilityService } from 'src/services/uploadAbility';
 import { uploadItem as uploadItemService } from 'src/services/uploadItem';
 import { getItemLeaderboard as getItemLeaderboardService } from 'src/services/getItemLeaderboard';
-import { getPlayerItems as getPlayerItemsService } from 'src/services/getPlayerItems';
-import { getPlayerAbilities as getPlayerAbilitiesService } from 'src/services/getPlayerAbilities';
-import { getPlayer as getPlayerService } from 'src/services/getPlayer';
 import { getAllItemMetadata as getAllItemMetadataService } from 'src/services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from 'src/services/getItemMetadata';
 import { searchPlayer as searchPlayerService } from 'src/services/searchPlayer';
 import { getAllAbilityMetadata as getAllAbilityMetadataService } from 'src/services/getAllAbilityMetadata';
 import { getAbilityLeaderboard as getAbilityLeaderboardService } from 'src/services/getAbilityLeaderboard';
-import z from 'zod';
-
-export function asyncHandler(
-  asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
-): RequestHandler {
-  return function (req: Request, res: Response, next: NextFunction) {
-    asyncFn(req, res, next).catch(next);
-  };
-}
+import {
+  existingStringSchema,
+  integerSchema,
+  positiveNumberSchema,
+} from './validators';
+import { asyncHandler } from './asyncHandler';
 
 const auth = asyncHandler(async (req, res, next) => {
   if (req.headers.token == null) {
@@ -32,31 +25,6 @@ const auth = asyncHandler(async (req, res, next) => {
   }
 
   next();
-});
-
-const positiveNumberSchema = z.coerce
-  .number()
-  .positive({ message: 'Should be positive.' })
-  .int({ message: 'Should be an integer.' });
-
-const integerSchema = z.coerce.number().int();
-
-const existingStringSchema = z.string().nonempty();
-
-const getPlayerItems = asyncHandler(async (req, res, next) => {
-  const playerId = positiveNumberSchema.parse(req.params.playerId);
-
-  const results = await getPlayerItemsService({ playerId });
-
-  res.json(results);
-});
-
-const getPlayerAbilities = asyncHandler(async (req, res, next) => {
-  const playerId = positiveNumberSchema.parse(req.params.playerId);
-
-  const results = await getPlayerAbilitiesService({ playerId });
-
-  res.json(results);
 });
 
 const uploadItem = asyncHandler(async (req, res, next) => {
@@ -87,14 +55,6 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
     enhancementLevel,
   });
   res.json(results);
-});
-
-const getPlayer = asyncHandler(async (req, res, next) => {
-  const playerId = positiveNumberSchema.parse(req.params.playerId);
-
-  const result = await getPlayerService({ playerId });
-
-  res.json(result);
 });
 
 const getAllItemMetadata = asyncHandler(async (req, res, next) => {
@@ -142,9 +102,6 @@ export const controller = {
   uploadAbility,
   uploadItem,
   getItemLeaderboard,
-  getPlayer,
-  getPlayerItems,
-  getPlayerAbilities,
   getAllItemMetadata,
   getItemMetadata,
   searchPlayer,

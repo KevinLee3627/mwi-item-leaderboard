@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { controller } from 'src/controller';
+import { router as playerRouter } from 'src/player/router';
 
 export const router = Router();
 
@@ -7,9 +8,8 @@ router.get('/status', (req, res, next) => {
   res.json({ message: 'OK' });
 });
 
-router.get('/player/:playerId/items', controller.getPlayerItems);
-router.get('/player/:playerId/abilities', controller.getPlayerAbilities);
-router.get('/player/:playerId', controller.getPlayer);
+router.use(playerRouter);
+
 router.get('/item', controller.getItemMetadata);
 
 router.get('/ability', controller.getAllAbilityMetadata);
