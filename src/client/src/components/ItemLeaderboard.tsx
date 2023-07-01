@@ -1,10 +1,10 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { GetAllItemMetadataRes, GetItemLeaderboardRes } from 'server';
-import { useFetch } from '../hooks/useFetch';
-import { EnhanceLevelPicker } from './EnhanceLevelPicker';
-import { ItemSearchBox } from './ItemSearchBox';
-import { Table } from './Table';
-import { getRankIcon } from '../util/getRankIcon';
+import { useFetch } from 'hooks/useFetch';
+import { EnhanceLevelPicker } from 'components/EnhanceLevelPicker';
+import { ItemSearchBox } from 'components/ItemSearchBox';
+import { Table } from 'components/Table';
+import { getRankIcon } from 'util/getRankIcon';
 
 export function ItemLeaderboard() {
   const res = useLoaderData() as GetItemLeaderboardRes;

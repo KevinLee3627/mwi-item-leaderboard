@@ -1,5 +1,5 @@
-import { Header } from '../components/Header';
-import { debounce } from '../util/debounce';
+import { Header } from 'components/Header';
+import { debounce } from 'util/debounce';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SearchPlayerRes } from 'server';

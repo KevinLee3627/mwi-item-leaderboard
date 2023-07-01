@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Changelog } from './Changelog';
-import { IssueModal } from './IssueModal';
+import { Changelog } from 'components/Changelog';
+import { IssueModal } from 'components/IssueModal';
 
 export function Header() {
   return (

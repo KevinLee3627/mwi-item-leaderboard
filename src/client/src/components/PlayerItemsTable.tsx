@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { GetPlayerItemsRes } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
-import { Table } from './Table';
+import { hridToDisplayName } from 'util/hridToDisplayName';
+import { Table } from 'components/Table';
 
 interface PlayerItemsTableProps {
   data: GetPlayerItemsRes;

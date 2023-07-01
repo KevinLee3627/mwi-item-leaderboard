@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
-import { useFetch } from '../hooks/useFetch';
 import { useSearchParams } from 'react-router-dom';
 import { GetItemMetadataRes } from 'server';
+import { useFetch } from 'hooks/useFetch';
 
 export interface Option {
   label: string;

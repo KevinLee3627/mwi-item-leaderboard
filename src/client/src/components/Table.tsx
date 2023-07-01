@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Header, TableHeader } from './TableHeader';
+import { Header, TableHeader } from 'components/TableHeader';
 
 interface TableProps<T extends object> {
   data: T[];

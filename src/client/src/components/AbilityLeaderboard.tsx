@@ -1,9 +1,9 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { GetAbilityLeaderboardRes, GetAllAbilityMetadataRes } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
-import { AbilitySearchBox } from './AbilitySearchBox';
-import { Table } from './Table';
-import { getRankIcon } from '../util/getRankIcon';
+import { hridToDisplayName } from 'util/hridToDisplayName';
+import { AbilitySearchBox } from 'components/AbilitySearchBox';
+import { Table } from 'components/Table';
+import { getRankIcon } from 'util/getRankIcon';
 
 export interface AbilityLeaderboardLoaderData {
   abilities: GetAllAbilityMetadataRes;

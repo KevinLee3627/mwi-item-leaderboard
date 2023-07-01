@@ -1,4 +1,4 @@
-import { Header } from '../components/Header';
+import { Header } from 'components/Header';
 import { Outlet, useLocation } from 'react-router';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

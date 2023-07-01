@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
-import { GetAllAbilitiesReturn } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
+import { GetAllAbilityMetadataRes } from 'server';
+import { hridToDisplayName } from 'util/hridToDisplayName';
 
 export interface Option<T> {
   label: string;
@@ -10,7 +10,7 @@ export interface Option<T> {
 }
 
 interface SearchBoxProps {
-  options?: Option<GetAllAbilitiesReturn>[];
+  options?: Option<GetAllAbilityMetadataRes[0]>[];
   loading: boolean;
 }
 

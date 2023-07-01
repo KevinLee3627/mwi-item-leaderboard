@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
-import { hridToDisplayName } from '../util/hridToDisplayName';
+import { hridToDisplayName } from 'util/hridToDisplayName';
 
 export interface Option<T> {
   label: string;

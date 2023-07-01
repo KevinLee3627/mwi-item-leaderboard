@@ -6,15 +6,15 @@ import { GetAllAbilityMetadataRes } from 'server';
 import {
   AbilityLeaderboard,
   AbilityLeaderboardLoaderData,
-} from './components/AbilityLeaderboard';
-import { ItemLeaderboard } from './components/ItemLeaderboard';
-import { PlayerAbilities } from './components/PlayerAbilities';
-import { PlayerItems } from './components/PlayerItems';
+} from 'components/AbilityLeaderboard';
+import { ItemLeaderboard } from 'components/ItemLeaderboard';
+import { PlayerAbilities } from 'components/PlayerAbilities';
+import { PlayerItems } from 'components/PlayerItems';
 import { ErrorPage } from './error-page';
 import './index.css';
-import { Home } from './routes/Home';
-import { Player } from './routes/Player';
-import { SearchPlayer } from './routes/SearchPlayer';
+import { Home } from 'routes/Home';
+import { Player } from 'routes/Player';
+import { SearchPlayer } from 'routes/SearchPlayer';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
