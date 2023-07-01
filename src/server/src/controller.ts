@@ -39,6 +39,8 @@ const positiveNumberSchema = z.coerce
   .positive({ message: 'Should be positive.' })
   .int({ message: 'Should be an integer.' });
 
+const integerSchema = z.coerce.number().int();
+
 const existingStringSchema = z.string().nonempty();
 
 const getPlayerItems = asyncHandler(async (req, res, next) => {
@@ -77,22 +79,12 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
   const limit = positiveNumberSchema.parse(req.query.limit);
   const itemHrid = existingStringSchema.parse(req.query.itemHrid);
 
-  const enhancementLevel = req.query.enhancementLevel;
-  if (
-    typeof enhancementLevel === 'undefined' ||
-    typeof enhancementLevel !== 'string'
-  ) {
-    res
-      .status(400)
-      .json({ message: 'enhancementLevel should be an integer or "all"' });
-    return;
-  }
+  const enhancementLevel = integerSchema.parse(req.query.enhancementLevel);
 
   const results = await getItemLeaderboardService({
     itemHrid,
     limit,
-    enhancementLevel:
-      enhancementLevel === 'all' ? 'all' : parseInt(enhancementLevel, 10),
+    enhancementLevel,
   });
   res.json(results);
 });

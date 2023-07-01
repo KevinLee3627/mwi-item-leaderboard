@@ -7,7 +7,7 @@ import { useFetch } from 'hooks/useFetch';
 
 export interface Option {
   label: string;
-  value: number | string;
+  value: number;
 }
 
 export function EnhanceLevelPicker() {
@@ -18,17 +18,17 @@ export function EnhanceLevelPicker() {
   const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
 
   const [options, setOptions] = useState<Option[]>([
-    { value: 'all', label: 'all' },
+    { value: -1, label: 'all' },
   ]);
 
   // Set the picker value to all on page start
   useEffect(() => {
-    setDefaultLevel({ label: 'all', value: 'all' });
+    setDefaultLevel({ label: 'all', value: -1 });
     const enhancementLevel = searchParams.get('enhancementLevel');
     if (enhancementLevel == null) return;
 
-    if (enhancementLevel === 'all') {
-      setDefaultLevel({ value: 'all', label: 'all' });
+    if (parseInt(enhancementLevel) === -1) {
+      setDefaultLevel({ value: -1, label: 'all' });
       return;
     }
 
@@ -45,7 +45,7 @@ export function EnhanceLevelPicker() {
   });
 
   useEffect(() => {
-    const all: Option = { label: 'all', value: 'all' };
+    const all: Option = { label: 'all', value: -1 };
     const availableLevels =
       levelData?.map(({ enhancementLevel }) => {
         return {
