@@ -114,7 +114,7 @@ const router = createBrowserRouter([
           const res = await axios.get(
             `${apiBase}/api/v1/player/${params.playerId}/abilities`
           );
-          return res.data.results;
+          return res.data;
         },
       },
     ],

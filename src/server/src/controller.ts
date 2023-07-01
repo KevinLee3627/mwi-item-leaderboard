@@ -52,6 +52,25 @@ const getPlayerItems = asyncHandler(async (req, res, next) => {
   res.json(results);
 });
 
+const getPlayerAbilities = asyncHandler(async (req, res, next) => {
+  const { playerId } = req.params;
+  if (typeof playerId !== 'string') {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  if (isNaN(parseInt(playerId))) {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  const results = await getPlayerAbilitiesService({
+    playerId: parseInt(playerId, 10),
+  });
+
+  res.json(results);
+});
+
 const uploadItem = asyncHandler(async (req, res, next) => {
   const data: Payload = req.body;
   // TODO: Add Zod validation
@@ -122,25 +141,6 @@ const getPlayer = asyncHandler(async (req, res, next) => {
   });
 
   res.json(result);
-});
-
-const getPlayerAbilities = asyncHandler(async (req, res, next) => {
-  const { playerId } = req.params;
-  if (typeof playerId !== 'string') {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
-
-  if (isNaN(parseInt(playerId))) {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
-
-  const results = await getPlayerAbilitiesService({
-    playerId: parseInt(playerId, 10),
-  });
-
-  res.json({ message: 'Items retrieved.', results });
 });
 
 const getAllItemMetadata = asyncHandler(async (req, res, next) => {

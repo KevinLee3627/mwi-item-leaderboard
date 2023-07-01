@@ -1,4 +1,5 @@
 import {
+  type AbilityRecordPayload,
   type Ability,
   type AbilityRecord,
   type Player,
@@ -23,4 +24,7 @@ export interface GetAllAbilitiesReturn extends Ability {}
 export type GetPlayerRes = PlayerPayload['scalars'];
 export type GetPlayerItemsRes = Array<
   RecordPayload['scalars'] & RecordPayload['objects']['player']
+>;
+export type GetPlayerAbilitiesRes = Array<
+  AbilityRecordPayload['scalars'] & AbilityRecordPayload['objects']['player']
 >;
