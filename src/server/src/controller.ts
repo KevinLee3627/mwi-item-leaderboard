@@ -1,16 +1,16 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { AbilityPayload, Payload } from 'extension';
-import { uploadAbility as uploadAbilityService } from './services/uploadAbility';
-import { uploadItem as uploadItemService } from './services/uploadItem';
-import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
-import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
-import { getPlayerAbilities as getPlayerAbilitiesService } from './services/getPlayerAbilities';
-import { getPlayer as getPlayerService } from './services/getPlayer';
-import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
-import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
-import { searchPlayer as searchPlayerService } from './services/searchPlayer';
-import { getAllAbilityMetadata as getAllAbilityMetadataService } from './services/getAllAbilityMetadata';
-import { getAbilityLeaderboard as getAbilityLeaderboardService } from './services/getAbilityLeaderboard';
+import { uploadAbility as uploadAbilityService } from 'src/services/uploadAbility';
+import { uploadItem as uploadItemService } from 'src/services/uploadItem';
+import { getItemLeaderboard as getItemLeaderboardService } from 'src/services/getItemLeaderboard';
+import { getPlayerItems as getPlayerItemsService } from 'src/services/getPlayerItems';
+import { getPlayerAbilities as getPlayerAbilitiesService } from 'src/services/getPlayerAbilities';
+import { getPlayer as getPlayerService } from 'src/services/getPlayer';
+import { getAllItemMetadata as getAllItemMetadataService } from 'src/services/getAllItemMetadata';
+import { getItemMetadata as getItemMetadataService } from 'src/services/getItemMetadata';
+import { searchPlayer as searchPlayerService } from 'src/services/searchPlayer';
+import { getAllAbilityMetadata as getAllAbilityMetadataService } from 'src/services/getAllAbilityMetadata';
+import { getAbilityLeaderboard as getAbilityLeaderboardService } from 'src/services/getAbilityLeaderboard';
 import z from 'zod';
 
 export function asyncHandler(

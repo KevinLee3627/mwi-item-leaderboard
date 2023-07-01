@@ -9,7 +9,7 @@
     "prepare": "cd ../.. && husky install src/server/.husky",
     "lint": "npx eslint --max-warnings 0",
     "format": "npx prettier -w",
-    "start": "npx tsc && pm2 start ecosystem.config.js --only api",
+    "start": "npx tsc && tsc-alias -p tsconfig.json && pm2 start ecosystem.config.js --only api",
     "stop": "pm2 stop ecosystem.config.js --only api",
     "logs": "npx pm2 logs 0"
   },
@@ -50,6 +50,8 @@
     "express": "^4.18.2",
     "helmet": "^7.0.0",
     "pm2": "^5.3.0",
+    "tsc-alias": "^1.8.6",
+    "uninstall": "^0.0.0",
     "ws": "^8.13.0",
     "zod": "^3.21.4"
   }
