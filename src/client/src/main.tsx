@@ -131,6 +131,17 @@ const router = createBrowserRouter([
           return res.data;
         },
       },
+      {
+        path: '',
+        element: <PlayerItems />,
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `${apiBase}/api/v1/player/${params.playerId}/items`
+          );
+          return res.data;
+        },
+      },
     ],
   },
   {
