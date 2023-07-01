@@ -1,21 +1,21 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetAbilityLeaderboardReturn } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
-import { Table } from './Table';
+import { hridToDisplayName } from 'util/hridToDisplayName';
+import { Table } from 'components/Table';
+import { GetAbilityLeaderboardRes } from 'server';
 
-function getTotalLevels(abilities: GetAbilityLeaderboardReturn[]) {
+function getTotalLevels(abilities: GetAbilityLeaderboardRes) {
   return abilities.reduce((acc, val) => {
     return acc + val.abilityLevel;
   }, 0);
 }
-function getTotalXp(abilities: GetAbilityLeaderboardReturn[]) {
+function getTotalXp(abilities: GetAbilityLeaderboardRes) {
   return abilities.reduce((acc, val) => {
     return acc + val.abilityXp;
   }, 0);
 }
 
 export function PlayerAbilities() {
-  const res = useLoaderData() as GetAbilityLeaderboardReturn[];
+  const res = useLoaderData() as GetAbilityLeaderboardRes;
   console.log(res);
   return (
     <>

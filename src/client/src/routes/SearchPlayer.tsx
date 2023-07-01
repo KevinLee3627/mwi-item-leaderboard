@@ -1,8 +1,8 @@
-import { Header } from '../components/Header';
-import { debounce } from '../util/debounce';
+import { Header } from 'components/Header';
+import { debounce } from 'util/debounce';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SearchPlayerResult } from 'server';
+import { SearchPlayerRes } from 'server';
 import { Link } from 'react-router-dom';
 
 interface SearchResult<T> {
@@ -14,12 +14,12 @@ export function SearchPlayer() {
   const [results, setResults] = useState<SearchResult<number>[]>([]);
 
   const getResults = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const res = await axios.get(
+    const res = await axios.get<SearchPlayerRes>(
       `${import.meta.env.VITE_API_BASE}/api/v1/search/player?q=${
         e.target.value
       }`
     );
-    const results = res.data.results as SearchPlayerResult[];
+    const results = res.data;
     setResults(
       results.map((result) => ({ label: result.displayName, value: result.id }))
     );

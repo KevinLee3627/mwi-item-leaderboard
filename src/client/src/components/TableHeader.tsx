@@ -4,7 +4,7 @@ import {
   ChevronUpIcon,
   ChevronUpDownIcon,
 } from '@heroicons/react/24/solid';
-import { SortDirection } from './Table';
+import { SortDirection } from 'components/Table';
 
 export interface Header<T> {
   key: keyof T;

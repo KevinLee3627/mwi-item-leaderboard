@@ -1,8 +1,8 @@
 import { useLoaderData } from 'react-router';
-import { GetItemLeaderboardReturn } from 'server';
-import { PlayerItemsTable } from './PlayerItemsTable';
+import { GetPlayerItemsRes } from 'server';
+import { PlayerItemsTable } from 'components/PlayerItemsTable';
 
-function getTotalNumber(arr: GetItemLeaderboardReturn[]): number {
+function getTotalNumber(arr: GetPlayerItemsRes): number {
   const total = arr.reduce((acc, val) => {
     if (val.itemHrid === '/items/coin') return acc;
     else return acc + val.num;
@@ -11,7 +11,7 @@ function getTotalNumber(arr: GetItemLeaderboardReturn[]): number {
 }
 
 export function PlayerItems() {
-  const data = useLoaderData() as GetItemLeaderboardReturn[];
+  const data = useLoaderData() as GetPlayerItemsRes;
 
   return (
     <>

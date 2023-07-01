@@ -1,22 +1,13 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetAbilityLeaderboardReturn, GetAllAbilitiesReturn } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
-import { AbilitySearchBox } from './AbilitySearchBox';
-import { Table } from './Table';
-
-function getRankIcon(rank: number) {
-  if (rank < 1 || rank > 3) {
-    return '';
-  }
-
-  if (rank === 1) return '🥇';
-  else if (rank === 2) return '🥈';
-  else return '🥉';
-}
+import { GetAbilityLeaderboardRes, GetAllAbilityMetadataRes } from 'server';
+import { hridToDisplayName } from 'util/hridToDisplayName';
+import { AbilitySearchBox } from 'components/AbilitySearchBox';
+import { Table } from 'components/Table';
+import { getRankIcon } from 'util/getRankIcon';
 
 export interface AbilityLeaderboardLoaderData {
-  abilities: GetAllAbilitiesReturn[];
-  leaderboard: GetAbilityLeaderboardReturn[];
+  abilities: GetAllAbilityMetadataRes;
+  leaderboard: GetAbilityLeaderboardRes;
 }
 
 export function AbilityLeaderboard() {

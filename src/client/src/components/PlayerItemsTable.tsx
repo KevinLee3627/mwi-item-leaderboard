@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { GetItemLeaderboardReturn } from 'server';
-import { hridToDisplayName } from '../util/hridToDisplayName';
-import { Table } from './Table';
+import { GetPlayerItemsRes } from 'server';
+import { hridToDisplayName } from 'util/hridToDisplayName';
+import { Table } from 'components/Table';
 
 interface PlayerItemsTableProps {
-  data: GetItemLeaderboardReturn[];
+  data: GetPlayerItemsRes;
 }
 
 export function PlayerItemsTable({ data }: PlayerItemsTableProps) {
