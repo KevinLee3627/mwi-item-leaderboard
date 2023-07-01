@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: '/',
+        index: true,
         element: <ItemLeaderboard />,
         loader: async () => {
           const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
