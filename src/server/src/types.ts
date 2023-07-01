@@ -21,3 +21,10 @@ export type GetAbilityLeaderboardRes = Array<
 >;
 
 export type SearchPlayerRes = Player[];
+
+export interface GetOverallAbilityLevelLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { totalLevel: number }
+  >;
+  title: string;
+}

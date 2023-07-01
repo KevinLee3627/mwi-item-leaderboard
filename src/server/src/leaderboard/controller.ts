@@ -1,5 +1,6 @@
 import { getItemLeaderboard as getItemLeaderboardService } from 'src/leaderboard/services/getItemLeaderboard';
 import { getAbilityLeaderboard as getAbilityLeaderboardService } from 'src/leaderboard/services/getAbilityLeaderboard';
+import { getSpecialLeaderboard as getSpecialLeaderboardService } from 'src/leaderboard/services/getSpecialLeaderboard';
 import {
   existingStringSchema,
   integerSchema,
@@ -30,7 +31,16 @@ const getAbilityLeaderboard = asyncHandler(async (req, res, next) => {
   res.json(results);
 });
 
+const getSpecialLeaderboard = asyncHandler(async (req, res, next) => {
+  const id = positiveNumberSchema.parse(req.params.leaderboardId);
+
+  const results = await getSpecialLeaderboardService({ id });
+
+  res.json(results);
+});
+
 export const controller = {
   getItemLeaderboard,
   getAbilityLeaderboard,
+  getSpecialLeaderboard,
 };
