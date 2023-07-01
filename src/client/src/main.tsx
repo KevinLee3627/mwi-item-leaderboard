@@ -91,7 +91,7 @@ const router = createBrowserRouter([
           const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
             `${import.meta.env.VITE_API_BASE}/api/v1/item`
           );
-          return { leaderboard: [], itemMetadata };
+          return { leaderboard: [], itemMetadata, enhancementLevelData: [] };
         },
       },
     ],

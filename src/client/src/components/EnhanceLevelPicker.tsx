@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useLoaderData, useLocation, useNavigate } from 'react-router';
+import { useEffect, useRef, useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { useSearchParams } from 'react-router-dom';
 import { ItemLeaderboardLoaderData } from 'components/ItemLeaderboard';
@@ -9,40 +9,25 @@ export interface Option {
   value: number;
 }
 
-const allOption: Option = { value: -1, label: 'all' };
+const allOption: Option = { label: 'all', value: -1 };
 
 export function EnhanceLevelPicker() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [searchParams] = useSearchParams();
   const { enhancementLevelData } = useLoaderData() as ItemLeaderboardLoaderData;
 
-  const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
-
+  const { current: defaultLevel } = useRef<number>(
+    parseInt(searchParams.get('enhancementLevel') ?? '')
+  );
   const [options, setOptions] = useState<Option[]>([allOption]);
 
-  // Set the picker value to all on page start
   useEffect(() => {
-    setDefaultLevel(allOption);
-    const enhancementLevel = searchParams.get('enhancementLevel');
-    if (enhancementLevel == null) return;
-
-    if (parseInt(enhancementLevel) === -1) {
-      setDefaultLevel(allOption);
-    } else {
-      const lvl = parseInt(enhancementLevel, 10);
-      setDefaultLevel({ value: lvl, label: String(enhancementLevel) });
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    const availableLevels =
-      enhancementLevelData.map(({ enhancementLevel }) => {
-        return {
-          label: `+${enhancementLevel.toString()}`,
-          value: enhancementLevel,
-        };
-      }) ?? [];
+    const availableLevels = enhancementLevelData.map(({ enhancementLevel }) => {
+      return {
+        label: `+${enhancementLevel.toString()}`,
+        value: enhancementLevel,
+      };
+    });
     setOptions([allOption, ...availableLevels]);
   }, [enhancementLevelData]);
 
@@ -52,24 +37,20 @@ export function EnhanceLevelPicker() {
         isSearchable
         options={options}
         defaultValue={{
-          label: searchParams.get('enhancementLevel'),
-          value: defaultLevel?.value,
+          label: defaultLevel === -1 ? 'all' : `+${defaultLevel}`,
+          value: defaultLevel,
         }}
-        placeholder={'Enhancement level'}
+        placeholder={''}
         onChange={(newValue) => {
-          const searchParams = new URLSearchParams(location.search.slice(1));
-
+          // Take the current search params, replace the enhancementLevel
           searchParams.set('enhancementLevel', String(newValue?.value));
-          // Take the current location, replace the enhancementLevel
           navigate(`/leaderboard/item?${searchParams.toString()}`);
         }}
         styles={{
-          option: (base) => {
-            return {
-              ...base,
-              color: 'black',
-            };
-          },
+          option: (base) => ({
+            ...base,
+            color: 'black',
+          }),
         }}
       />
     </div>
