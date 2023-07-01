@@ -1,12 +1,9 @@
 import {
-  type AbilityRecordPayload,
   type Ability,
   type AbilityRecord,
   type Player,
-  type PlayerPayload,
   type Record as ItemRecord,
-  type RecordPayload as ItemRecordPayload,
-  type ItemPayload,
+  type Item,
 } from '@prisma/client';
 
 export interface GetItemLeaderboardReturn extends Omit<ItemRecord, 'ts'> {
@@ -22,13 +19,11 @@ export interface GetAbilityLeaderboardReturn extends Omit<AbilityRecord, 'ts'> {
 }
 export interface GetAllAbilitiesReturn extends Ability {}
 
-export type GetPlayerRes = PlayerPayload['scalars'];
-export type GetPlayerItemsRes = Array<
-  ItemRecordPayload['scalars'] & ItemRecordPayload['objects']['player']
->;
-export type GetPlayerAbilitiesRes = Array<
-  AbilityRecordPayload['scalars'] & AbilityRecordPayload['objects']['player']
->;
+export type GetPlayerRes = Player;
+export type GetPlayerItemsRes = Array<ItemRecord & { player: Player }>;
+export type GetPlayerAbilitiesRes = Array<AbilityRecord & { player: Player }>;
 
-export type GetAllItemMetadataRes = Array<ItemPayload['scalars']>;
-export type GetItemMetadataRes = Array<ItemPayload['scalars']>;
+export type GetAllItemMetadataRes = Item[];
+export type GetItemMetadataRes = Item[];
+
+export type GetAllAbilityMetadataRes = Ability[];

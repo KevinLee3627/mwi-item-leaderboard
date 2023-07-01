@@ -56,7 +56,7 @@ const router = createBrowserRouter([
           try {
             const allAbilityData = await axios.get<
               ApiRes<GetAllAbilitiesReturn>
-            >(`${apiBase}/api/v1/abilities`);
+            >(`${apiBase}/api/v1/ability`);
             data.abilities = allAbilityData.data.results.sort((a, b) =>
               a.displayName.localeCompare(b.displayName)
             );
