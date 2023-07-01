@@ -9,7 +9,7 @@ import { getPlayer as getPlayerService } from './services/getPlayer';
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 import { searchPlayer as searchPlayerService } from './services/searchPlayer';
-import { getAllAbility as getAllAbilityService } from './services/getAllAbilityMetadata';
+import { getAllAbilityMetadata as getAllAbilityMetadataService } from './services/getAllAbilityMetadata';
 import { getAbilityLeaderboard as getAbilityLeaderboardService } from './services/getAbilityLeaderboard';
 
 export function asyncHandler(
@@ -121,7 +121,7 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
     enhancementLevel:
       enhancementLevel === 'all' ? 'all' : parseInt(enhancementLevel, 10),
   });
-  res.json({ message: 'Items retrieved.', results });
+  res.json(results);
 });
 
 const getPlayer = asyncHandler(async (req, res, next) => {
@@ -146,7 +146,7 @@ const getPlayer = asyncHandler(async (req, res, next) => {
 const getAllItemMetadata = asyncHandler(async (req, res, next) => {
   const results = await getAllItemMetadataService();
 
-  res.json({ message: 'Request fulfilled.', results });
+  res.json(results);
 });
 
 const getItemMetadata = asyncHandler(async (req, res, next) => {
@@ -163,7 +163,7 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
 });
 
 const getAllAbilityMetadata = asyncHandler(async (req, res, next) => {
-  const results = await getAllAbilityService();
+  const results = await getAllAbilityMetadataService();
 
   res.json(results);
 });
@@ -191,10 +191,7 @@ const getAbilityLeaderboard = asyncHandler(async (req, res, next) => {
     limit: parseInt(limit, 10),
   });
 
-  res.json({
-    message: `Ability leaderboard ${abilityHrid} retrieved.`,
-    results,
-  });
+  res.json(results);
 });
 
 const searchPlayer = asyncHandler(async (req, res, next) => {
@@ -206,7 +203,7 @@ const searchPlayer = asyncHandler(async (req, res, next) => {
 
   const results = await searchPlayerService({ query: q });
 
-  res.json({ message: 'Players retrieved.', results });
+  res.json(results);
 });
 
 export const controller = {

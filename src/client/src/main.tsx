@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             const res = await axios.get(
               `${apiBase}/api/v1/leaderboard/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
             );
-            return res.data.results;
+            return res.data;
           } catch (err) {
             console.error(err);
             return [];
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
             const leaderboard = await axios.get(
               `${apiBase}/api/v1/leaderboard/ability?abilityHrid=${abilityHrid}&limit=100`
             );
-            data.leaderboard = leaderboard.data.results;
+            data.leaderboard = leaderboard.data;
           } catch (err) {
             console.error(err);
           }

@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetAllItemMetadataRes, GetItemLeaderboardReturn } from 'server';
+import { GetAllItemMetadataRes, GetItemLeaderboardRes } from 'server';
 import { useFetch } from '../hooks/useFetch';
 import { EnhanceLevelPicker } from './EnhanceLevelPicker';
 import { ItemSearchBox } from './ItemSearchBox';
@@ -16,7 +16,7 @@ function getRankIcon(rank: number) {
 }
 
 export function ItemLeaderboard() {
-  const res = useLoaderData() as GetItemLeaderboardReturn[];
+  const res = useLoaderData() as GetItemLeaderboardRes;
 
   const { data, loading } = useFetch<GetAllItemMetadataRes>({
     url: `${import.meta.env.VITE_API_BASE}/api/v1/item`,

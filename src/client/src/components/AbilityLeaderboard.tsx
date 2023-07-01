@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetAbilityLeaderboardReturn, GetAllAbilitiesReturn } from 'server';
+import { GetAbilityLeaderboardRes, GetAllAbilityMetadataRes } from 'server';
 import { hridToDisplayName } from '../util/hridToDisplayName';
 import { AbilitySearchBox } from './AbilitySearchBox';
 import { Table } from './Table';
@@ -15,8 +15,8 @@ function getRankIcon(rank: number) {
 }
 
 export interface AbilityLeaderboardLoaderData {
-  abilities: GetAllAbilitiesReturn[];
-  leaderboard: GetAbilityLeaderboardReturn[];
+  abilities: GetAllAbilityMetadataRes;
+  leaderboard: GetAbilityLeaderboardRes;
 }
 
 export function AbilityLeaderboard() {
