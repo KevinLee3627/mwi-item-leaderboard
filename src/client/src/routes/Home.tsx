@@ -1,5 +1,5 @@
 import { Header } from '../components/Header';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,10 @@ interface Tab<T> {
 }
 
 export function Home() {
-  const [activeTab, setActiveTab] = useState<string>('item');
+  const location = useLocation();
+
+  const defaultTab = location.pathname.includes('item') ? 'item' : 'ability';
+  const [activeTab, setActiveTab] = useState<string>(defaultTab);
 
   const tabs: Tab<string>[] = [
     { label: 'Items', value: 'item' },

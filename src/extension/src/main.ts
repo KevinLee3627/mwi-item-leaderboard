@@ -109,7 +109,7 @@ async function parseAbilities({ message }: ChatMessageReceived) {
       return {
         abilityHrid: ability.abilityHrid,
         abilityName: ability.abilityHrid
-          .replace('/items/', '')
+          .replace('/abilities/', '')
           .split('_')
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' '),

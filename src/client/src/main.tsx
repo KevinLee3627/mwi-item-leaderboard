@@ -2,13 +2,18 @@ import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AbilityLeaderboard } from './components/AbilityLeaderboard';
+import { GetAllAbilitiesReturn } from 'server';
+import {
+  AbilityLeaderboard,
+  AbilityLeaderboardLoaderData,
+} from './components/AbilityLeaderboard';
 import { ItemLeaderboard } from './components/ItemLeaderboard';
 import { ErrorPage } from './error-page';
 import './index.css';
 import { Home } from './routes/Home';
 import { Player } from './routes/Player';
 import { SearchPlayer } from './routes/SearchPlayer';
+import { ApiRes } from './types/ApiRes';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -39,25 +44,31 @@ const router = createBrowserRouter([
       {
         path: 'leaderboard/ability',
         element: <AbilityLeaderboard />,
-        loader: async ({ params }) => {
+        loader: async ({ request }) => {
+          // TODO: for the love of god clean this up
+          const params = new URL(request.url).searchParams;
+          const data: AbilityLeaderboardLoaderData = {
+            abilities: [],
+            leaderboard: [],
+          };
           try {
-            const allAbilityData = await axios({
-              url: `${import.meta.env.VITE_API_BASE}/api/v1/abilities`,
-              method: 'GET',
-            });
-            const abilityHrid = params.abilityHrid;
-            const leaderboard = await axios.get(
-              `${apiBase}/api/v1/leaderboard/ability?ability?abilityHrid=${abilityHrid}&limit=100`
-            );
-
-            return {
-              abilities: allAbilityData.data.results,
-              leaderboard: leaderboard.data.results,
-            };
+            const allAbilityData = await axios.get<
+              ApiRes<GetAllAbilitiesReturn>
+            >(`${apiBase}/api/v1/abilities`);
+            data.abilities = allAbilityData.data.results.sort();
           } catch (err) {
             console.error(err);
-            return { abilities: [], leaderboard: [] };
           }
+          try {
+            const abilityHrid = params.get('abilityHrid');
+            const leaderboard = await axios.get(
+              `${apiBase}/api/v1/leaderboard/ability?abilityHrid=${abilityHrid}&limit=100`
+            );
+            data.leaderboard = leaderboard.data.results;
+          } catch (err) {
+            console.error(err);
+          }
+          return data;
         },
       },
       {
