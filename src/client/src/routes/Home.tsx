@@ -19,9 +19,9 @@ export function Home() {
     { label: 'Abilities', value: 'ability' },
   ];
 
-  const tabElems = tabs.map((tab) => {
+  const tabElems = tabs.map((tab, i) => {
     return (
-      <Link to={`/leaderboard/${tab.value}`}>
+      <Link to={`/leaderboard/${tab.value}`} key={i}>
         <button
           className={`tab hover:tab-active ${
             activeTab === tab.value && 'tab-active'

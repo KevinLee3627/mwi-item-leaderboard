@@ -16,7 +16,7 @@ export interface ItemMetadata {
 
 interface SearchBoxProps {
   options?: Option<ItemMetadata>[];
-  loading: boolean;
+  loading?: boolean;
 }
 
 export function ItemSearchBox(props: SearchBoxProps) {

@@ -2,7 +2,11 @@ import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { GetAllAbilityMetadataRes } from 'server';
+import {
+  GetAllAbilityMetadataRes,
+  GetAllItemMetadataRes,
+  GetItemLeaderboardRes,
+} from 'server';
 import {
   AbilityLeaderboard,
   AbilityLeaderboardLoaderData,
@@ -31,15 +35,16 @@ const router = createBrowserRouter([
           const queryParams = new URL(request.url).searchParams;
           const itemHrid = queryParams.get('itemHrid');
           const enhancementLevel = queryParams.get('enhancementLevel');
-          try {
-            const res = await axios.get(
-              `${apiBase}/api/v1/leaderboard/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
-            );
-            return res.data;
-          } catch (err) {
-            console.error(err);
-            return [];
-          }
+
+          if (itemHrid == null) return [];
+
+          const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
+            `${import.meta.env.VITE_API_BASE}/api/v1/item`
+          );
+          const { data: leaderboard } = await axios.get<GetItemLeaderboardRes>(
+            `${apiBase}/api/v1/leaderboard/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
+          );
+          return { itemMetadata, leaderboard };
         },
       },
       {
@@ -78,7 +83,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <ItemLeaderboard />,
         loader: async () => {
-          return [];
+          const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
+            `${import.meta.env.VITE_API_BASE}/api/v1/item`
+          );
+          return { leaderboard: [], itemMetadata };
         },
       },
     ],

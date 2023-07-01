@@ -1,18 +1,18 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { GetAllItemMetadataRes, GetItemLeaderboardRes } from 'server';
-import { useFetch } from 'hooks/useFetch';
 import { EnhanceLevelPicker } from 'components/EnhanceLevelPicker';
 import { ItemSearchBox } from 'components/ItemSearchBox';
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
 
-export function ItemLeaderboard() {
-  const res = useLoaderData() as GetItemLeaderboardRes;
+export interface ItemLeaderboardLoaderData {
+  leaderboard: GetItemLeaderboardRes;
+  itemMetadata: GetAllItemMetadataRes;
+}
 
-  const { data, loading } = useFetch<GetAllItemMetadataRes>({
-    url: `${import.meta.env.VITE_API_BASE}/api/v1/item`,
-    method: 'GET',
-  });
+export function ItemLeaderboard() {
+  const { leaderboard, itemMetadata } =
+    useLoaderData() as ItemLeaderboardLoaderData;
 
   return (
     <>
@@ -24,7 +24,7 @@ export function ItemLeaderboard() {
       </p>
       <div className='flex w-6/12 mx-auto'>
         <ItemSearchBox
-          options={data
+          options={itemMetadata
             ?.map((item) => {
               return {
                 value: item,
@@ -32,12 +32,11 @@ export function ItemLeaderboard() {
               };
             })
             .sort((a, b) => a.label.localeCompare(b.label))}
-          loading={loading}
         />
         <EnhanceLevelPicker />
       </div>
       <Table
-        data={res.map((entry, i) => ({
+        data={leaderboard.map((entry, i) => ({
           rank: i + 1,
           playerName: entry.player.displayName,
           playerId: entry.player.id,
