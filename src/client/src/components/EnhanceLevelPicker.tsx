@@ -1,60 +1,50 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useLoaderData, useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { useSearchParams } from 'react-router-dom';
-import { GetItemMetadataRes } from 'server';
-import { useFetch } from 'hooks/useFetch';
+import { ItemLeaderboardLoaderData } from 'components/ItemLeaderboard';
 
 export interface Option {
   label: string;
   value: number;
 }
 
+const allOption: Option = { value: -1, label: 'all' };
+
 export function EnhanceLevelPicker() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const { enhancementLevelData } = useLoaderData() as ItemLeaderboardLoaderData;
 
   const [defaultLevel, setDefaultLevel] = useState<Option | null | undefined>();
 
-  const [options, setOptions] = useState<Option[]>([
-    { value: -1, label: 'all' },
-  ]);
+  const [options, setOptions] = useState<Option[]>([allOption]);
 
   // Set the picker value to all on page start
   useEffect(() => {
-    setDefaultLevel({ label: 'all', value: -1 });
+    setDefaultLevel(allOption);
     const enhancementLevel = searchParams.get('enhancementLevel');
     if (enhancementLevel == null) return;
 
     if (parseInt(enhancementLevel) === -1) {
-      setDefaultLevel({ value: -1, label: 'all' });
-      return;
+      setDefaultLevel(allOption);
+    } else {
+      const lvl = parseInt(enhancementLevel, 10);
+      setDefaultLevel({ value: lvl, label: String(enhancementLevel) });
     }
-
-    const lvl = parseInt(enhancementLevel, 10);
-    setDefaultLevel({ value: lvl, label: String(enhancementLevel) });
   }, [searchParams]);
 
-  // Only allow users to pick enhancement levels that exist
-  const { data: levelData } = useFetch<GetItemMetadataRes>({
-    url: `${
-      import.meta.env.VITE_API_BASE
-    }/api/v1/item?itemHrid=${searchParams.get('itemHrid')}`,
-    method: 'GET',
-  });
-
   useEffect(() => {
-    const all: Option = { label: 'all', value: -1 };
     const availableLevels =
-      levelData?.map(({ enhancementLevel }) => {
+      enhancementLevelData.map(({ enhancementLevel }) => {
         return {
           label: `+${enhancementLevel.toString()}`,
           value: enhancementLevel,
         };
       }) ?? [];
-    setOptions([...availableLevels, all]);
-  }, [levelData]);
+    setOptions([allOption, ...availableLevels]);
+  }, [enhancementLevelData]);
 
   return (
     <div className='w-2/12 mx-auto'>

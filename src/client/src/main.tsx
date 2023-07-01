@@ -6,6 +6,7 @@ import {
   GetAllAbilityMetadataRes,
   GetAllItemMetadataRes,
   GetItemLeaderboardRes,
+  GetItemMetadataRes,
 } from 'server';
 import {
   AbilityLeaderboard,
@@ -39,12 +40,16 @@ const router = createBrowserRouter([
           if (itemHrid == null) return [];
 
           const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
-            `${import.meta.env.VITE_API_BASE}/api/v1/item`
+            `${apiBase}/api/v1/item`
           );
           const { data: leaderboard } = await axios.get<GetItemLeaderboardRes>(
             `${apiBase}/api/v1/leaderboard/item?itemHrid=${itemHrid}&enhancementLevel=${enhancementLevel}&limit=100`
           );
-          return { itemMetadata, leaderboard };
+          const { data: enhancementLevelData } =
+            await axios.get<GetItemMetadataRes>(
+              `${apiBase}/api/v1/item?itemHrid=${itemHrid}`
+            );
+          return { itemMetadata, leaderboard, enhancementLevelData };
         },
       },
       {

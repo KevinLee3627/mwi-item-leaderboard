@@ -1,5 +1,9 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetAllItemMetadataRes, GetItemLeaderboardRes } from 'server';
+import {
+  GetAllItemMetadataRes,
+  GetItemLeaderboardRes,
+  GetItemMetadataRes,
+} from 'server';
 import { EnhanceLevelPicker } from 'components/EnhanceLevelPicker';
 import { ItemSearchBox } from 'components/ItemSearchBox';
 import { Table } from 'components/Table';
@@ -8,6 +12,7 @@ import { getRankIcon } from 'util/getRankIcon';
 export interface ItemLeaderboardLoaderData {
   leaderboard: GetItemLeaderboardRes;
   itemMetadata: GetAllItemMetadataRes;
+  enhancementLevelData: GetItemMetadataRes;
 }
 
 export function ItemLeaderboard() {
