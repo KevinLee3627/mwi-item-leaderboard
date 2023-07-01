@@ -8,6 +8,8 @@ import {
   AbilityLeaderboardLoaderData,
 } from './components/AbilityLeaderboard';
 import { ItemLeaderboard } from './components/ItemLeaderboard';
+import { PlayerAbilities } from './components/PlayerAbilities';
+import { PlayerItems } from './components/PlayerItems';
 import { ErrorPage } from './error-page';
 import './index.css';
 import { Home } from './routes/Home';
@@ -88,11 +90,34 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: async ({ params }) => {
       const res = await axios.get(
-        `${apiBase}/api/v1/player?playerId=${params.playerId}`
+        `${apiBase}/api/v1/player/${params.playerId}`
       );
-      console.log(res.data);
-      return res.data.results;
+      return res.data.result;
     },
+    children: [
+      {
+        path: 'items',
+        element: <PlayerItems />,
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `${apiBase}/api/v1/player/${params.playerId}/items`
+          );
+          return res.data.results;
+        },
+      },
+      {
+        path: 'abilities',
+        element: <PlayerAbilities />,
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `${apiBase}/api/v1/player/${params.playerId}/abilities`
+          );
+          return res.data.results;
+        },
+      },
+    ],
   },
   {
     path: '/search/player',

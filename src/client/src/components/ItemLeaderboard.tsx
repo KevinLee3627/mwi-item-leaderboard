@@ -70,7 +70,9 @@ export function ItemLeaderboard() {
                 {entry.rank} {getRankIcon(entry.rank)}
               </td>
               <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}`}>{entry.playerName}</Link>
+                <Link to={`/player/${entry.playerId}/items`}>
+                  {entry.playerName}
+                </Link>
               </td>
               <td className='p-2'>{entry.amount.toLocaleString()}</td>
               <td className='p-2'>{entry.enhancementLevel}</td>

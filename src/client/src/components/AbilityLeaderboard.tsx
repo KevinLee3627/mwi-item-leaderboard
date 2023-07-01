@@ -53,6 +53,7 @@ export function AbilityLeaderboard() {
           { key: 'playerName', label: 'Player' },
           { key: 'abilityName', label: 'Ability' },
           { key: 'abilityLevel', label: 'Level' },
+          { key: 'abilityXp', label: 'XP' },
           { key: 'lastUpdated', label: 'Last Updated' },
         ]}
         defaultColumn='rank'
@@ -63,10 +64,13 @@ export function AbilityLeaderboard() {
                 {entry.rank} {getRankIcon(entry.rank)}
               </td>
               <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}`}>{entry.playerName}</Link>
+                <Link to={`/player/${entry.playerId}/items`}>
+                  {entry.playerName}
+                </Link>
               </td>
               <td className='p-2'>{entry.abilityName}</td>
               <td className='p-2'>{entry.abilityLevel}</td>
+              <td className='p-2'>{entry.abilityXp.toFixed(1)}</td>
               <td className='p-2'>
                 {new Date(entry.lastUpdated).toLocaleString()}
               </td>

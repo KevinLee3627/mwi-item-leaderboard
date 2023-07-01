@@ -4,6 +4,8 @@ import { uploadAbility as uploadAbilityService } from './services/uploadAbility'
 import { uploadItem as uploadItemService } from './services/uploadItem';
 import { getItemLeaderboard as getItemLeaderboardService } from './services/getItemLeaderboard';
 import { getPlayerItems as getPlayerItemsService } from './services/getPlayerItems';
+import { getPlayerAbilities as getPlayerAbilitiesService } from './services/getPlayerAbilities';
+import { getPlayer as getPlayerService } from './services/getPlayer';
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 import { searchPlayer as searchPlayerService } from './services/searchPlayer';
@@ -84,8 +86,27 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
   res.json({ message: 'Items retrieved.', results });
 });
 
+const getPlayer = asyncHandler(async (req, res, next) => {
+  const { playerId } = req.params;
+  if (typeof playerId !== 'string') {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  if (isNaN(parseInt(playerId))) {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  const result = await getPlayerService({
+    playerId: parseInt(playerId, 10),
+  });
+
+  res.json({ message: 'Items retrieved.', result });
+});
+
 const getPlayerItems = asyncHandler(async (req, res, next) => {
-  const { playerId } = req.query;
+  const { playerId } = req.params;
   if (typeof playerId !== 'string') {
     res.status(400).json({ message: 'playerId should be an integer.' });
     return;
@@ -97,6 +118,25 @@ const getPlayerItems = asyncHandler(async (req, res, next) => {
   }
 
   const results = await getPlayerItemsService({
+    playerId: parseInt(playerId, 10),
+  });
+
+  res.json({ message: 'Items retrieved.', results });
+});
+
+const getPlayerAbilities = asyncHandler(async (req, res, next) => {
+  const { playerId } = req.params;
+  if (typeof playerId !== 'string') {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  if (isNaN(parseInt(playerId))) {
+    res.status(400).json({ message: 'playerId should be an integer.' });
+    return;
+  }
+
+  const results = await getPlayerAbilitiesService({
     playerId: parseInt(playerId, 10),
   });
 
@@ -173,7 +213,9 @@ export const controller = {
   uploadAbility,
   uploadItem,
   getItemLeaderboard,
+  getPlayer,
   getPlayerItems,
+  getPlayerAbilities,
   getAllItemMetadata,
   getItemMetadata,
   searchPlayer,
