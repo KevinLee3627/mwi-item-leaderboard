@@ -11,6 +11,7 @@ import { getItemMetadata as getItemMetadataService } from './services/getItemMet
 import { searchPlayer as searchPlayerService } from './services/searchPlayer';
 import { getAllAbilityMetadata as getAllAbilityMetadataService } from './services/getAllAbilityMetadata';
 import { getAbilityLeaderboard as getAbilityLeaderboardService } from './services/getAbilityLeaderboard';
+import z from 'zod';
 
 export function asyncHandler(
   asyncFn: (req: Request, res: Response, next: NextFunction) => Promise<void>
@@ -33,40 +34,25 @@ const auth = asyncHandler(async (req, res, next) => {
   next();
 });
 
+const positiveNumberSchema = z.coerce
+  .number()
+  .positive({ message: 'Should be positive.' })
+  .int({ message: 'Should be an integer.' });
+
+const existingStringSchema = z.string().nonempty();
+
 const getPlayerItems = asyncHandler(async (req, res, next) => {
-  const { playerId } = req.params;
-  if (typeof playerId !== 'string') {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
+  const playerId = positiveNumberSchema.parse(req.params.playerId);
 
-  if (isNaN(parseInt(playerId))) {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
-
-  const results = await getPlayerItemsService({
-    playerId: parseInt(playerId, 10),
-  });
+  const results = await getPlayerItemsService({ playerId });
 
   res.json(results);
 });
 
 const getPlayerAbilities = asyncHandler(async (req, res, next) => {
-  const { playerId } = req.params;
-  if (typeof playerId !== 'string') {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
+  const playerId = positiveNumberSchema.parse(req.params.playerId);
 
-  if (isNaN(parseInt(playerId))) {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
-
-  const results = await getPlayerAbilitiesService({
-    playerId: parseInt(playerId, 10),
-  });
+  const results = await getPlayerAbilitiesService({ playerId });
 
   res.json(results);
 });
@@ -88,23 +74,10 @@ const uploadAbility = asyncHandler(async (req, res, next) => {
 });
 
 const getItemLeaderboard = asyncHandler(async (req, res, next) => {
-  const { itemHrid, limit, enhancementLevel } = req.query;
+  const limit = positiveNumberSchema.parse(req.query.limit);
+  const itemHrid = existingStringSchema.parse(req.query.itemHrid);
 
-  if (typeof limit !== 'string') {
-    res.status(400).json({ message: 'limit should be an integer.' });
-    return;
-  }
-
-  if (isNaN(parseInt(limit))) {
-    res.status(400).json({ message: 'limit should be an integer.' });
-    return;
-  }
-
-  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
-    res.status(400).json({ message: 'Item not found.' });
-    return;
-  }
-
+  const enhancementLevel = req.query.enhancementLevel;
   if (
     typeof enhancementLevel === 'undefined' ||
     typeof enhancementLevel !== 'string'
@@ -117,7 +90,7 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
 
   const results = await getItemLeaderboardService({
     itemHrid,
-    limit: parseInt(limit, 10),
+    limit,
     enhancementLevel:
       enhancementLevel === 'all' ? 'all' : parseInt(enhancementLevel, 10),
   });
@@ -125,20 +98,9 @@ const getItemLeaderboard = asyncHandler(async (req, res, next) => {
 });
 
 const getPlayer = asyncHandler(async (req, res, next) => {
-  const { playerId } = req.params;
-  if (typeof playerId !== 'string') {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
+  const playerId = positiveNumberSchema.parse(req.params.playerId);
 
-  if (isNaN(parseInt(playerId))) {
-    res.status(400).json({ message: 'playerId should be an integer.' });
-    return;
-  }
-
-  const result = await getPlayerService({
-    playerId: parseInt(playerId, 10),
-  });
+  const result = await getPlayerService({ playerId });
 
   res.json(result);
 });
@@ -150,15 +112,14 @@ const getAllItemMetadata = asyncHandler(async (req, res, next) => {
 });
 
 const getItemMetadata = asyncHandler(async (req, res, next) => {
-  const { itemHrid } = req.query;
-
-  if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
+  if (req.query.itemHrid == null) {
     const results = await getAllItemMetadataService();
     res.json(results);
     return;
   }
-  const results = await getItemMetadataService(itemHrid);
 
+  const itemHrid = existingStringSchema.parse(req.query.itemHrid);
+  const results = await getItemMetadataService(itemHrid);
   res.json(results);
 });
 
@@ -169,39 +130,17 @@ const getAllAbilityMetadata = asyncHandler(async (req, res, next) => {
 });
 
 const getAbilityLeaderboard = asyncHandler(async (req, res, next) => {
-  const { abilityHrid, limit } = req.query;
+  const limit = positiveNumberSchema.parse(req.query.limit);
+  const abilityHrid = existingStringSchema.parse(req.query.abilityHrid);
 
-  if (typeof limit !== 'string') {
-    res.status(400).json({ message: 'limit should be an integer.' });
-    return;
-  }
-
-  if (isNaN(parseInt(limit))) {
-    res.status(400).json({ message: 'limit should be an integer.' });
-    return;
-  }
-
-  if (typeof abilityHrid !== 'string' || abilityHrid.length === 0) {
-    res.status(400).json({ message: 'Ability not found.' });
-    return;
-  }
-
-  const results = await getAbilityLeaderboardService({
-    abilityHrid,
-    limit: parseInt(limit, 10),
-  });
+  const results = await getAbilityLeaderboardService({ abilityHrid, limit });
 
   res.json(results);
 });
 
 const searchPlayer = asyncHandler(async (req, res, next) => {
-  const { q } = req.query;
-  if (q == null || typeof q !== 'string' || q.length === 0) {
-    res.status(400).json({ message: 'Empty query string' });
-    return;
-  }
-
-  const results = await searchPlayerService({ query: q });
+  const query = existingStringSchema.parse(req.query.q);
+  const results = await searchPlayerService({ query });
 
   res.json(results);
 });
