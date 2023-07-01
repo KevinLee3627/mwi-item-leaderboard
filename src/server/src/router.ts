@@ -12,7 +12,7 @@ router.get('/player/:playerId/abilities', controller.getPlayerAbilities);
 router.get('/player/:playerId', controller.getPlayer);
 router.get('/item', controller.getItemMetadata);
 
-router.get('/ability', controller.getAllAbility);
+router.get('/ability', controller.getAllAbilityMetadata);
 
 router.get('/leaderboard/item', controller.getItemLeaderboard);
 router.get('/leaderboard/ability', controller.getAbilityLeaderboard);

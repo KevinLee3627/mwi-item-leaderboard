@@ -162,10 +162,10 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
   res.json(results);
 });
 
-const getAllAbility = asyncHandler(async (req, res, next) => {
+const getAllAbilityMetadata = asyncHandler(async (req, res, next) => {
   const results = await getAllAbilityService();
 
-  res.json({ message: 'Abilities retrieved.', results });
+  res.json(results);
 });
 
 const getAbilityLeaderboard = asyncHandler(async (req, res, next) => {
@@ -220,6 +220,6 @@ export const controller = {
   getAllItemMetadata,
   getItemMetadata,
   searchPlayer,
-  getAllAbility,
+  getAllAbilityMetadata,
   getAbilityLeaderboard,
 };
