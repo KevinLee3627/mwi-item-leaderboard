@@ -9,7 +9,7 @@ import { getPlayer as getPlayerService } from './services/getPlayer';
 import { getAllItemMetadata as getAllItemMetadataService } from './services/getAllItemMetadata';
 import { getItemMetadata as getItemMetadataService } from './services/getItemMetadata';
 import { searchPlayer as searchPlayerService } from './services/searchPlayer';
-import { getAllAbility as getAllAbilityService } from './services/getAllAbility';
+import { getAllAbility as getAllAbilityService } from './services/getAllAbilityMetadata';
 import { getAbilityLeaderboard as getAbilityLeaderboardService } from './services/getAbilityLeaderboard';
 
 export function asyncHandler(

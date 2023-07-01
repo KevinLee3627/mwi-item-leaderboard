@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { GetAllAbilitiesReturn } from 'server';
+import { GetAllAbilityMetadataRes } from 'server';
 import {
   AbilityLeaderboard,
   AbilityLeaderboardLoaderData,
@@ -15,7 +15,6 @@ import './index.css';
 import { Home } from './routes/Home';
 import { Player } from './routes/Player';
 import { SearchPlayer } from './routes/SearchPlayer';
-import { ApiRes } from './types/ApiRes';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -54,10 +53,10 @@ const router = createBrowserRouter([
             leaderboard: [],
           };
           try {
-            const allAbilityData = await axios.get<
-              ApiRes<GetAllAbilitiesReturn>
-            >(`${apiBase}/api/v1/ability`);
-            data.abilities = allAbilityData.data.results.sort((a, b) =>
+            const allAbilityData = await axios.get<GetAllAbilityMetadataRes>(
+              `${apiBase}/api/v1/ability`
+            );
+            data.abilities = allAbilityData.data.sort((a, b) =>
               a.displayName.localeCompare(b.displayName)
             );
           } catch (err) {
