@@ -1,5 +1,5 @@
 import { type Record } from '@prisma/client';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 interface GetPlayerItemsParams {
   playerId: number;

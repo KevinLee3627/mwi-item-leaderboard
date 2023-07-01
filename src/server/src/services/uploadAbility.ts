@@ -1,5 +1,5 @@
 import type { AbilityPayload } from 'extension';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 export async function uploadAbility(data: AbilityPayload): Promise<void> {
   await prisma.player.upsert({

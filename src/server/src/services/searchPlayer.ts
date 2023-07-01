@@ -1,5 +1,5 @@
 import { type Player } from '@prisma/client';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 interface SearchPlayerParams {
   query: string;

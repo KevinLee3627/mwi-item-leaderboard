@@ -1,5 +1,5 @@
 import { type Item } from '@prisma/client';
-import { prisma } from '../index';
+import { prisma } from 'src/db';
 
 export async function getAllItemMetadata(): Promise<Item[]> {
   const results: Item[] = await prisma.item.findMany({
