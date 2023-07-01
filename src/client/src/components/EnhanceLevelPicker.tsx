@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Select from 'react-select';
 import { useFetch } from '../hooks/useFetch';
-import { ItemMetadata } from './ItemSearchBox';
-import { ApiRes } from '../types/ApiRes';
 import { useSearchParams } from 'react-router-dom';
+import { GetItemMetadataRes } from 'server';
 
 export interface Option {
   label: string;
@@ -38,7 +37,7 @@ export function EnhanceLevelPicker() {
   }, [searchParams]);
 
   // Only allow users to pick enhancement levels that exist
-  const { data: levelData } = useFetch<ApiRes<ItemMetadata>>({
+  const { data: levelData } = useFetch<GetItemMetadataRes>({
     url: `${
       import.meta.env.VITE_API_BASE
     }/api/v1/item?itemHrid=${searchParams.get('itemHrid')}`,
@@ -48,14 +47,14 @@ export function EnhanceLevelPicker() {
   useEffect(() => {
     const all: Option = { label: 'all', value: 'all' };
     const availableLevels =
-      levelData?.results.map(({ enhancementLevel }) => {
+      levelData?.map(({ enhancementLevel }) => {
         return {
           label: `+${enhancementLevel.toString()}`,
           value: enhancementLevel,
         };
       }) ?? [];
     setOptions([...availableLevels, all]);
-  }, [levelData?.results]);
+  }, [levelData]);
 
   return (
     <div className='w-2/12 mx-auto'>

@@ -1,9 +1,8 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetItemLeaderboardReturn } from 'server';
+import { GetAllItemMetadataRes, GetItemLeaderboardReturn } from 'server';
 import { useFetch } from '../hooks/useFetch';
-import { ApiRes } from '../types/ApiRes';
 import { EnhanceLevelPicker } from './EnhanceLevelPicker';
-import { ItemMetadata, ItemSearchBox } from './ItemSearchBox';
+import { ItemSearchBox } from './ItemSearchBox';
 import { Table } from './Table';
 
 function getRankIcon(rank: number) {
@@ -19,8 +18,8 @@ function getRankIcon(rank: number) {
 export function ItemLeaderboard() {
   const res = useLoaderData() as GetItemLeaderboardReturn[];
 
-  const { data, loading } = useFetch<ApiRes<ItemMetadata>>({
-    url: `${import.meta.env.VITE_API_BASE}/api/v1/items`,
+  const { data, loading } = useFetch<GetAllItemMetadataRes>({
+    url: `${import.meta.env.VITE_API_BASE}/api/v1/item`,
     method: 'GET',
   });
 
@@ -34,8 +33,8 @@ export function ItemLeaderboard() {
       </p>
       <div className='flex w-6/12 mx-auto'>
         <ItemSearchBox
-          options={data?.results
-            .map((item) => {
+          options={data
+            ?.map((item) => {
               return {
                 value: item,
                 label: `${item.displayName}`,

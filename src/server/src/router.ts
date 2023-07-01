@@ -10,7 +10,7 @@ router.get('/status', (req, res, next) => {
 router.get('/player/:playerId/items', controller.getPlayerItems);
 router.get('/player/:playerId/abilities', controller.getPlayerAbilities);
 router.get('/player/:playerId', controller.getPlayer);
-router.get('/items', controller.getAllItemMetadata);
+// router.get('/items', controller.getAllItemMetadata);
 router.get('/item', controller.getItemMetadata);
 
 router.get('/abilities', controller.getAllAbility);

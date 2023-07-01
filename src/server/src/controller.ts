@@ -153,12 +153,13 @@ const getItemMetadata = asyncHandler(async (req, res, next) => {
   const { itemHrid } = req.query;
 
   if (typeof itemHrid !== 'string' || itemHrid.length === 0) {
-    res.status(400).json({ message: 'Item not found.' });
+    const results = await getAllItemMetadataService();
+    res.json(results);
     return;
   }
   const results = await getItemMetadataService(itemHrid);
 
-  res.json({ message: 'Item retrieved.', results });
+  res.json(results);
 });
 
 const getAllAbility = asyncHandler(async (req, res, next) => {
