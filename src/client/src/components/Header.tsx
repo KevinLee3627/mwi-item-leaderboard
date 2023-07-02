@@ -8,13 +8,23 @@ export function Header() {
       <Link to='/' className='flex-1 font-bold text-white'>
         MWI Display Case
       </Link>
-      <div className='px-4'>
+      <div className='indicator px-4 mx-4'>
+        <span className='indicator-item badge badge-info'>new</span>
+        <Link to='/leaderboard/special' className='text-white font-bold'>
+          Special Leaderboards
+        </Link>
+      </div>
+      <div className='px-4 mx-4'>
         <Link to='/search/player' className='text-white font-bold'>
           Player Search
         </Link>
       </div>
-      <Changelog />
-      <IssueModal />
+      <div className='px-4 mx-4'>
+        <Changelog />
+      </div>
+      <div className='px-4 mx-4'>
+        <IssueModal />
+      </div>
     </div>
   );
 }

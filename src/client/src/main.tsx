@@ -25,6 +25,7 @@ import { Player } from 'routes/Player';
 import { SearchPlayer } from 'routes/SearchPlayer';
 import { OverallAbilityLevelLeaderboard } from 'components/OverallAbilityLevelLeaderboard';
 import { OverallAbilityXpLeaderboard } from 'components/OverallAbilityXpLeaderboard';
+import { SpecialLeaderboards } from 'routes/SpecialLeaderboards';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -154,6 +155,8 @@ const router = createBrowserRouter([
     element: <SearchPlayer />,
     errorElement: <ErrorPage />,
   },
+
+  // TODO: All the special leaderboards are hard-coded :( can we not do that
   {
     path: '/leaderboard/special/1',
     element: <OverallAbilityLevelLeaderboard />,
@@ -165,6 +168,7 @@ const router = createBrowserRouter([
       return { leaderboard: data.leaderboard, title: data.title };
     },
   },
+  // TODO: All the special leaderboards are hard-coded :( can we not do that
   {
     path: '/leaderboard/special/2',
     element: <OverallAbilityXpLeaderboard />,
@@ -175,6 +179,10 @@ const router = createBrowserRouter([
       );
       return { leaderboard: data.leaderboard, title: data.title };
     },
+  },
+  {
+    path: '/leaderboard/special',
+    element: <SpecialLeaderboards />,
   },
 ]);
 
