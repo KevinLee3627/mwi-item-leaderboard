@@ -17,6 +17,14 @@ export function Changelog() {
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
 
           <h2 className='font-bold text-lg'>
+            v0.9 - Special Leaderboards! - 2023-07-02
+          </h2>
+          <ul className='list-disc'>
+            <li>Added two special leaderboards</li>
+            <li>A bit of code cleanup</li>
+          </ul>
+
+          <h2 className='font-bold text-lg'>
             v0.8 - Ability Tracking! - 2023-06-30
           </h2>
           <ul className='list-disc'>

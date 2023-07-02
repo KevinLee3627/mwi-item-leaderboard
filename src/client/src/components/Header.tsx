@@ -9,7 +9,7 @@ export function Header() {
         MWI Display Case
       </Link>
       <div className='indicator px-4 mx-4'>
-        <span className='indicator-item badge badge-info'>new</span>
+        <span className='indicator-item badge badge-warning'>new</span>
         <Link to='/leaderboard/special' className='text-white font-bold'>
           Special Leaderboards
         </Link>
