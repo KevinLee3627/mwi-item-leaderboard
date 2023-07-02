@@ -54,7 +54,7 @@ export function AbilityLeaderboard() {
                 {entry.rank} {getRankIcon(entry.rank)}
               </td>
               <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}/items`}>
+                <Link to={`/player/${entry.playerId}/abilities`}>
                   {entry.playerName}
                 </Link>
               </td>
