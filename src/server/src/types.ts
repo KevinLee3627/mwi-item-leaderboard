@@ -33,3 +33,10 @@ export interface GetOverallAbilityXpLeaderboardRes {
   leaderboard: Array<Pick<Player, 'displayName' | 'id'> & { totalXp: number }>;
   title: string;
 }
+
+export interface GetTotalItemsLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { totalItems: number }
+  >;
+  title: string;
+}

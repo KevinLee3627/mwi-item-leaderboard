@@ -8,7 +8,7 @@ export function SpecialLeaderboards() {
       <h1 className='font-bold text-6xl text-center mt-4'>
         Special Leaderboards
       </h1>
-      <div className='flex lg:w-6/12 mx-auto justify-center'>
+      <div className='flex lg:w-6/12 mx-auto justify-center gap-2'>
         <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>
           <h2 className='font-bold text-4xl mb-4'>Abilities</h2>
           <ul>
@@ -20,6 +20,16 @@ export function SpecialLeaderboards() {
             <li>
               <Link to='/leaderboard/special/2' className='underline'>
                 Overall Ability XP
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>
+          <h2 className='font-bold text-4xl mb-4'>Items</h2>
+          <ul>
+            <li>
+              <Link to='/leaderboard/special/3' className='underline'>
+                Total Items (excluding coins)
               </Link>
             </li>
           </ul>
