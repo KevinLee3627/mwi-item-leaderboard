@@ -12,7 +12,6 @@ export interface AbilityLeaderboardLoaderData {
 
 export function AbilityLeaderboard() {
   const res = useLoaderData() as AbilityLeaderboardLoaderData;
-  console.log(res);
   return (
     <>
       <p className='text-center'>

@@ -4,7 +4,8 @@ import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
 import { Header } from './Header';
 
-export function SpecialLeaderboard() {
+// TODO: All the special leaderboards are hard-coded :( can we not do that
+export function OverallAbilityLevelLeaderboard() {
   const { leaderboard, title } =
     useLoaderData() as GetOverallAbilityLevelLeaderboardRes;
   return (
@@ -14,14 +15,14 @@ export function SpecialLeaderboard() {
       <Table
         data={leaderboard.map((entry, i) => ({
           rank: i + 1,
-          abilityLevel: entry.totalLevel,
+          totalLevel: entry.totalLevel,
           playerName: entry.displayName,
           playerId: entry.id,
         }))}
         headers={[
           { key: 'rank', label: 'Rank' },
           { key: 'playerName', label: 'Player' },
-          { key: 'abilityLevel', label: 'Level' },
+          { key: 'totalLevel', label: 'Total Level' },
         ]}
         defaultColumn='rank'
         row={(entry, i) => {
@@ -35,7 +36,7 @@ export function SpecialLeaderboard() {
                   {entry.playerName}
                 </Link>
               </td>
-              <td className='p-2'>{entry.abilityLevel}</td>
+              <td className='p-2'>{entry.totalLevel}</td>
             </tr>
           );
         }}

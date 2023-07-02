@@ -28,3 +28,8 @@ export interface GetOverallAbilityLevelLeaderboardRes {
   >;
   title: string;
 }
+
+export interface GetOverallAbilityXpLeaderboardRes {
+  leaderboard: Array<Pick<Player, 'displayName' | 'id'> & { totalXp: number }>;
+  title: string;
+}

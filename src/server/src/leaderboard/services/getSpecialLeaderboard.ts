@@ -1,4 +1,5 @@
 import { getOverallAbilityLevelLeaderboard } from './special/getOverallAbilityLevelLeaderboard';
+import { getOverallAbilityXpLeaderboard } from './special/getOverallAbilityXpLeaderboard';
 
 interface GetSpecialLeaderboardParams {
   id: number;
@@ -6,6 +7,7 @@ interface GetSpecialLeaderboardParams {
 
 const leaderboards = [
   { id: 1, leaderboardFunction: getOverallAbilityLevelLeaderboard },
+  { id: 2, leaderboardFunction: getOverallAbilityXpLeaderboard },
 ];
 
 export async function getSpecialLeaderboard({

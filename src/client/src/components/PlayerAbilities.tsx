@@ -16,7 +16,6 @@ function getTotalXp(abilities: GetAbilityLeaderboardRes) {
 
 export function PlayerAbilities() {
   const res = useLoaderData() as GetAbilityLeaderboardRes;
-  console.log(res);
   return (
     <>
       <div className='flex'>

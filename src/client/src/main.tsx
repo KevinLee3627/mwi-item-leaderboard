@@ -9,6 +9,7 @@ import {
   GetItemLeaderboardRes,
   GetItemMetadataRes,
   GetOverallAbilityLevelLeaderboardRes,
+  GetOverallAbilityXpLeaderboardRes,
 } from 'server';
 import {
   AbilityLeaderboard,
@@ -22,7 +23,8 @@ import './index.css';
 import { Home } from 'routes/Home';
 import { Player } from 'routes/Player';
 import { SearchPlayer } from 'routes/SearchPlayer';
-import { SpecialLeaderboard } from 'components/SpecialLeaderboard';
+import { OverallAbilityLevelLeaderboard } from 'components/OverallAbilityLevelLeaderboard';
+import { OverallAbilityXpLeaderboard } from 'components/OverallAbilityXpLeaderboard';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -153,14 +155,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/leaderboard/special/:leaderboardId',
-    element: <SpecialLeaderboard />,
+    path: '/leaderboard/special/1',
+    element: <OverallAbilityLevelLeaderboard />,
     errorElement: <ErrorPage />,
-    loader: async ({ params }) => {
+    loader: async () => {
       const { data } = await axios.get<GetOverallAbilityLevelLeaderboardRes>(
-        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/${
-          params.leaderboardId
-        }`
+        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/1`
+      );
+      return { leaderboard: data.leaderboard, title: data.title };
+    },
+  },
+  {
+    path: '/leaderboard/special/2',
+    element: <OverallAbilityXpLeaderboard />,
+    errorElement: <ErrorPage />,
+    loader: async () => {
+      const { data } = await axios.get<GetOverallAbilityXpLeaderboardRes>(
+        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/2`
       );
       return { leaderboard: data.leaderboard, title: data.title };
     },
