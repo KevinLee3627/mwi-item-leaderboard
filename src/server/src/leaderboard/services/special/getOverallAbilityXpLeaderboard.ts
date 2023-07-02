@@ -14,6 +14,7 @@ export async function getOverallAbilityXpLeaderboard(): Promise<GetOverallAbilit
     JOIN AbilityRecord a 
       ON p.id = a.playerId 
     GROUP BY p.displayName
+    ORDER BY totalXp DESC
     LIMIT 100`;
   const processedResults = results.map((result) => ({
     displayName: result.displayName,
