@@ -40,3 +40,10 @@ export interface GetTotalItemsLeaderboardRes {
   >;
   title: string;
 }
+
+export interface GetTotalUniqueItemsLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { totalItems: number }
+  >;
+  title: string;
+}

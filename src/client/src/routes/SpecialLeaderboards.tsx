@@ -32,6 +32,11 @@ export function SpecialLeaderboards() {
                 Total Items (excluding coins)
               </Link>
             </li>
+            <li>
+              <Link to='/leaderboard/special/4' className='underline'>
+                Total Unique Items
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
