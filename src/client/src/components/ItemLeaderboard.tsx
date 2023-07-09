@@ -41,8 +41,8 @@ export function ItemLeaderboard() {
         <EnhanceLevelPicker />
       </div>
       <Table
-        data={leaderboard.map((entry, i) => ({
-          rank: i + 1,
+        data={leaderboard.map((entry) => ({
+          rank: entry.rank,
           playerName: entry.player.displayName,
           playerId: entry.player.id,
           amount: entry.num,

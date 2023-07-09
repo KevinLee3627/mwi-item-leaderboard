@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from 'src/db';
 
 interface GetItemLeaderboardParams {
@@ -11,39 +12,36 @@ export async function getItemLeaderboard({
   limit,
   enhancementLevel,
 }: GetItemLeaderboardParams): Promise<unknown> {
-  if (enhancementLevel >= 0) {
-    const results = await prisma.record.findMany({
-      include: {
-        player: true,
-      },
-      where: {
-        itemHrid,
-        itemEnhancementLevel: enhancementLevel,
-      },
-      orderBy: {
-        num: 'desc',
-      },
-      take: limit,
-    });
-    return results;
-  } else if (enhancementLevel === -1) {
-    // enhancement level = "all"
-    const _results = await prisma.$queryRaw`WITH rankCTE AS 
-      (SELECT *, ROW_NUMBER() OVER (PARTITION BY itemEnhancementLevel ORDER BY num DESC) as rnk FROM Record WHERE itemHrid=${itemHrid})
-      SELECT *, p.id AS playerId, p.displayName as playerName FROM rankCTE
+  const _results = await prisma.$queryRaw`WITH rankCTE AS 
+      (
+        SELECT 
+          Record.*, 
+          RANK() OVER 
+            (PARTITION BY itemEnhancementLevel ORDER BY num DESC) as rnk 
+        FROM Record 
+        WHERE itemHrid=${itemHrid}
+      )
+      SELECT 
+        rankCTE.ts, rankCTE.num, rankCTE.itemHrid, 
+        rankCTE.itemEnhancementLevel, rankCTE.rnk as 'rank', 
+        p.id AS playerId, p.displayName as playerName 
+      FROM rankCTE 
       JOIN Player p
         ON p.id = rankCTE.playerId
-      WHERE rnk <= 100`;
+      WHERE rankCTE.rnk <= 100 ${
+        enhancementLevel !== -1
+          ? Prisma.sql`AND rankCTE.itemEnhancementLevel=${enhancementLevel}`
+          : Prisma.empty
+      } `;
 
-    if (Array.isArray(_results)) {
-      const results = _results.map((result) => {
-        return {
-          ...result,
-          rnk: result.rnk.toString(),
-          player: { id: result.playerId, displayName: result.playerName },
-        };
-      });
-      return results;
-    } else return [];
-  }
+  if (Array.isArray(_results)) {
+    const results = _results.map((result) => {
+      return {
+        ...result,
+        rank: parseInt(result.rank.toString(), 10),
+        player: { id: result.playerId, displayName: result.playerName },
+      };
+    });
+    return results;
+  } else return [];
 }

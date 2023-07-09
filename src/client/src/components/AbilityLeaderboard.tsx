@@ -28,14 +28,14 @@ export function AbilityLeaderboard() {
         loading={false}
       />
       <Table
-        data={res.leaderboard.map((entry, i) => ({
-          rank: i + 1,
+        data={res.leaderboard.map((entry) => ({
+          rank: entry.rank,
           abilityName: hridToDisplayName(entry.abilityHrid),
           abilityHrid: entry.abilityHrid,
           abilityLevel: entry.abilityLevel,
           abilityXp: entry.abilityXp,
           playerName: entry.player.displayName,
-          playerId: entry.playerId,
+          playerId: entry.player.id,
           lastUpdated: entry.ts,
         }))}
         headers={[

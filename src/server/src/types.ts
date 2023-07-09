@@ -7,17 +7,23 @@ import {
 } from '@prisma/client';
 
 export type GetPlayerRes = Player;
-export type GetPlayerItemsRes = Array<ItemRecord & { player: Player }>;
-export type GetPlayerAbilitiesRes = Array<AbilityRecord & { player: Player }>;
+export type GetPlayerItemsRes = Array<
+  Omit<ItemRecord, 'playerId'> & { player: Player; rank: number }
+>;
+export type GetPlayerAbilitiesRes = Array<
+  Omit<AbilityRecord, 'playerId'> & { player: Player; rank: number }
+>;
 
 export type GetAllItemMetadataRes = Item[];
 export type GetItemMetadataRes = Item[];
 
 export type GetAllAbilityMetadataRes = Ability[];
 
-export type GetItemLeaderboardRes = Array<ItemRecord & { player: Player }>;
+export type GetItemLeaderboardRes = Array<
+  Omit<ItemRecord, 'playerId'> & { player: Player; rank: number }
+>;
 export type GetAbilityLeaderboardRes = Array<
-  AbilityRecord & { player: Player }
+  Omit<AbilityRecord, 'playerId'> & { player: Player; rank: number }
 >;
 
 export type SearchPlayerRes = Player[];
