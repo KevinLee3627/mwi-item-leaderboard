@@ -39,6 +39,16 @@ export function SpecialLeaderboards() {
             </li>
           </ul>
         </div>
+        <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>
+          <h2 className='font-bold text-4xl mb-4'>Meta</h2>
+          <ul>
+            <li>
+              <Link to='/leaderboard/special/5' className='underline'>
+                Total Top Ranks
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );

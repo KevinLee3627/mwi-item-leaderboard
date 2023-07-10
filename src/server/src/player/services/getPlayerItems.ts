@@ -9,14 +9,12 @@ export async function getPlayerItems({
   playerId,
 }: GetPlayerItemsParams): Promise<GetPlayerItemsRes> {
   const results = await prisma.$queryRaw`
-    SELECT 
-      val.rnk AS 'rank', val.itemHrid, val.num, val.itemEnhancementLevel, val.ts,
-      val.playerDisplayName, val.playerId
+    SELECT *
     FROM (
       SELECT 
         p.displayName as playerDisplayName, p.id as playerId,
         r.num, r.itemHrid, r.itemEnhancementLevel, r.ts,
-        RANK() OVER (PARTITION BY itemHrid ORDER BY num DESC) as rnk
+        RANK() OVER (PARTITION BY itemHrid ORDER BY num DESC) as 'rank'
       FROM Record r
       JOIN Player p
         ON p.id = r.playerId

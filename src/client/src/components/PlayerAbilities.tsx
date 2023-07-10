@@ -47,7 +47,7 @@ export function PlayerAbilities() {
           { key: 'abilityXp', label: 'XP' },
           { key: 'lastUpdated', label: 'Last Updated' },
         ]}
-        defaultColumn='rank'
+        defaultColumn='abilityName'
         row={(entry, i) => {
           return (
             <tr key={i}>

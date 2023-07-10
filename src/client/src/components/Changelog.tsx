@@ -26,6 +26,10 @@ export function Changelog() {
               Player pages now include a rank column, allowing you to see where
               a player ranks for each item/ability
             </li>
+            <li>
+              Added special leaderboard - Total Top Ranks. This shows the total
+              number of #1 spots a player has.
+            </li>
           </ul>
 
           <h2 className='font-bold text-lg'>

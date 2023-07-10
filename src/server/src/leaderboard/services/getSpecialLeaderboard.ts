@@ -1,6 +1,7 @@
 import { getOverallAbilityLevelLeaderboard } from './special/getOverallAbilityLevelLeaderboard';
 import { getOverallAbilityXpLeaderboard } from './special/getOverallAbilityXpLeaderboard';
 import { getTotalItemsLeaderboard } from './special/getTotalItemsLeaderboard';
+import { getTotalTopRanksLeaderboard } from './special/getTotalTopRanksLeaderboard';
 import { getTotalUniqueItemsLeaderboard } from './special/getTotalUniqueItemsLeaderboard';
 
 interface GetSpecialLeaderboardParams {
@@ -17,6 +18,7 @@ const leaderboards: LeaderboardDefinition[] = [
   { id: 2, leaderboardFunction: getOverallAbilityXpLeaderboard },
   { id: 3, leaderboardFunction: getTotalItemsLeaderboard },
   { id: 4, leaderboardFunction: getTotalUniqueItemsLeaderboard },
+  { id: 5, leaderboardFunction: getTotalTopRanksLeaderboard },
 ];
 
 export async function getSpecialLeaderboard({

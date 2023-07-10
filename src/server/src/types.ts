@@ -55,3 +55,10 @@ export interface GetTotalUniqueItemsLeaderboardRes {
   >;
   title: string;
 }
+
+export interface GetTotalTopRanksLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { totalTopRanks: number; rank: number }
+  >;
+  title: string;
+}

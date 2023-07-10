@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import {
   GetAbilityLeaderboardRes,
   GetAllAbilityMetadataRes,
@@ -11,6 +11,7 @@ import {
   GetOverallAbilityLevelLeaderboardRes,
   GetOverallAbilityXpLeaderboardRes,
   GetTotalItemsLeaderboardRes,
+  GetTotalTopRanksLeaderboardRes,
   GetTotalUniqueItemsLeaderboardRes,
 } from 'server';
 import {
@@ -30,10 +31,11 @@ import { OverallAbilityXpLeaderboard } from 'components/special/OverallAbilityXp
 import { SpecialLeaderboards } from 'routes/SpecialLeaderboards';
 import { TotalItemsLeaderboard } from 'components/special/TotalItemsLeaderboard';
 import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItemsLeaderboard';
+import { TotalTopSpotsLeaderboard } from 'components/special/TotalTopRanksLeaderboard';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Home />,
@@ -202,6 +204,17 @@ const router = createBrowserRouter([
     loader: async () => {
       const { data } = await axios.get<GetTotalUniqueItemsLeaderboardRes>(
         `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/4`
+      );
+      return { leaderboard: data.leaderboard, title: data.title };
+    },
+  },
+  {
+    path: '/leaderboard/special/5',
+    element: <TotalTopSpotsLeaderboard />,
+    errorElement: <ErrorPage />,
+    loader: async () => {
+      const { data } = await axios.get<GetTotalTopRanksLeaderboardRes>(
+        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/5`
       );
       return { leaderboard: data.leaderboard, title: data.title };
     },
