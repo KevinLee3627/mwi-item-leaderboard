@@ -15,6 +15,18 @@ export function Changelog() {
       <dialog id='changelogModal' className='modal'>
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
+          <h2 className='font-bold text-lg'>
+            v0.10 - Special Leaderboards! - 2023-07-09
+          </h2>
+          <ul className='list-disc'>
+            <li>
+              Leaderboards now use an actual rank function, allowing for ties
+            </li>
+            <li>
+              Player pages now include a rank column, allowing you to see where
+              a player ranks for each item/ability
+            </li>
+          </ul>
 
           <h2 className='font-bold text-lg'>
             v0.9 - Special Leaderboards! - 2023-07-02
