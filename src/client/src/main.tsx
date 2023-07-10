@@ -25,11 +25,11 @@ import './index.css';
 import { Home } from 'routes/Home';
 import { Player } from 'routes/Player';
 import { SearchPlayer } from 'routes/SearchPlayer';
-import { OverallAbilityLevelLeaderboard } from 'components/OverallAbilityLevelLeaderboard';
-import { OverallAbilityXpLeaderboard } from 'components/OverallAbilityXpLeaderboard';
+import { OverallAbilityLevelLeaderboard } from 'components/special/OverallAbilityLevelLeaderboard';
+import { OverallAbilityXpLeaderboard } from 'components/special/OverallAbilityXpLeaderboard';
 import { SpecialLeaderboards } from 'routes/SpecialLeaderboards';
-import { TotalItemsLeaderboard } from 'components/TotalItemsLeaderboard';
-import { TotalUniqueItemsLeaderboard } from 'components/TotalUniqueItemsLeaderboard';
+import { TotalItemsLeaderboard } from 'components/special/TotalItemsLeaderboard';
+import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItemsLeaderboard';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 

@@ -2,7 +2,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { GetOverallAbilityLevelLeaderboardRes } from 'server';
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
-import { Header } from './Header';
+import { Header } from '../Header';
 
 // TODO: All the special leaderboards are hard-coded :( can we not do that
 export function OverallAbilityLevelLeaderboard() {

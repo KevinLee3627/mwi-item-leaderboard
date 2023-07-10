@@ -1,13 +1,13 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import { GetOverallAbilityXpLeaderboardRes } from 'server';
+import { GetTotalUniqueItemsLeaderboardRes } from 'server';
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
-import { Header } from './Header';
+import { Header } from 'components/Header';
 
 // TODO: All the special leaderboards are hard-coded :( can we not do that
-export function OverallAbilityXpLeaderboard() {
+export function TotalUniqueItemsLeaderboard() {
   const { leaderboard, title } =
-    useLoaderData() as GetOverallAbilityXpLeaderboardRes;
+    useLoaderData() as GetTotalUniqueItemsLeaderboardRes;
   return (
     <>
       <Header />
@@ -15,14 +15,14 @@ export function OverallAbilityXpLeaderboard() {
       <Table
         data={leaderboard.map((entry) => ({
           rank: entry.rank,
-          totalXp: entry.totalXp,
+          totalItems: entry.totalItems,
           playerName: entry.displayName,
           playerId: entry.id,
         }))}
         headers={[
           { key: 'rank', label: 'Rank' },
           { key: 'playerName', label: 'Player' },
-          { key: 'totalXp', label: 'Total XP' },
+          { key: 'totalItems', label: 'Total Unique Items' },
         ]}
         defaultColumn='rank'
         row={(entry, i) => {
@@ -32,12 +32,12 @@ export function OverallAbilityXpLeaderboard() {
                 {entry.rank} {getRankIcon(entry.rank)}
               </td>
               <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}/abilities`}>
+                <Link to={`/player/${entry.playerId}/items`}>
                   {entry.playerName}
                 </Link>
               </td>
               <td className='p-2'>
-                {Number(entry.totalXp.toFixed(2)).toLocaleString()}
+                {Number(entry.totalItems.toFixed(2)).toLocaleString()}
               </td>
             </tr>
           );

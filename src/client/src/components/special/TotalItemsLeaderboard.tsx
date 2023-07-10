@@ -2,7 +2,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { GetTotalItemsLeaderboardRes } from 'server';
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
-import { Header } from './Header';
+import { Header } from 'components/Header';
 
 // TODO: All the special leaderboards are hard-coded :( can we not do that
 export function TotalItemsLeaderboard() {
