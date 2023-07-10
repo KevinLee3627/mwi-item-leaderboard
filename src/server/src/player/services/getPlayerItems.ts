@@ -14,7 +14,7 @@ export async function getPlayerItems({
       SELECT 
         p.displayName as playerDisplayName, p.id as playerId,
         r.num, r.itemHrid, r.itemEnhancementLevel, r.ts,
-        RANK() OVER (PARTITION BY itemHrid ORDER BY num DESC) as 'rank'
+        RANK() OVER (PARTITION BY itemHrid, itemEnhancementLevel ORDER BY num DESC) as 'rank'
       FROM Record r
       JOIN Player p
         ON p.id = r.playerId
