@@ -21,6 +21,7 @@ export function Player() {
   const tabs: Tab<string>[] = [
     { label: 'Items', value: 'items' },
     { label: 'Abilities', value: 'abilities' },
+    { label: 'Stats', value: 'stats' },
   ];
 
   const tabElems = tabs.map((tab, i) => {

@@ -1,5 +1,6 @@
 import { getPlayerItems as getPlayerItemsService } from 'src/player/services/getPlayerItems';
 import { getPlayerAbilities as getPlayerAbilitiesService } from 'src/player/services/getPlayerAbilities';
+import { getPlayerStats as getPlayerStatsService } from 'src/player/services/getPlayerStats';
 import { getPlayer as getPlayerService } from 'src/player/services/getPlayer';
 import { searchPlayer as searchPlayerService } from 'src/player/services/searchPlayer';
 import { existingStringSchema, positiveNumberSchema } from 'src/validators';
@@ -17,6 +18,14 @@ const getPlayerAbilities = asyncHandler(async (req, res, next) => {
   const playerId = positiveNumberSchema.parse(req.params.playerId);
 
   const results = await getPlayerAbilitiesService({ playerId });
+
+  res.json(results);
+});
+
+const getPlayerStats = asyncHandler(async (req, res, next) => {
+  const playerId = positiveNumberSchema.parse(req.params.playerId);
+
+  const results = await getPlayerStatsService({ playerId });
 
   res.json(results);
 });
@@ -40,5 +49,6 @@ export const controller = {
   getPlayer,
   getPlayerItems,
   getPlayerAbilities,
+  getPlayerStats,
   searchPlayer,
 };

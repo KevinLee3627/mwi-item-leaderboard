@@ -13,6 +13,9 @@ export type GetPlayerItemsRes = Array<
 export type GetPlayerAbilitiesRes = Array<
   Omit<AbilityRecord, 'playerId'> & { player: Player; rank: number }
 >;
+export interface GetPlayerStatsRes {
+  topRanks: number;
+}
 
 export type GetAllItemMetadataRes = Item[];
 export type GetItemMetadataRes = Item[];

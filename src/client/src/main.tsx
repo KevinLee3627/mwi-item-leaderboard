@@ -32,6 +32,7 @@ import { SpecialLeaderboards } from 'routes/SpecialLeaderboards';
 import { TotalItemsLeaderboard } from 'components/special/TotalItemsLeaderboard';
 import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItemsLeaderboard';
 import { TotalTopSpotsLeaderboard } from 'components/special/TotalTopRanksLeaderboard';
+import { PlayerStats } from 'components/PlayerStats';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -139,6 +140,17 @@ const router = createHashRouter([
         loader: async ({ params }) => {
           const res = await axios.get(
             `${apiBase}/api/v1/player/${params.playerId}/abilities`
+          );
+          return res.data;
+        },
+      },
+      {
+        path: 'stats',
+        element: <PlayerStats />,
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `${apiBase}/api/v1/player/${params.playerId}/stats`
           );
           return res.data;
         },
