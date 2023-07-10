@@ -5,11 +5,14 @@ interface RawResult {
   displayName: string;
   id: number;
   totalItems: bigint;
+  rank: bigint;
 }
 
 export async function getTotalUniqueItemsLeaderboard(): Promise<GetTotalUniqueItemsLeaderboardRes> {
-  const results: RawResult[] =
-    await prisma.$queryRaw`SELECT p.displayName, p.id, COUNT(*) AS totalItems
+  const results: RawResult[] = await prisma.$queryRaw`
+    SELECT p.displayName, p.id, 
+      COUNT(*) AS totalItems, 
+      RANK() OVER (ORDER BY COUNT(*) DESC) AS 'rank'
     FROM Player p 
     JOIN Record i 
       ON p.id=i.playerId 
@@ -20,6 +23,7 @@ export async function getTotalUniqueItemsLeaderboard(): Promise<GetTotalUniqueIt
     displayName: result.displayName,
     id: result.id,
     totalItems: Number(result.totalItems),
+    rank: parseInt(result.rank.toString()),
   }));
   return { leaderboard: processedResults, title: 'Total Unique Item Count' };
 }

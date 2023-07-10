@@ -13,8 +13,8 @@ export function OverallAbilityLevelLeaderboard() {
       <Header />
       <h1 className='my-4 text-center text-4xl font-extrabold'>{title}</h1>
       <Table
-        data={leaderboard.map((entry, i) => ({
-          rank: i + 1,
+        data={leaderboard.map((entry) => ({
+          rank: entry.rank,
           totalLevel: entry.totalLevel,
           playerName: entry.displayName,
           playerId: entry.id,

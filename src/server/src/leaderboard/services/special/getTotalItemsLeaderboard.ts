@@ -5,11 +5,15 @@ interface RawResult {
   displayName: string;
   id: number;
   totalItems: bigint;
+  rank: bigint;
 }
 
 export async function getTotalItemsLeaderboard(): Promise<GetTotalItemsLeaderboardRes> {
-  const results: RawResult[] =
-    await prisma.$queryRaw`SELECT p.displayName, p.id, SUM(i.num) AS totalItems
+  const results: RawResult[] = await prisma.$queryRaw`
+    SELECT 
+      p.displayName, p.id, 
+      SUM(i.num) AS totalItems,
+      RANK() OVER (ORDER BY SUM(i.num) DESC) AS 'rank'
     FROM Player p 
     JOIN Record i 
       ON p.id = i.playerId
@@ -21,6 +25,7 @@ export async function getTotalItemsLeaderboard(): Promise<GetTotalItemsLeaderboa
     displayName: result.displayName,
     id: result.id,
     totalItems: Number(result.totalItems),
+    rank: parseInt(result.rank.toString()),
   }));
   return { leaderboard: processedResults, title: 'Total Item Count' };
 }

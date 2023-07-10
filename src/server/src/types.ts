@@ -30,26 +30,28 @@ export type SearchPlayerRes = Player[];
 
 export interface GetOverallAbilityLevelLeaderboardRes {
   leaderboard: Array<
-    Pick<Player, 'displayName' | 'id'> & { totalLevel: number }
+    Pick<Player, 'displayName' | 'id'> & { totalLevel: number; rank: number }
   >;
   title: string;
 }
 
 export interface GetOverallAbilityXpLeaderboardRes {
-  leaderboard: Array<Pick<Player, 'displayName' | 'id'> & { totalXp: number }>;
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { totalXp: number; rank: number }
+  >;
   title: string;
 }
 
 export interface GetTotalItemsLeaderboardRes {
   leaderboard: Array<
-    Pick<Player, 'displayName' | 'id'> & { totalItems: number }
+    Pick<Player, 'displayName' | 'id'> & { totalItems: number; rank: number }
   >;
   title: string;
 }
 
 export interface GetTotalUniqueItemsLeaderboardRes {
   leaderboard: Array<
-    Pick<Player, 'displayName' | 'id'> & { totalItems: number }
+    Pick<Player, 'displayName' | 'id'> & { totalItems: number; rank: number }
   >;
   title: string;
 }

@@ -12,8 +12,8 @@ export function TotalItemsLeaderboard() {
       <Header />
       <h1 className='my-4 text-center text-4xl font-extrabold'>{title}</h1>
       <Table
-        data={leaderboard.map((entry, i) => ({
-          rank: i + 1,
+        data={leaderboard.map((entry) => ({
+          rank: entry.rank,
           totalItems: entry.totalItems,
           playerName: entry.displayName,
           playerId: entry.id,

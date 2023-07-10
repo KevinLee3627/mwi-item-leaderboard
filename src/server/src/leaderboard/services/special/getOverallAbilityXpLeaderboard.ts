@@ -5,11 +5,15 @@ interface RawResult {
   displayName: string;
   id: number;
   totalXp: bigint;
+  rank: bigint;
 }
 
 export async function getOverallAbilityXpLeaderboard(): Promise<GetOverallAbilityXpLeaderboardRes> {
-  const results: RawResult[] =
-    await prisma.$queryRaw`SELECT p.displayName, p.id, SUM(a.abilityXp) AS totalXp
+  const results: RawResult[] = await prisma.$queryRaw`
+    SELECT 
+      p.displayName, p.id, 
+      SUM(a.abilityXp) AS totalXp,
+      RANK() OVER (ORDER BY SUM(a.abilityXp) DESC) as 'rank'
     FROM Player p 
     JOIN AbilityRecord a 
       ON p.id = a.playerId 
@@ -20,6 +24,7 @@ export async function getOverallAbilityXpLeaderboard(): Promise<GetOverallAbilit
     displayName: result.displayName,
     id: result.id,
     totalXp: Number(result.totalXp),
+    rank: parseInt(result.rank.toString()),
   }));
   return { leaderboard: processedResults, title: 'Overall Ability XP' };
 }
