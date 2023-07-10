@@ -26,7 +26,7 @@ export async function getPlayerStats({
       JOIN Player p
         ON p.id = r.playerId
     )
-    WHERE rnk=1 AND playerId=1447
+    WHERE rnk=1 AND playerId=${playerId}
   `;
   let topRanks: number;
 
