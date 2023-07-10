@@ -22,7 +22,7 @@ export function TotalTopSpotsLeaderboard() {
         headers={[
           { key: 'rank', label: 'Rank' },
           { key: 'playerName', label: 'Player' },
-          { key: 'totalTopRanks', label: 'Total Items' },
+          { key: 'totalTopRanks', label: 'Total Top Ranks' },
         ]}
         defaultColumn='rank'
         row={(entry, i) => {
@@ -32,7 +32,7 @@ export function TotalTopSpotsLeaderboard() {
                 {entry.rank} {getRankIcon(entry.rank)}
               </td>
               <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}/items`}>
+                <Link to={`/player/${entry.playerId}/stats`}>
                   {entry.playerName}
                 </Link>
               </td>
