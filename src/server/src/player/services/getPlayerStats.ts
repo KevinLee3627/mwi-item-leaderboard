@@ -39,10 +39,12 @@ export async function getPlayerStats({
 
   const distinctItemsRes = await prisma.$queryRaw`
     SELECT 
-      ts, num, itemHrid, itemEnhancementLevel
+      r.ts, r.num, r.itemHrid, r.itemEnhancementLevel, i.categoryHrid
     FROM Record r
     JOIN Player p
-      ON 	p.id = r.playerId
+      ON p.id = r.playerId
+    JOIN Item i
+      ON r.itemHrid = i.hrid
     WHERE p.id=${playerId} 
     GROUP BY itemHrid;
   `;

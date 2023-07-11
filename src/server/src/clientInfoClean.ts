@@ -1,7 +1,7 @@
 import info from './clientInfo.json';
 
 // Get # of Equipment Collected
-function countCategory(categoryHrid: string): number {
+function countCategory(categoryHrid: ItemCategoryHrid): number {
   return Object.entries(info.itemDetailMap).filter((entry) => {
     const item = entry[1];
     return item.categoryHrid === categoryHrid;
@@ -10,9 +10,9 @@ function countCategory(categoryHrid: string): number {
 
 type GameInfo = typeof info;
 
-type ItemCategoryHrid = keyof GameInfo['itemCategoryDetailMap'];
+export type ItemCategoryHrid = keyof GameInfo['itemCategoryDetailMap'];
 
-const itemCategoryHrids = Object.keys(
+export const itemCategoryHrids = Object.keys(
   info.itemCategoryDetailMap
 ) as ItemCategoryHrid[];
 
