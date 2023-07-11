@@ -5,7 +5,7 @@ import { IssueModal } from 'routes/home/IssueModal';
 
 export function Header() {
   return (
-    <div className='navbar w-full h-12 p-4 bg-primary flex items-center justify-between'>
+    <div className='navbar w-full h-12 bg-primary flex items-center justify-between'>
       <div className='navbar-start'>
         <div className='dropdown'>
           <label tabIndex={0} className='btn btn-ghost lg:hidden'>
