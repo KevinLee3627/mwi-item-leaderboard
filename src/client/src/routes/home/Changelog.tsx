@@ -23,7 +23,11 @@ export function Changelog({
       <dialog id={dialogId} className='modal'>
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
-
+          <ChangelogEntry
+            title='v0.11 - Mobile CSS Changes'
+            date='2023-07-10'
+            items={['Made mobile not look like garbage']}
+          />
           <ChangelogEntry
             title='v0.10 - Player Profile Ranks'
             date='2023-07-09'

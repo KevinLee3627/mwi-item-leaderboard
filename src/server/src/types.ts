@@ -16,7 +16,7 @@ export type GetPlayerAbilitiesRes = Array<
 >;
 export interface GetPlayerStatsRes {
   topRanks: number;
-  numDistinctItems: number;
+  distinctItems: Array<Omit<ItemRecord, 'playerId'>>;
   itemCategoryCounts: typeof itemCategoryCounts;
 }
 

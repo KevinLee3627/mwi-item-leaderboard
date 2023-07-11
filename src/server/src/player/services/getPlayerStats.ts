@@ -38,25 +38,25 @@ export async function getPlayerStats({
   }
 
   const distinctItemsRes = await prisma.$queryRaw`
-    SELECT COUNT(DISTINCT i.hrid) AS numDistinctItems
+    SELECT 
+      ts, num, itemHrid, itemEnhancementLevel
     FROM Record r
     JOIN Player p
       ON 	p.id = r.playerId
-    JOIN Item i
-      ON r.itemHrid = i.hrid
     WHERE p.id=${playerId} 
+    GROUP BY itemHrid;
   `;
 
-  let numDistinctItems: number;
+  let distinctItems: GetPlayerStatsRes['distinctItems'];
   if (Array.isArray(distinctItemsRes)) {
-    numDistinctItems = parseInt(distinctItemsRes[0].numDistinctItems, 10);
+    distinctItems = distinctItemsRes;
   } else {
     throw new Error(`Could not get top ranks for player ${playerId}`);
   }
 
   return {
     topRanks,
-    numDistinctItems,
+    distinctItems,
     itemCategoryCounts,
   };
 }
