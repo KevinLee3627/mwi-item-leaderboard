@@ -7,6 +7,7 @@ export async function getAllItemMetadata(): Promise<Item[]> {
       hrid: true,
       displayName: true,
       enhancementLevel: true,
+      categoryHrid: true,
     },
     distinct: ['hrid'],
   });

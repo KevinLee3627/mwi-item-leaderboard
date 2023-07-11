@@ -10,6 +10,7 @@ export async function getItemMetadata(itemHrid: string): Promise<Item[]> {
       hrid: true,
       displayName: true,
       enhancementLevel: true,
+      categoryHrid: true,
     },
   });
 
