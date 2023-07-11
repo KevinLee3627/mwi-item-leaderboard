@@ -37,7 +37,7 @@ export function Header() {
           MWI Display Case
         </Link>
       </div>
-      <div className='navbar-center hidden lg:flex'>
+      <div className='navbar-center hidden md:flex'>
         <ul
           tabIndex={0}
           className='rounded p-4 flex gap-4 z-10 whitespace-nowrap'
