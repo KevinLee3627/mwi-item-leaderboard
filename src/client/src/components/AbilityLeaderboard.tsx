@@ -27,47 +27,49 @@ export function AbilityLeaderboard() {
         }))}
         loading={false}
       />
-      <Table
-        data={res.leaderboard.map((entry) => ({
-          rank: entry.rank,
-          abilityName: hridToDisplayName(entry.abilityHrid),
-          abilityHrid: entry.abilityHrid,
-          abilityLevel: entry.abilityLevel,
-          abilityXp: entry.abilityXp,
-          playerName: entry.player.displayName,
-          playerId: entry.player.id,
-          lastUpdated: entry.ts,
-        }))}
-        headers={[
-          { key: 'rank', label: 'Rank' },
-          { key: 'playerName', label: 'Player' },
-          { key: 'abilityName', label: 'Ability' },
-          { key: 'abilityLevel', label: 'Level' },
-          { key: 'abilityXp', label: 'XP' },
-          { key: 'lastUpdated', label: 'Last Updated' },
-        ]}
-        defaultColumn='rank'
-        row={(entry, i) => {
-          return (
-            <tr key={i}>
-              <td className='p-2 bold'>
-                {entry.rank} {getRankIcon(entry.rank)}
-              </td>
-              <td className='p-2 underline'>
-                <Link to={`/player/${entry.playerId}/abilities`}>
-                  {entry.playerName}
-                </Link>
-              </td>
-              <td className='p-2'>{entry.abilityName}</td>
-              <td className='p-2'>{entry.abilityLevel}</td>
-              <td className='p-2'>{entry.abilityXp.toFixed(1)}</td>
-              <td className='p-2'>
-                {new Date(entry.lastUpdated).toLocaleString()}
-              </td>
-            </tr>
-          );
-        }}
-      />
+      <div className='overflow-x-auto'>
+        <Table
+          data={res.leaderboard.map((entry) => ({
+            rank: entry.rank,
+            abilityName: hridToDisplayName(entry.abilityHrid),
+            abilityHrid: entry.abilityHrid,
+            abilityLevel: entry.abilityLevel,
+            abilityXp: entry.abilityXp,
+            playerName: entry.player.displayName,
+            playerId: entry.player.id,
+            lastUpdated: entry.ts,
+          }))}
+          headers={[
+            { key: 'rank', label: 'Rank' },
+            { key: 'playerName', label: 'Player' },
+            { key: 'abilityName', label: 'Ability' },
+            { key: 'abilityLevel', label: 'Level' },
+            { key: 'abilityXp', label: 'XP' },
+            { key: 'lastUpdated', label: 'Last Updated' },
+          ]}
+          defaultColumn='rank'
+          row={(entry, i) => {
+            return (
+              <tr key={i}>
+                <td className='p-2 bold'>
+                  {entry.rank} {getRankIcon(entry.rank)}
+                </td>
+                <td className='p-2 underline'>
+                  <Link to={`/player/${entry.playerId}/abilities`}>
+                    {entry.playerName}
+                  </Link>
+                </td>
+                <td className='p-2'>{entry.abilityName}</td>
+                <td className='p-2'>{entry.abilityLevel}</td>
+                <td className='p-2'>{entry.abilityXp.toFixed(1)}</td>
+                <td className='p-2'>
+                  {new Date(entry.lastUpdated).toLocaleString()}
+                </td>
+              </tr>
+            );
+          }}
+        />
+      </div>
     </>
   );
 }
