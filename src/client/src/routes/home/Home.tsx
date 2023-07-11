@@ -40,9 +40,7 @@ export function Home() {
       <div className='mx-auto flex place-items-center my-4'>
         <div className='tabs tabs-boxed mx-auto inline-flex'>{tabElems}</div>
       </div>
-      <div className='h-full'>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }
