@@ -21,3 +21,5 @@ export const itemCategoryCounts = Object.fromEntries(
     return [categoryHrid, countCategory(categoryHrid)];
   })
 ) as { [k in ItemCategoryHrid]: number };
+
+export type ItemHrid = keyof GameInfo['itemDetailMap'];

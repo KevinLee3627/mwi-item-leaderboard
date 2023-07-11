@@ -1,5 +1,7 @@
 import type { Payload } from 'extension';
 import { prisma } from 'src/db';
+import info from 'src/clientInfo.json';
+import { type ItemHrid } from 'src/clientInfoClean';
 
 export async function uploadItems(data: Payload): Promise<void> {
   await prisma.player.upsert({
@@ -26,7 +28,17 @@ export async function uploadItems(data: Payload): Promise<void> {
           enhancementLevel: item.enhancementLevel,
         },
       },
-      update: {},
+      update: {
+        hrid: item.itemHrid,
+        displayName: item.itemHrid
+          .replace('/items/', '')
+          .split('_')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' '),
+        enhancementLevel: item.enhancementLevel,
+        categoryHrid:
+          info.itemDetailMap[item.itemHrid as ItemHrid].categoryHrid,
+      },
       create: {
         hrid: item.itemHrid,
         displayName: item.itemHrid
@@ -35,6 +47,8 @@ export async function uploadItems(data: Payload): Promise<void> {
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' '),
         enhancementLevel: item.enhancementLevel,
+        categoryHrid:
+          info.itemDetailMap[item.itemHrid as ItemHrid].categoryHrid,
       },
     });
 

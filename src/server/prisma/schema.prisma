@@ -21,6 +21,7 @@ model Item {
   hrid             String
   displayName      String
   enhancementLevel Int
+  categoryHrid     String?
   Record           Record[]
 
   @@id([hrid, enhancementLevel])

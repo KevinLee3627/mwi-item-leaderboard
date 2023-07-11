@@ -66,7 +66,7 @@ async function parseItems({ message }: ChatMessageReceived) {
     };
   });
 
-  console.log(`Items: ${payloadItems}`);
+  console.log(payloadItems);
 
   try {
     const payload: Payload = {
