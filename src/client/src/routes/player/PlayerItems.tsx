@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router';
 import { GetPlayerItemsRes } from 'server';
-import { PlayerItemsTable } from 'components/PlayerItemsTable';
+import { PlayerItemsTable } from 'routes/player/PlayerItemsTable';
 
 function getTotalNumber(arr: GetPlayerItemsRes): number {
   const total = arr.reduce((acc, val) => {

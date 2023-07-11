@@ -19,12 +19,12 @@ import {
   AbilityLeaderboardLoaderData,
 } from 'components/AbilityLeaderboard';
 import { ItemLeaderboard } from 'components/ItemLeaderboard';
-import { PlayerAbilities } from 'components/PlayerAbilities';
-import { PlayerItems } from 'components/PlayerItems';
-import { ErrorPage } from './error-page';
+import { PlayerAbilities } from 'routes/player/PlayerAbilities';
+import { PlayerItems } from 'routes/player/PlayerItems';
+import { ErrorPage } from 'src/error-page';
 import './index.css';
-import { Home } from 'routes/Home';
-import { Player } from 'routes/Player';
+import { Home } from 'routes/home/Home';
+import { Player } from 'routes/player/Player';
 import { SearchPlayer } from 'routes/SearchPlayer';
 import { OverallAbilityLevelLeaderboard } from 'components/special/OverallAbilityLevelLeaderboard';
 import { OverallAbilityXpLeaderboard } from 'components/special/OverallAbilityXpLeaderboard';
@@ -32,7 +32,7 @@ import { SpecialLeaderboards } from 'routes/SpecialLeaderboards';
 import { TotalItemsLeaderboard } from 'components/special/TotalItemsLeaderboard';
 import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItemsLeaderboard';
 import { TotalTopSpotsLeaderboard } from 'components/special/TotalTopRanksLeaderboard';
-import { PlayerStats } from 'components/PlayerStats';
+import { PlayerStats } from 'routes/player/PlayerStats';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
