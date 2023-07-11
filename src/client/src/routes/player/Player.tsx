@@ -42,12 +42,12 @@ export function Player() {
   return (
     <>
       <Header />
-      <div className='w-8/12 h-full mx-auto flex flex-col items-center'>
-        <h1 className='font-bold text-5xl'>{data.displayName}</h1>
+      <div className='h-full mx-auto flex flex-col'>
+        <h1 className='font-bold text-5xl text-center'>{data.displayName}</h1>
         <div className='tabs tabs-boxed mx-auto mt-4 inline-flex'>
           {tabElems}
         </div>
-        {/* <Outlet /> */}
+        <Outlet />
       </div>
     </>
   );
