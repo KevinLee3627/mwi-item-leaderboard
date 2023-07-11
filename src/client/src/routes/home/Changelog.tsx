@@ -1,120 +1,133 @@
-export function Changelog() {
+import { CSSProperties } from 'react';
+
+interface ChangelogProps {
+  dialogId?: string;
+  buttonTextAlign?: CSSProperties['textAlign'];
+}
+
+export function Changelog({
+  dialogId = 'changelogModal',
+  buttonTextAlign = 'center',
+}: ChangelogProps) {
   return (
-    <div className='mx-auto grid place-items-center'>
+    <div className='grid place-items-center'>
       <button
-        className='text-white h-full'
+        className={`text-white w-full h-full text-${buttonTextAlign}`}
         onClick={() => {
-          const modal = document.getElementById(
-            'changelogModal'
-          ) as HTMLDialogElement;
+          const modal = document.getElementById(dialogId) as HTMLDialogElement;
           modal.showModal();
         }}
       >
         Changelog
       </button>
-      <dialog id='changelogModal' className='modal'>
+      <dialog id={dialogId} className='modal'>
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
-          <h2 className='font-bold text-lg'>
-            v0.10 - Special Leaderboards! - 2023-07-09
-          </h2>
-          <ul className='list-disc'>
-            <li>
-              Leaderboards now use an actual rank function, allowing for ties
-            </li>
-            <li>
-              Player pages now include a rank column, allowing you to see where
-              a player ranks for each item/ability
-            </li>
-            <li>
-              Added special leaderboard - Total Top Ranks. This shows the total
-              number of #1 spots a player has.
-            </li>
-          </ul>
 
-          <h2 className='font-bold text-lg'>
-            v0.9 - Special Leaderboards! - 2023-07-02
-          </h2>
-          <ul className='list-disc'>
-            <li>Added two special leaderboards</li>
-            <li>A bit of code cleanup</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>
-            v0.8 - Ability Tracking! - 2023-06-30
-          </h2>
-          <ul className='list-disc'>
-            <li>Added ability levels to leaderboards and player pages</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>
-            v0.7 - Player Search! - 2023-06-30
-          </h2>
-          <ul className='list-disc'>
-            <li>Added player search page</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.6 - 2023-06-30</h2>
-          <ul className='list-disc'>
-            <li>
-              Enhancement level picker will only show levels that exist - no
-              more clicking through 20 levels to see what's up
-            </li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.5 - 2023-06-29</h2>
-          <ul className='list-disc'>
-            <li>Basic linking between players and items in UI</li>
-            <li>
-              Changed leaderboard to show top 10 of each enhancement level when
-              level was set to 'all'
-            </li>
-            <li>Custom domain name!</li>
-            <li>Added 'rank' column to leaderboards</li>
-            <li>Updated styling - using 'night' theme from daisyui</li>
-            <li>Made player pages look much better</li>
-            <li>Added sorting to tables</li>
-            <li>Added medals to top 3 players on item leaderboards</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.4 - 2023-06-28</h2>
-          <ul className='list-disc'>
-            <li>
-              Allow users to choose 'all' in enhancement level picker to see top
-              3 of each enhancement level
-            </li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.3 - 2023-06-27</h2>
-          <ul className='list-disc'>
-            <li>
-              Fixed bug where certain equipment did not appear in search box
-            </li>
-            <li>Basic UI changes</li>
-            <li>Added basic player pages</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.2 - 2023-06-26</h2>
-          <ul className='list-disc'>
-            <li>Items are now sorted alphabetically</li>
-            <li>
-              Items with different enhancement levels are now shown separately
-            </li>
-            <li>Added separate picker for choosing enhancement levels</li>
-            <li>Format number to locale</li>
-            <li>Format dates to locale</li>
-            <li>Removed Cowbells from leaderboard</li>
-          </ul>
-
-          <h2 className='font-bold text-lg'>v0.1 - 2023-06-25</h2>
-          <ul className='list-disc'>
-            <li>Initial release</li>
-          </ul>
+          <ChangelogEntry
+            title='v0.10 - Player Profile Ranks'
+            date='2023-07-09'
+            items={[
+              'Leaderboards now use an actual rank function, allowing for ties',
+              'Player pages now include a rank column, allowing you to see where a player ranks for each item/ability',
+              'Added special leaderboard - Total Top Ranks. This shows the total number of #1 spots a player has.',
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.9 - Special Leaderboards'
+            date='2023-07-02'
+            items={['Added two special leaderboards', 'A bit of code cleanup']}
+          />
+          <ChangelogEntry
+            title='v0.8 - Ability Tracking'
+            date='2023-06-30'
+            items={['Added ability levels to leaderboards and player pages']}
+          />
+          <ChangelogEntry
+            title='v0.7 - Player Search'
+            date='2023-06-30'
+            items={['Added player search page']}
+          />
+          <ChangelogEntry
+            title='v0.6'
+            date='2023-06-30'
+            items={[
+              "Enhancement level picker will only show levels that exist - no more clicking through 20 levels to see what's up",
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.5'
+            date='2023-06-29'
+            items={[
+              'Basic linking between players and items in UI',
+              'Changed leaderboard to show top 10 of each enhancement level when level was set to "all"',
+              'Custom domain name!',
+              'Added "rank" column to leaderboards',
+              'Updated styling - using "night" theme from daisyui',
+              'Made player pages look much better',
+              'Added sorting to tables',
+              'Added medals to top 3 players on item leaderboards',
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.4'
+            date='2023-06-28'
+            items={[
+              'Allow users to choose "all" in enhancement picker to see top 3 of each enhancement level',
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.3'
+            date='2023-06-27'
+            items={[
+              'Fixed bug where certain equipment did not appear in search box',
+              'Basic UI changes',
+              'Added basic player pages',
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.2'
+            date='2023-06-26'
+            items={[
+              'Items are now sorted alphabetically',
+              'Items with different enhancement levels are now shown separately',
+              'Added separate picker for choosing enhancement levels',
+              'Format number to locale',
+              'Format dates to locale',
+              'Removed Cowbells from leaderboard',
+            ]}
+          />
+          <ChangelogEntry
+            title='v0.1'
+            date='2023-06-25'
+            items={['Initial release']}
+          />
         </form>
         <form method='dialog' className='modal-backdrop'>
           <button>close</button>
         </form>
       </dialog>
+    </div>
+  );
+}
+
+interface ChangelogEntryProps {
+  title: string;
+  date: string;
+  items: string[];
+}
+function ChangelogEntry({ title, date, items }: ChangelogEntryProps) {
+  return (
+    <div className='list-disc list-outside'>
+      <h2 className='font-bold text-lg'>{title}</h2>
+      <time dateTime={date} className='text-md'>
+        {date}
+      </time>
+      <ul className='list-disc list-outside ms-4 w-full whitespace-normal'>
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }

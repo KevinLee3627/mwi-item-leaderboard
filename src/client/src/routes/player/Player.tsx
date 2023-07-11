@@ -47,7 +47,7 @@ export function Player() {
         <div className='tabs tabs-boxed mx-auto mt-4 inline-flex'>
           {tabElems}
         </div>
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
     </>
   );

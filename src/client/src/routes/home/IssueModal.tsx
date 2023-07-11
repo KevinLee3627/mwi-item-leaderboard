@@ -1,18 +1,26 @@
-export function IssueModal() {
+import { CSSProperties } from 'react';
+
+interface ChangelogProps {
+  dialogId?: string;
+  buttonTextAlign?: CSSProperties['textAlign'];
+}
+
+export function IssueModal({
+  dialogId = 'issueModal',
+  buttonTextAlign = 'center',
+}: ChangelogProps) {
   return (
-    <div className='mx-auto grid place-items-center'>
+    <div className='grid place-items-center'>
       <button
-        className='text-white h-full'
+        className={`text-white h-full w-full text-${buttonTextAlign}`}
         onClick={() => {
-          const modal = document.getElementById(
-            'issueModal'
-          ) as HTMLDialogElement;
+          const modal = document.getElementById(dialogId) as HTMLDialogElement;
           modal.showModal();
         }}
       >
         Issues?
       </button>
-      <dialog id='issueModal' className='modal'>
+      <dialog id={dialogId} className='modal'>
         <form method='dialog' className='modal-box'>
           <p>
             For any issues, contact Granttank on Discord or Granttank2 in-game.
