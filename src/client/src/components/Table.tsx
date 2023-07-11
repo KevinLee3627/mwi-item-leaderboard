@@ -33,7 +33,7 @@ export function Table<T extends object>({
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   return (
     <>
-      <table className='table table-zebra mx-auto w-6/12'>
+      <table className='table table-zebra mx-auto md:w-6/12'>
         <TableHeader
           setActiveColumn={setActiveColumn}
           activeColumn={activeColumn}
