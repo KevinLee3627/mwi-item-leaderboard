@@ -22,7 +22,7 @@ export function IssueModal({
       </button>
       <dialog id={dialogId} className='modal'>
         <form method='dialog' className='modal-box'>
-          <p>
+          <p className='whitespace-normal'>
             For any issues, contact Granttank on Discord or Granttank2 in-game.
           </p>
         </form>
