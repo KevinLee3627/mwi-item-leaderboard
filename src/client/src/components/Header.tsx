@@ -38,9 +38,11 @@ export function Header() {
         </Link>
       </div>
       <div className='navbar-center hidden lg:flex'>
-        <ul tabIndex={0} className='menu menu-horizontal bg-blue-500'>
+        <ul
+          tabIndex={0}
+          className='rounded p-4 flex gap-4 z-10 whitespace-nowrap'
+        >
           <li className='text-left'>
-            <span className='indicator-item badge badge-warning'>new</span>
             <Link to='/leaderboard/special' className='text-white font-bold'>
               Special Leaderboards
             </Link>
