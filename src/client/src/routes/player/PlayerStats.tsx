@@ -36,9 +36,8 @@ export function PlayerStats() {
   return (
     <>
       <div className='p-2 m-4 secondary rounded mx-auto md:w-6/12'>
-        <h1 className='text-2xl font-bold'>Collection</h1>
         <div className='w-full'>
-          <div className='flex flex-col w-full bg-primary text-primary-content'>
+          <div className='flex flex-col flex-wrap md:flex-row w-fit bg-secondary text-primary-content'>
             <div className='stat w-full bg-secondary'>
               <div className='stat-title text-white'>
                 Total Item Collection
@@ -53,7 +52,7 @@ export function PlayerStats() {
                 {distinctItems.length}/{numTotalGameItems}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>
                 Equipment
                 <div
@@ -68,28 +67,28 @@ export function PlayerStats() {
                 {itemCategoryCounts['/item_categories/equipment']}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Resources</div>
               <span className='stat-value'>
                 {numByCategory['/item_categories/resource']}/
                 {itemCategoryCounts['/item_categories/resource']}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Loot</div>
               <span className='stat-value'>
                 {numByCategory['/item_categories/loot']}/
                 {itemCategoryCounts['/item_categories/loot']}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Ability Books</div>
               <span className='stat-value'>
                 {numByCategory['/item_categories/ability_book']}/
                 {itemCategoryCounts['/item_categories/ability_book']}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Food/Drink</div>
               <span className='stat-value'>
                 {numByCategory['/item_categories/food'] +
@@ -99,7 +98,7 @@ export function PlayerStats() {
                   itemCategoryCounts['/item_categories/drink']}
               </span>
             </div>
-            <div className='stat w-full bg-secondary'>
+            <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Currency</div>
               <span className='stat-value'>
                 {numByCategory['/item_categories/currency']}/
