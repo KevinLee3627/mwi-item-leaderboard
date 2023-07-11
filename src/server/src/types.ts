@@ -5,6 +5,7 @@ import {
   type Record as ItemRecord,
   type Item,
 } from '@prisma/client';
+import type { itemCategoryCounts } from './clientInfoClean';
 
 export type GetPlayerRes = Player;
 export type GetPlayerItemsRes = Array<
@@ -15,6 +16,8 @@ export type GetPlayerAbilitiesRes = Array<
 >;
 export interface GetPlayerStatsRes {
   topRanks: number;
+  numDistinctItems: number;
+  itemCategoryCounts: typeof itemCategoryCounts;
 }
 
 export type GetAllItemMetadataRes = Item[];

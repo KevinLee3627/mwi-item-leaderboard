@@ -1,3 +1,4 @@
+import { itemCategoryCounts } from 'src/clientInfoClean';
 import { prisma } from 'src/db';
 import type { GetPlayerStatsRes } from 'src/types';
 
@@ -36,7 +37,26 @@ export async function getPlayerStats({
     throw new Error(`Could not get top ranks for player ${playerId}`);
   }
 
+  const distinctItemsRes = await prisma.$queryRaw`
+    SELECT COUNT(DISTINCT i.hrid) AS numDistinctItems
+    FROM Record r
+    JOIN Player p
+      ON 	p.id = r.playerId
+    JOIN Item i
+      ON r.itemHrid = i.hrid
+    WHERE p.id=${playerId} 
+  `;
+
+  let numDistinctItems: number;
+  if (Array.isArray(distinctItemsRes)) {
+    numDistinctItems = parseInt(distinctItemsRes[0].numDistinctItems, 10);
+  } else {
+    throw new Error(`Could not get top ranks for player ${playerId}`);
+  }
+
   return {
     topRanks,
+    numDistinctItems,
+    itemCategoryCounts,
   };
 }
