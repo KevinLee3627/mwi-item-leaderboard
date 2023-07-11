@@ -25,7 +25,6 @@ export async function getSpecialLeaderboard({
   id,
 }: GetSpecialLeaderboardParams): Promise<unknown> {
   const leaderboard = leaderboards.find((lb) => lb.id === id);
-  console.log(leaderboard);
   if (leaderboard == null)
     throw new Error(`Could not find leaderboard with id ${id}`);
   return await leaderboard.leaderboardFunction();
