@@ -2,13 +2,13 @@ import { itemCategoryCounts } from 'src/clientInfoClean';
 import { prisma } from 'src/db';
 import type { GetPlayerStatsRes } from 'src/types';
 
-interface GetPlayerParams {
+interface GetPlayerStatsParams {
   playerId: number;
 }
 
 export async function getPlayerStats({
   playerId,
-}: GetPlayerParams): Promise<GetPlayerStatsRes> {
+}: GetPlayerStatsParams): Promise<GetPlayerStatsRes> {
   const topRanksRes = await prisma.$queryRaw`
     SELECT 
       playerId, playerDisplayName, COUNT(*) as topRanks
