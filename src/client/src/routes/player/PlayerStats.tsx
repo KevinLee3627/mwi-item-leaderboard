@@ -23,7 +23,7 @@ function getNumByCategory(data: GetPlayerStatsRes['distinctItems']) {
 }
 
 export function PlayerStats() {
-  const { topRanks, distinctItems, itemCategoryCounts } =
+  const { distinctItems, itemCategoryCounts } =
     useLoaderData() as GetPlayerStatsRes;
 
   const numTotalGameItems = Object.values(itemCategoryCounts).reduce(
@@ -131,13 +131,6 @@ export function PlayerStats() {
               </span>
             </div>
           </div>
-        </div>
-      </div>
-      <div className='flex'>
-        <div className='stat'>
-          <div className='stat-title'># Top Ranks</div>
-          <div className='stat-value'>{topRanks.toLocaleString()}</div>
-          <div className='stat-desc invisible'>lol centering</div>
         </div>
       </div>
     </>

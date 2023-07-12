@@ -24,6 +24,13 @@ export function Changelog({
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
           <ChangelogEntry
+            title='v0.12 - Player Item Collection Stats'
+            date='2023-07-11'
+            items={[
+              "Added item collection stats to player page - see how many items you have and how many you're missing",
+            ]}
+          />
+          <ChangelogEntry
             title='v0.11 - Mobile CSS Changes'
             date='2023-07-10'
             items={['Made mobile not look like garbage']}
@@ -122,7 +129,7 @@ interface ChangelogEntryProps {
 }
 function ChangelogEntry({ title, date, items }: ChangelogEntryProps) {
   return (
-    <div className='list-disc list-outside'>
+    <div className='my-2'>
       <h2 className='font-bold text-lg'>{title}</h2>
       <time dateTime={date} className='text-md'>
         {date}
