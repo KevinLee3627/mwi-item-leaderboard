@@ -6,10 +6,12 @@ import {
   GetAbilityLeaderboardRes,
   GetAllAbilityMetadataRes,
   GetAllItemMetadataRes,
+  GetGameItemDetailMapRes,
   GetItemLeaderboardRes,
   GetItemMetadataRes,
   GetOverallAbilityLevelLeaderboardRes,
   GetOverallAbilityXpLeaderboardRes,
+  GetPlayerCollectionRes,
   GetTotalItemsLeaderboardRes,
   GetTotalTopRanksLeaderboardRes,
   GetTotalUniqueItemsLeaderboardRes,
@@ -33,6 +35,7 @@ import { TotalItemsLeaderboard } from 'components/special/TotalItemsLeaderboard'
 import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItemsLeaderboard';
 import { TotalTopSpotsLeaderboard } from 'components/special/TotalTopRanksLeaderboard';
 import { PlayerStats } from 'routes/player/PlayerStats';
+import { PlayerCollection } from 'routes/player/PlayerCollection';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -153,6 +156,23 @@ const router = createHashRouter([
             `${apiBase}/api/v1/player/${params.playerId}/stats`
           );
           return res.data;
+        },
+      },
+      {
+        path: 'collection',
+        element: <PlayerCollection />,
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+          const collectionRes = await axios.get<GetPlayerCollectionRes>(
+            `${apiBase}/api/v1/player/${params.playerId}/collection`
+          );
+          const itemDetailMapRes = await axios.get<GetGameItemDetailMapRes>(
+            `${apiBase}/api/v1/game/items`
+          );
+          return {
+            ...collectionRes.data,
+            itemDetailMap: itemDetailMapRes.data,
+          };
         },
       },
       {
