@@ -5,6 +5,7 @@ import {
   ItemCategoryHrid,
   itemCategoryHrids,
 } from 'server/src/clientInfoClean';
+import { CountUp } from 'use-count-up';
 
 function getNumByCategory(data: GetPlayerStatsRes['distinctItems']) {
   const mapping = {} as Record<ItemCategoryHrid, number>;
@@ -49,7 +50,8 @@ export function PlayerStats() {
                 </div>
               </div>
               <span className='stat-value'>
-                {distinctItems.length}/{numTotalGameItems}
+                <CountUp isCounting end={distinctItems.length} duration={0.5} />
+                /{numTotalGameItems}
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
@@ -63,36 +65,58 @@ export function PlayerStats() {
                 </div>
               </div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/equipment']}/
-                {itemCategoryCounts['/item_categories/equipment']}
+                <CountUp
+                  isCounting
+                  end={numByCategory['/item_categories/equipment']}
+                  duration={0.5}
+                />
+                /{itemCategoryCounts['/item_categories/equipment']}
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Resources</div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/resource']}/
-                {itemCategoryCounts['/item_categories/resource']}
+                <CountUp
+                  isCounting
+                  end={numByCategory['/item_categories/resource']}
+                  duration={0.5}
+                />
+                /{itemCategoryCounts['/item_categories/resource']}
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Loot</div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/loot']}/
-                {itemCategoryCounts['/item_categories/loot']}
+                <CountUp
+                  isCounting
+                  end={numByCategory['/item_categories/loot']}
+                  duration={0.5}
+                />
+                /{itemCategoryCounts['/item_categories/loot']}
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Ability Books</div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/ability_book']}/
-                {itemCategoryCounts['/item_categories/ability_book']}
+                <CountUp
+                  isCounting
+                  end={numByCategory['/item_categories/ability_book']}
+                  duration={0.5}
+                />
+                /{itemCategoryCounts['/item_categories/ability_book']}
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Food/Drink</div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/food'] +
-                  numByCategory['/item_categories/drink']}
+                <CountUp
+                  isCounting
+                  end={
+                    numByCategory['/item_categories/food'] +
+                    numByCategory['/item_categories/drink']
+                  }
+                  duration={0.5}
+                />
                 /
                 {itemCategoryCounts['/item_categories/food'] +
                   itemCategoryCounts['/item_categories/drink']}
