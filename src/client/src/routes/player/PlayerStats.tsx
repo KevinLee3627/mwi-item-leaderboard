@@ -15,7 +15,6 @@ function getNumByCategory(data: GetPlayerStatsRes['distinctItems']) {
   }
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
-    console.log(item);
     if (mapping[item.categoryHrid] == null) mapping[item.categoryHrid] = 0;
     mapping[item.categoryHrid]++;
   }

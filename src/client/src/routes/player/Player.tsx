@@ -13,9 +13,7 @@ export function Player() {
   // TODO: Make actual type
   const data = useLoaderData() as { displayName: string; id: number };
 
-  const defaultTab = location.pathname.includes('abilities')
-    ? 'abilities'
-    : 'items';
+  const defaultTab = location.pathname.split('/').at(-1) ?? 'items';
   const [activeTab, setActiveTab] = useState<string>(defaultTab);
 
   const tabs: Tab<string>[] = [
