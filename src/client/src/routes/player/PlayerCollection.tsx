@@ -9,7 +9,7 @@ export interface PlayerCollectionLoaderData extends GetPlayerCollectionRes {
 }
 
 export function PlayerCollection() {
-  const { distinctItems, itemCategoryCounts, itemDetailMap } =
+  const { distinctItems, itemDetailMap } =
     useLoaderData() as PlayerCollectionLoaderData;
   // Toggles:
   // Show missing | Show collected
