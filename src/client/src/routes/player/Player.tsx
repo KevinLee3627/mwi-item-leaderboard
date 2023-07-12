@@ -20,6 +20,7 @@ export function Player() {
     { label: 'Items', value: 'items' },
     { label: 'Abilities', value: 'abilities' },
     { label: 'Stats', value: 'stats' },
+    { label: 'Collection', value: 'collection' },
   ];
 
   const tabElems = tabs.map((tab, i) => {

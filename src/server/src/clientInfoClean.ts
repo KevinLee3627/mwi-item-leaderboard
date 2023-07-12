@@ -8,7 +8,7 @@ function countCategory(categoryHrid: ItemCategoryHrid): number {
   }).length;
 }
 
-type GameInfo = typeof info;
+export type GameInfo = typeof info;
 
 export type ItemCategoryHrid = keyof GameInfo['itemCategoryDetailMap'];
 
