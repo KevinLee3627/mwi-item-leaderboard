@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 export function SpecialLeaderboards() {
   return (
-    <>
+    <div className='w-full'>
       <Header />
-      <h1 className='font-bold text-6xl text-center mt-4'>
+      <h1 className='font-bold text-5xl text-center mt-4'>
         Special Leaderboards
       </h1>
-      <div className='flex lg:w-6/12 mx-auto justify-center gap-2'>
+      <div className='flex flex-col w-8/12 md:flex-row md:w-6/12 mx-auto justify-center gap-2'>
         <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>
           <h2 className='font-bold text-4xl mb-4'>Abilities</h2>
           <ul>
@@ -50,6 +50,6 @@ export function SpecialLeaderboards() {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 }
