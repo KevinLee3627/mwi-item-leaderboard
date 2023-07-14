@@ -6,6 +6,7 @@ import { GetAbilityLeaderboardRes, GetAllAbilityMetadataRes } from 'server';
 import { hridToDisplayName } from 'util/hridToDisplayName';
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
+import { customTheme } from 'util/reactSelectCustomTheme';
 
 export interface AbilityLeaderboardLoaderData {
   abilities: GetAllAbilityMetadataRes;
@@ -113,14 +114,13 @@ export function AbilitySearchBox(props: SearchBoxProps) {
           searchParams.set('abilityHrid', String(newValue?.value.hrid));
           navigate(`/leaderboard/ability?${searchParams.toString()}&limit=100`);
         }}
-        styles={{
-          option: (base) => {
-            return {
-              ...base,
-              color: 'black',
-            };
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            ...customTheme.colors,
           },
-        }}
+        })}
       />
     </div>
   );

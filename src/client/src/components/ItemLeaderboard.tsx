@@ -10,6 +10,7 @@ import {
 import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
 import { hridToDisplayName } from 'util/hridToDisplayName';
+import { customTheme } from 'util/reactSelectCustomTheme';
 
 export interface ItemLeaderboardLoaderData {
   leaderboard: GetItemLeaderboardRes;
@@ -128,7 +129,13 @@ function ItemSearchBox(props: SearchBoxProps) {
           const nextUrl = `/leaderboard/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=${enhancementLevel}&limit=100`;
           navigate(nextUrl);
         }}
-        styles={{ option: (base) => ({ ...base, color: 'black' }) }}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            ...customTheme.colors,
+          },
+        })}
       />
     </div>
   );
@@ -176,12 +183,13 @@ export function EnhanceLevelPicker() {
           searchParams.set('enhancementLevel', String(newValue?.value));
           navigate(`/leaderboard/item?${searchParams.toString()}`);
         }}
-        styles={{
-          option: (base) => ({
-            ...base,
-            color: 'black',
-          }),
-        }}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            ...customTheme.colors,
+          },
+        })}
       />
     </div>
   );
