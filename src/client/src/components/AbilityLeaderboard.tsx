@@ -114,13 +114,7 @@ export function AbilitySearchBox(props: SearchBoxProps) {
           searchParams.set('abilityHrid', String(newValue?.value.hrid));
           navigate(`/leaderboard/ability?${searchParams.toString()}&limit=100`);
         }}
-        theme={(theme) => ({
-          ...theme,
-          colors: {
-            ...theme.colors,
-            ...customTheme.colors,
-          },
-        })}
+        theme={customTheme}
       />
     </div>
   );

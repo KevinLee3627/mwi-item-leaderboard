@@ -129,13 +129,7 @@ function ItemSearchBox(props: SearchBoxProps) {
           const nextUrl = `/leaderboard/item?itemHrid=${newValue?.value.hrid}&enhancementLevel=${enhancementLevel}&limit=100`;
           navigate(nextUrl);
         }}
-        theme={(theme) => ({
-          ...theme,
-          colors: {
-            ...theme.colors,
-            ...customTheme.colors,
-          },
-        })}
+        theme={customTheme}
       />
     </div>
   );
@@ -183,13 +177,7 @@ export function EnhanceLevelPicker() {
           searchParams.set('enhancementLevel', String(newValue?.value));
           navigate(`/leaderboard/item?${searchParams.toString()}`);
         }}
-        theme={(theme) => ({
-          ...theme,
-          colors: {
-            ...theme.colors,
-            ...customTheme.colors,
-          },
-        })}
+        theme={customTheme}
       />
     </div>
   );
