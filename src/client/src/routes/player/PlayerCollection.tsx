@@ -1,11 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import { useLoaderData } from 'react-router';
-import Select, { OnChangeValue } from 'react-select';
 import { Table } from 'components/Table';
 import { GetPlayerCollectionRes } from 'server';
 import { GameInfo } from 'server/src/clientInfoClean';
 import { hridToDisplayName } from 'util/hridToDisplayName';
-import { customTheme } from 'util/reactSelectCustomTheme';
+import { Checkbox } from 'components/Checkbox';
 
 export interface PlayerCollectionLoaderData extends GetPlayerCollectionRes {
   itemDetailMap: GameInfo['itemDetailMap'];
@@ -13,22 +12,8 @@ export interface PlayerCollectionLoaderData extends GetPlayerCollectionRes {
 
 type CheckedMap = Record<string, boolean>;
 
-type CollectionStatus = 'all' | 'collected' | 'missing';
-
-interface CollectionStatusOption {
-  label: string;
-  value: CollectionStatus;
-}
-
-const collectionStatusOptions: CollectionStatusOption[] = [
-  { label: 'All', value: 'all' },
-  { label: 'Collected', value: 'collected' },
-  { label: 'Missing', value: 'missing' },
-];
-const defaultCollectionStatusOption = collectionStatusOptions[0];
-
 export function PlayerCollection() {
-  const { distinctItems, itemDetailMap } =
+  const { distinctItems, itemDetailMap, itemCategoryDetailMap } =
     useLoaderData() as PlayerCollectionLoaderData;
   // Toggles:
   // Show missing | Show collected
@@ -37,35 +22,60 @@ export function PlayerCollection() {
     distinctItems.map((item) => [item.itemHrid, item])
   );
 
-  // const [checkedMap, setCheckedMap] = useState<CheckedMap>({});
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.checked;
-  //   const id = e.target.id;
+  const [checkedMap, setCheckedMap] = useState<CheckedMap>({});
+  const checkboxHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.checked;
+    const id = e.target.id;
 
-  //   if (checkedMap == null) return;
-  //   setCheckedMap({ ...checkedMap, [id]: value });
-  // };
+    if (checkedMap == null) return;
+    setCheckedMap({ ...checkedMap, [id]: value });
+  };
 
-  const [collectionStatus, setCollectionStatus] =
-    useState<CollectionStatusOption>(defaultCollectionStatusOption);
-
-  const selectHandleChange = (
-    newValue: OnChangeValue<CollectionStatusOption, false>
-  ) => {
-    if (newValue == null) return;
-
-    setCollectionStatus(newValue);
+  // if status-collected is checked, include playerHasItem = true
+  // if status-missing is checked, include playerHasItem = false
+  const filter: Record<string, (boolean | string)[]> = {
+    playerHasItem: [
+      checkedMap['status-collected'],
+      !checkedMap['status-missing'],
+    ],
+    categoryHrid: Object.keys(checkedMap).filter(
+      (key) => key.includes('/item_categories/') && checkedMap[key]
+    ),
   };
 
   return (
     <div className='p-2 m-4 secondary rounded mx-auto md:w-6/12'>
-      <Select
-        options={collectionStatusOptions}
-        defaultValue={defaultCollectionStatusOption}
-        placeholder='Choose collection status...'
-        onChange={selectHandleChange}
-        theme={customTheme}
-      />
+      <details className='collapse collapse-arrow bg-base-200'>
+        <summary className='collapse-title text-lg font-bold'>Filters</summary>
+        <div className='collapse-content flex'>
+          <div className='px-4'>
+            <p className='font-bold'>Status</p>
+            <Checkbox
+              id='status-collected'
+              label='Collected'
+              handleChange={checkboxHandleChange}
+            />
+            <Checkbox
+              id='status-missing'
+              label='Missing'
+              handleChange={checkboxHandleChange}
+            />
+          </div>
+          <div className='flex-1 px-4'>
+            <p className='font-bold'>Categories</p>
+            {Object.values(itemCategoryDetailMap).map((category) => {
+              return (
+                <Checkbox
+                  key={category.hrid}
+                  id={category.hrid}
+                  label={category.name}
+                  handleChange={checkboxHandleChange}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </details>
       <Table
         data={Object.values(itemDetailMap)
           .map((itemDetail) => {
@@ -76,15 +86,23 @@ export function PlayerCollection() {
             };
           })
           .filter((val) => {
-            if (collectionStatus.value === 'all') return val;
-            else if (collectionStatus.value === 'collected')
-              return val.playerHasItem;
-            else return !val.playerHasItem;
+            for (const key in filter) {
+              // TODO: Ugly type casting...
+              if (
+                !filter[key].includes(
+                  val[key as keyof typeof val] as string | boolean
+                )
+              ) {
+                return false;
+              }
+            }
+
+            return true;
           })}
         headers={[
           { label: 'Category', key: 'categoryHrid' },
           { label: 'Item', key: 'name' },
-          { label: 'Has Item', key: 'playerHasItem' },
+          { label: 'Collected', key: 'playerHasItem' },
         ]}
         defaultColumn='categoryHrid'
         row={(item, i) => {
@@ -92,7 +110,7 @@ export function PlayerCollection() {
             <tr key={i}>
               <td className='p-2'>{hridToDisplayName(item.categoryHrid)}</td>
               <td className='p-2'>{item.name}</td>
-              <td className='p-2'>{item.playerHasItem ? 'yes' : 'no'}</td>
+              <td className='p-2'>{item.playerHasItem ? '✅' : '❌'}</td>
             </tr>
           );
         }}
