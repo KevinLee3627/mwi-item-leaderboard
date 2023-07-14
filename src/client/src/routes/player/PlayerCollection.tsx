@@ -31,6 +31,7 @@ export function PlayerCollection() {
   });
 
   useEffect(() => {
+    if (searchParams.size === 0) return;
     const defaultCheckedMap: CheckedMap = {};
     for (const key of searchParams.keys()) {
       defaultCheckedMap[key] = true;
