@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { Table } from 'components/Table';
 import { GetPlayerCollectionRes } from 'server';
 import { GameInfo } from 'server/src/clientInfoClean';
 import { hridToDisplayName } from 'util/hridToDisplayName';
 import { Checkbox } from 'components/Checkbox';
+import { useSearchParams } from 'react-router-dom';
 
 export interface PlayerCollectionLoaderData extends GetPlayerCollectionRes {
   itemDetailMap: GameInfo['itemDetailMap'];
@@ -15,20 +16,27 @@ type CheckedMap = Record<string, boolean>;
 export function PlayerCollection() {
   const { distinctItems, itemDetailMap, itemCategoryDetailMap } =
     useLoaderData() as PlayerCollectionLoaderData;
-  // Toggles:
-  // Show missing | Show collected
-  // Show [categories]
+  const [searchParams] = useSearchParams();
+
   const playerItemMap = Object.fromEntries(
     distinctItems.map((item) => [item.itemHrid, item])
   );
 
   const [checkedMap, setCheckedMap] = useState<CheckedMap>({
-    'status-collected': true,
-    'status-missing': true,
+    collected: true,
+    missing: true,
     ...Object.fromEntries(
       Object.keys(itemCategoryDetailMap).map((key) => [key, true])
     ),
   });
+
+  useEffect(() => {
+    const defaultCheckedMap: CheckedMap = {};
+    for (const key of searchParams.keys()) {
+      defaultCheckedMap[key] = true;
+    }
+    setCheckedMap(defaultCheckedMap);
+  }, [searchParams]);
   const checkboxHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
     const id = e.target.id;
@@ -37,13 +45,10 @@ export function PlayerCollection() {
     setCheckedMap({ ...checkedMap, [id]: value });
   };
 
-  // if status-collected is checked, include playerHasItem = true
-  // if status-missing is checked, include playerHasItem = false
+  // if collected is checked, include playerHasItem = true
+  // if missing is checked, include playerHasItem = false
   const filter: Record<string, (boolean | string)[]> = {
-    playerHasItem: [
-      checkedMap['status-collected'],
-      !checkedMap['status-missing'],
-    ],
+    playerHasItem: [checkedMap['collected'], !checkedMap['missing']],
     categoryHrid: Object.keys(checkedMap).filter(
       (key) => key.includes('/item_categories/') && checkedMap[key]
     ),
@@ -60,13 +65,13 @@ export function PlayerCollection() {
             <div className='px-4'>
               <p className='font-bold'>Status</p>
               <Checkbox
-                id='status-collected'
+                id='collected'
                 defaultChecked={true}
                 label='Collected'
                 handleChange={checkboxHandleChange}
               />
               <Checkbox
-                id='status-missing'
+                id='missing'
                 defaultChecked={true}
                 label='Missing'
                 handleChange={checkboxHandleChange}

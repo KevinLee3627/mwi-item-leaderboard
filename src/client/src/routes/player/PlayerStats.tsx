@@ -1,5 +1,6 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/solid';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { GetPlayerStatsRes } from 'server';
 import {
   ItemCategoryHrid,
@@ -24,6 +25,11 @@ function getNumByCategory(data: GetPlayerStatsRes['distinctItems']) {
 export function PlayerStats() {
   const { distinctItems, itemCategoryCounts } =
     useLoaderData() as GetPlayerStatsRes;
+  const { playerId } = useParams();
+  const collectionUrl = (itemCategoryHrids: ItemCategoryHrid[]) =>
+    `/player/${playerId}/collection?collected=true&missing=true&${itemCategoryHrids
+      .map((hrid) => `${hrid}=true`)
+      .join('&')}`;
 
   const numTotalGameItems = Object.values(itemCategoryCounts).reduce(
     (acc, val) => acc + val,
@@ -31,7 +37,6 @@ export function PlayerStats() {
   );
 
   const numByCategory = getNumByCategory(distinctItems);
-  console.log(numByCategory);
 
   return (
     <>
@@ -64,69 +69,102 @@ export function PlayerStats() {
                 </div>
               </div>
               <span className='stat-value'>
-                <CountUp
-                  isCounting
-                  end={numByCategory['/item_categories/equipment']}
-                  duration={0.5}
-                />
-                /{itemCategoryCounts['/item_categories/equipment']}
+                <Link
+                  to={collectionUrl(['/item_categories/equipment'])}
+                  className='underline decoration-dotted'
+                >
+                  <CountUp
+                    isCounting
+                    end={numByCategory['/item_categories/equipment']}
+                    duration={0.5}
+                  />
+                  /{itemCategoryCounts['/item_categories/equipment']}
+                </Link>
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Resources</div>
               <span className='stat-value'>
-                <CountUp
-                  isCounting
-                  end={numByCategory['/item_categories/resource']}
-                  duration={0.5}
-                />
-                /{itemCategoryCounts['/item_categories/resource']}
+                <Link
+                  to={collectionUrl(['/item_categories/resource'])}
+                  className='underline decoration-dotted'
+                >
+                  <CountUp
+                    isCounting
+                    end={numByCategory['/item_categories/resource']}
+                    duration={0.5}
+                  />
+                  /{itemCategoryCounts['/item_categories/resource']}
+                </Link>
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Loot</div>
               <span className='stat-value'>
-                <CountUp
-                  isCounting
-                  end={numByCategory['/item_categories/loot']}
-                  duration={0.5}
-                />
-                /{itemCategoryCounts['/item_categories/loot']}
+                <Link
+                  to={collectionUrl(['/item_categories/loot'])}
+                  className='underline decoration-dotted'
+                >
+                  <CountUp
+                    isCounting
+                    end={numByCategory['/item_categories/loot']}
+                    duration={0.5}
+                  />
+                  /{itemCategoryCounts['/item_categories/loot']}
+                </Link>
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Ability Books</div>
               <span className='stat-value'>
-                <CountUp
-                  isCounting
-                  end={numByCategory['/item_categories/ability_book']}
-                  duration={0.5}
-                />
-                /{itemCategoryCounts['/item_categories/ability_book']}
+                <Link
+                  to={collectionUrl(['/item_categories/ability_book'])}
+                  className='underline decoration-dotted'
+                >
+                  <CountUp
+                    isCounting
+                    end={numByCategory['/item_categories/ability_book']}
+                    duration={0.5}
+                  />
+                  /{itemCategoryCounts['/item_categories/ability_book']}
+                </Link>
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Food/Drink</div>
               <span className='stat-value'>
-                <CountUp
-                  isCounting
-                  end={
-                    numByCategory['/item_categories/food'] +
-                    numByCategory['/item_categories/drink']
-                  }
-                  duration={0.5}
-                />
-                /
-                {itemCategoryCounts['/item_categories/food'] +
-                  itemCategoryCounts['/item_categories/drink']}
+                <Link
+                  to={collectionUrl([
+                    '/item_categories/food',
+                    '/item_categories/drink',
+                  ])}
+                  className='underline decoration-dotted'
+                >
+                  <CountUp
+                    isCounting
+                    end={
+                      numByCategory['/item_categories/food'] +
+                      numByCategory['/item_categories/drink']
+                    }
+                    duration={0.5}
+                  />
+                  /
+                  {itemCategoryCounts['/item_categories/food'] +
+                    itemCategoryCounts['/item_categories/drink']}
+                </Link>
               </span>
             </div>
             <div className='stat w-fit bg-secondary'>
               <div className='stat-title text-white'>Currency</div>
               <span className='stat-value'>
-                {numByCategory['/item_categories/currency']}/
-                {itemCategoryCounts['/item_categories/currency'] - 1}
-                {/* NOTE: We subtract one b/c cowbells should not be counted. */}
+                <Link
+                  to={collectionUrl(['/item_categories/currency'])}
+                  className='underline decoration-dotted'
+                >
+                  {numByCategory['/item_categories/currency']}/
+                  {itemCategoryCounts['/item_categories/currency'] - 1}
+                  {/* NOTE: We subtract one b/c cowbells should not be counted. */}
+                </Link>
               </span>
             </div>
           </div>
