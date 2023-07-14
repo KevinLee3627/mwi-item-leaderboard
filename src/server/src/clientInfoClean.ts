@@ -22,4 +22,18 @@ export const itemCategoryCounts = Object.fromEntries(
   })
 ) as { [k in ItemCategoryHrid]: number };
 
+export const itemCategoryDetailMap = info.itemCategoryDetailMap;
+
+export type ItemCategoryDetailMap = Record<
+  ItemCategoryHrid,
+  ItemCategoryDetail
+>;
+
+export interface ItemCategoryDetail {
+  hrid: ItemCategoryHrid;
+  name: string;
+  pluralName: string;
+  sortIndex: number;
+}
+
 export type ItemHrid = keyof GameInfo['itemDetailMap'];

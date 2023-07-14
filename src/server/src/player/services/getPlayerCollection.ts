@@ -1,4 +1,4 @@
-import { itemCategoryCounts } from 'src/clientInfoClean';
+import { itemCategoryCounts, itemCategoryDetailMap } from 'src/clientInfoClean';
 import { prisma } from 'src/db';
 import type { GetPlayerCollectionRes, GetPlayerStatsRes } from 'src/types';
 
@@ -31,5 +31,6 @@ export async function getPlayerCollection({
   return {
     distinctItems,
     itemCategoryCounts,
+    itemCategoryDetailMap,
   };
 }

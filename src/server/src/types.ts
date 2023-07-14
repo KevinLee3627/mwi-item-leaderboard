@@ -9,6 +9,7 @@ import type {
   GameInfo,
   ItemCategoryHrid,
   itemCategoryCounts,
+  itemCategoryDetailMap,
 } from './clientInfoClean';
 
 export type GetPlayerRes = Player;
@@ -31,6 +32,7 @@ export interface GetPlayerCollectionRes {
     Omit<ItemRecord, 'playerId'> & { categoryHrid: ItemCategoryHrid }
   >;
   itemCategoryCounts: typeof itemCategoryCounts;
+  itemCategoryDetailMap: typeof itemCategoryDetailMap;
 }
 
 export type GetGameItemDetailMapRes = GameInfo['itemDetailMap'];
