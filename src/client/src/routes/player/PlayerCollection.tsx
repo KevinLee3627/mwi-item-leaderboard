@@ -45,37 +45,42 @@ export function PlayerCollection() {
 
   return (
     <div className='p-2 m-4 secondary rounded mx-auto md:w-6/12'>
-      <details className='collapse collapse-arrow bg-base-200'>
-        <summary className='collapse-title text-lg font-bold'>Filters</summary>
-        <div className='collapse-content flex'>
-          <div className='px-4'>
-            <p className='font-bold'>Status</p>
-            <Checkbox
-              id='status-collected'
-              label='Collected'
-              handleChange={checkboxHandleChange}
-            />
-            <Checkbox
-              id='status-missing'
-              label='Missing'
-              handleChange={checkboxHandleChange}
-            />
+      <div className='mx-auto md:w-6/12'>
+        <details className='collapse collapse-arrow bg-base-200 mb-4'>
+          <summary className='collapse-title text-lg font-bold'>
+            Filters
+          </summary>
+          <div className='collapse-content flex'>
+            <div className='px-4'>
+              <p className='font-bold'>Status</p>
+              <Checkbox
+                id='status-collected'
+                label='Collected'
+                handleChange={checkboxHandleChange}
+              />
+              <Checkbox
+                id='status-missing'
+                label='Missing'
+                handleChange={checkboxHandleChange}
+              />
+            </div>
+            <div className='flex-1 px-4'>
+              <p className='font-bold'>Categories</p>
+              {Object.values(itemCategoryDetailMap).map((category) => {
+                return (
+                  <Checkbox
+                    key={category.hrid}
+                    id={category.hrid}
+                    label={category.name}
+                    handleChange={checkboxHandleChange}
+                  />
+                );
+              })}
+            </div>
           </div>
-          <div className='flex-1 px-4'>
-            <p className='font-bold'>Categories</p>
-            {Object.values(itemCategoryDetailMap).map((category) => {
-              return (
-                <Checkbox
-                  key={category.hrid}
-                  id={category.hrid}
-                  label={category.name}
-                  handleChange={checkboxHandleChange}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </details>
+        </details>
+      </div>
+
       <Table
         data={Object.values(itemDetailMap)
           .map((itemDetail) => {
