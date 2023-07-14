@@ -22,7 +22,13 @@ export function PlayerCollection() {
     distinctItems.map((item) => [item.itemHrid, item])
   );
 
-  const [checkedMap, setCheckedMap] = useState<CheckedMap>({});
+  const [checkedMap, setCheckedMap] = useState<CheckedMap>({
+    'status-collected': true,
+    'status-missing': true,
+    ...Object.fromEntries(
+      Object.keys(itemCategoryDetailMap).map((key) => [key, true])
+    ),
+  });
   const checkboxHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
     const id = e.target.id;
@@ -55,11 +61,13 @@ export function PlayerCollection() {
               <p className='font-bold'>Status</p>
               <Checkbox
                 id='status-collected'
+                defaultChecked={true}
                 label='Collected'
                 handleChange={checkboxHandleChange}
               />
               <Checkbox
                 id='status-missing'
+                defaultChecked={true}
                 label='Missing'
                 handleChange={checkboxHandleChange}
               />
@@ -70,6 +78,7 @@ export function PlayerCollection() {
                 return (
                   <Checkbox
                     key={category.hrid}
+                    defaultChecked={true}
                     id={category.hrid}
                     label={category.name}
                     handleChange={checkboxHandleChange}

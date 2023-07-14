@@ -24,6 +24,14 @@ export function Changelog({
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
           <ChangelogEntry
+            title='v0.13 - Collection Filters'
+            date='2023-07-14'
+            items={[
+              'Backend changes w/ regards to hosting - urls are now cleaner as a result (no ugly hash routing!)',
+              "Added filtering capabilities to a player's collection page!",
+            ]}
+          />
+          <ChangelogEntry
             title='v0.12 - Player Item Collection Stats'
             date='2023-07-11'
             items={[
