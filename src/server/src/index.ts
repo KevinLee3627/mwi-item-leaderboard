@@ -1,16 +1,8 @@
-import { readFileSync } from 'fs';
-import https from 'https';
+import http from 'http';
 import { app } from './app';
 
 async function main(): Promise<void> {
-  const privateKey = readFileSync(process.env.KEY_PATH as string, 'utf8');
-  const certificate = readFileSync(process.env.CERT_PATH as string, 'utf8');
-  const config = {
-    key: privateKey,
-    cert: certificate,
-  };
-
-  const server = https.createServer(config, app);
+  const server = http.createServer(app);
   server.listen(8443, () => {
     console.log('Listening on 8443');
   });
