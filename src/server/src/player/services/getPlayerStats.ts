@@ -82,7 +82,7 @@ export async function getPlayerStats({
     return acc + estimatedValue;
   }, 0);
 
-  const coinCount = allItems.find((val) => (val.itemHrid = '/items/coin'));
+  const coinCount = distinctItems.find((val) => val.itemHrid === '/items/coin');
   if (coinCount != null) {
     estimatedNetWorth += coinCount.num;
   }
