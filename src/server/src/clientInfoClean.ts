@@ -24,6 +24,8 @@ export const itemCategoryCounts = Object.fromEntries(
 
 export const itemCategoryDetailMap = info.itemCategoryDetailMap;
 
+export const itemDetailMap = info.itemDetailMap;
+
 export type ItemCategoryDetailMap = Record<
   ItemCategoryHrid,
   ItemCategoryDetail

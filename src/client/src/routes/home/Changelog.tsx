@@ -30,6 +30,7 @@ export function Changelog({
               'Backend changes w/ regards to hosting - urls are now cleaner as a result (no ugly hash routing!)',
               "Added filtering capabilities to a player's collection page!",
               'Added links on player collection stats to the collection pag for that particular category (link comes pre-filtered!)',
+              'Added Estimated Net Worth to player stats',
             ]}
           />
           <ChangelogEntry

@@ -25,6 +25,7 @@ export interface GetPlayerStatsRes {
     Omit<ItemRecord, 'playerId'> & { categoryHrid: ItemCategoryHrid }
   >;
   itemCategoryCounts: typeof itemCategoryCounts;
+  estimatedNetWorth: number;
 }
 
 export interface GetPlayerCollectionRes {

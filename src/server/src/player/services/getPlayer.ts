@@ -15,6 +15,5 @@ export async function getPlayer({
   });
 
   if (result == null) throw new Error(`Player ${playerId} not found.`);
-
   return result;
 }
