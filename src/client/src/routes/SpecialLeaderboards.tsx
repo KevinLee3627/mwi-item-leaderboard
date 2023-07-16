@@ -37,6 +37,7 @@ export function SpecialLeaderboards() {
                 Total Unique Items
               </Link>
             </li>
+            <LeaderboardLink title='Total Gems' id={6} />
           </ul>
         </div>
         <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>
@@ -51,5 +52,19 @@ export function SpecialLeaderboards() {
         </div>
       </div>
     </div>
+  );
+}
+
+interface LeaderboardLinkProps {
+  title: string;
+  id: number;
+}
+function LeaderboardLink({ title, id }: LeaderboardLinkProps) {
+  return (
+    <li>
+      <Link to={`/leaderboard/special/${id}`} className='underline'>
+        {title}
+      </Link>
+    </li>
   );
 }

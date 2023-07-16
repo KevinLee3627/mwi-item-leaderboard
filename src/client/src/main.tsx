@@ -12,6 +12,7 @@ import {
   GetOverallAbilityLevelLeaderboardRes,
   GetOverallAbilityXpLeaderboardRes,
   GetPlayerCollectionRes,
+  GetTotalGemsLeaderboardRes,
   GetTotalItemsLeaderboardRes,
   GetTotalTopRanksLeaderboardRes,
   GetTotalUniqueItemsLeaderboardRes,
@@ -36,6 +37,7 @@ import { TotalUniqueItemsLeaderboard } from 'components/special/TotalUniqueItems
 import { TotalTopSpotsLeaderboard } from 'components/special/TotalTopRanksLeaderboard';
 import { PlayerStats } from 'routes/player/PlayerStats';
 import { PlayerCollection } from 'routes/player/PlayerCollection';
+import { TotalGemsLeaderboard } from 'components/special/TotalGemsLeaderboard';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 
@@ -247,6 +249,17 @@ const router = createBrowserRouter([
     loader: async () => {
       const { data } = await axios.get<GetTotalTopRanksLeaderboardRes>(
         `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/5`
+      );
+      return { leaderboard: data.leaderboard, title: data.title };
+    },
+  },
+  {
+    path: '/leaderboard/special/6',
+    element: <TotalGemsLeaderboard />,
+    errorElement: <ErrorPage />,
+    loader: async () => {
+      const { data } = await axios.get<GetTotalGemsLeaderboardRes>(
+        `${import.meta.env.VITE_API_BASE}/api/v1/leaderboard/special/6`
       );
       return { leaderboard: data.leaderboard, title: data.title };
     },

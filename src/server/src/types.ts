@@ -86,3 +86,10 @@ export interface GetTotalTopRanksLeaderboardRes {
   >;
   title: string;
 }
+
+export interface GetTotalGemsLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> & { total: number; rank: number }
+  >;
+  title: string;
+}
