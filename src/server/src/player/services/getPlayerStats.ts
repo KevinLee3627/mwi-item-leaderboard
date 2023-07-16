@@ -4,9 +4,8 @@ import {
   itemDetailMap,
 } from 'src/clientInfoClean';
 import { prisma } from 'src/db';
-import { marketInfo } from 'src/marketInfo';
+import { marketInfo, normalizeMarketName } from 'src/marketInfo';
 import type { GetPlayerStatsRes } from 'src/types';
-import { hridToDisplayName } from 'src/util/hrid';
 
 interface GetPlayerStatsParams {
   playerId: number;
@@ -63,12 +62,15 @@ export async function getPlayerStats({
   }
 
   // TODO: Computationally heavy route?
-  const allItems = await prisma.record.findMany({ where: { playerId } });
+  const allItems = await prisma.record.findMany({
+    where: { playerId },
+    include: { item: true },
+  });
 
   // Calculate net worth
   let estimatedNetWorth = allItems.reduce((acc, item) => {
-    const displayName = hridToDisplayName(item.itemHrid);
-    const { bid } = marketInfo.market[displayName];
+    const marketName = normalizeMarketName(item.item.displayName);
+    const { bid } = marketInfo.market[marketName];
 
     // People put dumb sell orders up (selling cheese for 1 billion), so ignore asks
     // People put dumb BOs up (buying jewelry for 10k), but it's better to underestimate
