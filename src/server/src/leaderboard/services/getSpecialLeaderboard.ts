@@ -1,5 +1,6 @@
 import { getOverallAbilityLevelLeaderboard } from './special/getOverallAbilityLevelLeaderboard';
 import { getOverallAbilityXpLeaderboard } from './special/getOverallAbilityXpLeaderboard';
+import { getSingleAbilityLevelLeaderboard } from './special/getSingleAbilityLevelLeaderboard';
 import { getTotalGemsLeaderboard } from './special/getTotalGemsLeaderboard';
 import { getTotalItemsLeaderboard } from './special/getTotalItemsLeaderboard';
 import { getTotalTopRanksLeaderboard } from './special/getTotalTopRanksLeaderboard';
@@ -21,6 +22,7 @@ const leaderboards: LeaderboardDefinition[] = [
   { id: 4, leaderboardFunction: getTotalUniqueItemsLeaderboard },
   { id: 5, leaderboardFunction: getTotalTopRanksLeaderboard },
   { id: 6, leaderboardFunction: getTotalGemsLeaderboard },
+  { id: 7, leaderboardFunction: getSingleAbilityLevelLeaderboard },
 ];
 
 export async function getSpecialLeaderboard({

@@ -22,6 +22,11 @@ export function SpecialLeaderboards() {
                 Overall Ability XP
               </Link>
             </li>
+            <li>
+              <Link to='/leaderboard/special/7' className='underline'>
+                Single Ability Level
+              </Link>
+            </li>
           </ul>
         </div>
         <div className='bg-neutral p-4 text rounded-box my-8 inline-flex flex-col'>

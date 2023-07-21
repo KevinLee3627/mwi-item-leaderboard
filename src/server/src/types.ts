@@ -93,3 +93,13 @@ export interface GetTotalGemsLeaderboardRes {
   >;
   title: string;
 }
+
+export interface GetSingleAbilityLevelLeaderboardRes {
+  leaderboard: Array<
+    Pick<Player, 'displayName' | 'id'> &
+      Pick<AbilityRecord, 'abilityHrid' | 'abilityLevel' | 'abilityXp'> & {
+        rank: number;
+      }
+  >;
+  title: string;
+}
