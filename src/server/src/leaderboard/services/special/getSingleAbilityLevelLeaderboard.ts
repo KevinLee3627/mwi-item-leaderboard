@@ -19,7 +19,6 @@ export async function getSingleAbilityLevelLeaderboard(): Promise<GetSingleAbili
     FROM Player p 
     JOIN AbilityRecord a 
       ON p.id = a.playerId 
-    GROUP BY p.displayName
     ORDER BY a.abilityXp DESC
     LIMIT 100`;
   const processedResults = results.map((result) => ({
