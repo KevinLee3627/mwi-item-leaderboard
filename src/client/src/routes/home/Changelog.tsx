@@ -24,6 +24,13 @@ export function Changelog({
         <form method='dialog' className='modal-box'>
           <h1 className='font-bold text-3xl pb-4'>CHANGELOG</h1>
           <ChangelogEntry
+            title='v0.14 - Minor Change'
+            date='2023-07-27'
+            items={[
+              'Item leaderboards only show enhancement level column if the item can be enhanced (aka equipment)',
+            ]}
+          />
+          <ChangelogEntry
             title='v0.13 - Collection Filters'
             date='2023-07-14'
             items={[

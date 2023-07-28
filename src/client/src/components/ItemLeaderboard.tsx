@@ -11,76 +11,83 @@ import { Table } from 'components/Table';
 import { getRankIcon } from 'util/getRankIcon';
 import { hridToDisplayName } from 'util/hridToDisplayName';
 import { customTheme } from 'util/reactSelectCustomTheme';
+import { type Header } from './TableHeader';
 
 export interface ItemLeaderboardLoaderData {
   leaderboard: GetItemLeaderboardRes;
-  itemMetadata: GetAllItemMetadataRes;
+  allItemMetadata: GetAllItemMetadataRes;
   enhancementLevelData: GetItemMetadataRes;
 }
 
+type Unpack<T> = T extends (infer U)[] ? U : T;
+
 export function ItemLeaderboard() {
-  const { leaderboard, itemMetadata } =
-    useLoaderData() as ItemLeaderboardLoaderData;
+  const {
+    leaderboard,
+    allItemMetadata: itemMetadata,
+    enhancementLevelData,
+  } = useLoaderData() as ItemLeaderboardLoaderData;
+
+  const showEnhancementLevel =
+    enhancementLevelData[0].categoryHrid === '/item_categories/equipment';
+  console.log(showEnhancementLevel);
+  const data = leaderboard.map((entry) => ({
+    rank: entry.rank,
+    playerName: entry.player.displayName,
+    playerId: entry.player.id,
+    amount: entry.num,
+    enhancementLevel: entry.itemEnhancementLevel,
+    lastUpdated: entry.ts,
+  }));
+
+  const headers: Header<Unpack<typeof data>>[] = [
+    { key: 'rank', label: 'Rank' },
+    { key: 'playerName', label: 'Player' },
+    { key: 'amount', label: '#' },
+    { key: 'enhancementLevel', label: 'Enhancement Level' },
+    { key: 'lastUpdated', label: 'Last Updated' },
+  ].filter(
+    (val): val is Header<Unpack<typeof data>> =>
+      !(!showEnhancementLevel && val.key === 'enhancementLevel')
+  );
+
+  const row = (entry: Unpack<typeof data>, i: number) => {
+    return (
+      <tr key={i} className='hover text-left'>
+        <td className='p-2 bold'>
+          {entry.rank} {getRankIcon(entry.rank)}
+        </td>
+        <td className='p-2 underline'>
+          <Link to={`/player/${entry.playerId}/items`}>{entry.playerName}</Link>
+        </td>
+        <td className='p-2'>{entry.amount.toLocaleString()}</td>
+        {showEnhancementLevel && (
+          <td className='p-2'>{entry.enhancementLevel}</td>
+        )}
+        <td className='p-2'>{new Date(entry.lastUpdated).toLocaleString()}</td>
+      </tr>
+    );
+  };
 
   return (
     <>
-      <p className='text-center'>
-        <strong>
-          To add your items here, whisper Granttank2 in game with your items
-          linked in chat!
-        </strong>
+      <p className='text-center font-bold'>
+        To add your items here, whisper Granttank2 in game with your items
+        linked in chat!
       </p>
       <div className='flex mx-auto md:w-6/12'>
         <ItemSearchBox
           options={itemMetadata
-            ?.map((item) => {
-              return {
-                value: item,
-                label: `${item.displayName}`,
-              };
-            })
+            ?.map((item) => ({
+              value: item,
+              label: `${item.displayName}`,
+            }))
             .sort((a, b) => a.label.localeCompare(b.label))}
         />
         <EnhanceLevelPicker />
       </div>
       <div className='overflow-x-auto'>
-        <Table
-          data={leaderboard.map((entry) => ({
-            rank: entry.rank,
-            playerName: entry.player.displayName,
-            playerId: entry.player.id,
-            amount: entry.num,
-            enhancementLevel: entry.itemEnhancementLevel,
-            lastUpdated: entry.ts,
-          }))}
-          headers={[
-            { key: 'rank', label: 'Rank' },
-            { key: 'playerName', label: 'Player' },
-            { key: 'amount', label: '#' },
-            { key: 'enhancementLevel', label: 'Enhancement Level' },
-            { key: 'lastUpdated', label: 'Last Updated' },
-          ]}
-          defaultColumn='rank'
-          row={(entry, i) => {
-            return (
-              <tr key={i} className='hover text-left'>
-                <td className='p-2 bold'>
-                  {entry.rank} {getRankIcon(entry.rank)}
-                </td>
-                <td className='p-2 underline'>
-                  <Link to={`/player/${entry.playerId}/items`}>
-                    {entry.playerName}
-                  </Link>
-                </td>
-                <td className='p-2'>{entry.amount.toLocaleString()}</td>
-                <td className='p-2'>{entry.enhancementLevel}</td>
-                <td className='p-2'>
-                  {new Date(entry.lastUpdated).toLocaleString()}
-                </td>
-              </tr>
-            );
-          }}
-        />
+        <Table data={data} headers={headers} defaultColumn='rank' row={row} />
       </div>
     </>
   );
