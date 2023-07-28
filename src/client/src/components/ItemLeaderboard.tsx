@@ -29,8 +29,8 @@ export function ItemLeaderboard() {
   } = useLoaderData() as ItemLeaderboardLoaderData;
 
   const showEnhancementLevel =
-    enhancementLevelData[0].categoryHrid === '/item_categories/equipment';
-  console.log(showEnhancementLevel);
+    enhancementLevelData.at(0)?.categoryHrid === '/item_categories/equipment';
+
   const data = leaderboard.map((entry) => ({
     rank: entry.rank,
     playerName: entry.player.displayName,
