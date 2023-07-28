@@ -59,7 +59,7 @@ const router = createBrowserRouter([
 
           const { data: allItemMetadata } =
             await axios.get<GetAllItemMetadataRes>(`${apiBase}/api/v1/item`);
-
+          console.log(allItemMetadata);
           if (itemHrid == null)
             return {
               allItemMetadata,
@@ -113,10 +113,11 @@ const router = createBrowserRouter([
         index: true,
         element: <ItemLeaderboard />,
         loader: async () => {
-          const { data: itemMetadata } = await axios.get<GetAllItemMetadataRes>(
-            `${import.meta.env.VITE_API_BASE}/api/v1/item`
-          );
-          return { leaderboard: [], itemMetadata, enhancementLevelData: [] };
+          const { data: allItemMetadata } =
+            await axios.get<GetAllItemMetadataRes>(
+              `${import.meta.env.VITE_API_BASE}/api/v1/item`
+            );
+          return { leaderboard: [], allItemMetadata, enhancementLevelData: [] };
         },
       },
     ],

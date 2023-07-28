@@ -22,11 +22,10 @@ export interface ItemLeaderboardLoaderData {
 type Unpack<T> = T extends (infer U)[] ? U : T;
 
 export function ItemLeaderboard() {
-  const {
-    leaderboard,
-    allItemMetadata: itemMetadata,
-    enhancementLevelData,
-  } = useLoaderData() as ItemLeaderboardLoaderData;
+  const { leaderboard, allItemMetadata, enhancementLevelData } =
+    useLoaderData() as ItemLeaderboardLoaderData;
+
+  console.log(allItemMetadata);
 
   const showEnhancementLevel =
     enhancementLevelData.at(0)?.categoryHrid === '/item_categories/equipment';
@@ -77,7 +76,7 @@ export function ItemLeaderboard() {
       </p>
       <div className='flex mx-auto md:w-6/12'>
         <ItemSearchBox
-          options={itemMetadata
+          options={allItemMetadata
             ?.map((item) => ({
               value: item,
               label: `${item.displayName}`,
