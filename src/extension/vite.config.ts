@@ -12,7 +12,7 @@ export default defineConfig({
         'run-at': 'document-start',
         icon: 'https://vitejs.dev/logo.svg',
         namespace: 'mwi-item-leaderboards',
-        match: ['*://*test.milkywayidle.com/*'],
+        match: ['*://*www.milkywayidle.com/*'],
       },
     }),
   ],
