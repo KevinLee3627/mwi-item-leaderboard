@@ -70,10 +70,6 @@ export function ItemLeaderboard() {
 
   return (
     <>
-      <p className='text-center font-bold'>
-        To add your items here, whisper Granttank2 in game with your items
-        linked in chat!
-      </p>
       <div className='flex mx-auto md:w-6/12'>
         <ItemSearchBox
           options={allItemMetadata

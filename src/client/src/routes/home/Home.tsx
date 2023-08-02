@@ -40,6 +40,18 @@ export function Home() {
       <div className='mx-auto flex place-items-center my-4'>
         <div className='tabs tabs-boxed mx-auto inline-flex'>{tabElems}</div>
       </div>
+      <p className='text-center'>
+        <strong>
+          To add your items here, whisper Granttank2 in game with your items
+          linked in chat!
+        </strong>
+      </p>
+      <p className='text-center'>
+        <strong>
+          To opt-out of your linked items being collected and displayed, please
+          whisper '/ignore' to Granttank2 in-game.
+        </strong>
+      </p>
       <Outlet />
     </div>
   );

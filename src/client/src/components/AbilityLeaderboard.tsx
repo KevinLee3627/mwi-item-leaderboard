@@ -17,12 +17,6 @@ export function AbilityLeaderboard() {
   const res = useLoaderData() as AbilityLeaderboardLoaderData;
   return (
     <>
-      <p className='text-center'>
-        <strong>
-          To add your items here, whisper Granttank2 in game with your items
-          linked in chat!
-        </strong>
-      </p>
       <AbilitySearchBox
         options={res.abilities.map((ability) => ({
           label: ability.displayName,
