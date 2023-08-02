@@ -32,9 +32,9 @@ export class CustomSocket extends WebSocket {
 
       // Ignore Trade channel
       if (data.message.channelTypeHrid === '/chat_channel_types/trade') return;
-      console.log(data.message);
+
       if (data.message.channelTypeHrid === '/chat_channel_types/whisper') {
-        parseCommand(data.message);
+        await parseCommand(data.message);
       }
       if (data.message.linksMetadata.length > 0) {
         await parseItems(data);
