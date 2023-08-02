@@ -15,6 +15,7 @@ model Player {
   displayName   String
   Record        Record[]
   AbilityRecord AbilityRecord[]
+  ignored       Boolean         @default(false)
 }
 
 model Item {

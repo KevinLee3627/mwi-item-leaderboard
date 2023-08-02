@@ -2,6 +2,14 @@ import type { AbilityPayload } from 'extension';
 import { prisma } from 'src/db';
 
 export async function uploadAbilities(data: AbilityPayload): Promise<void> {
+  const player = await prisma.player.findUnique({
+    where: { id: data.player.id },
+  });
+
+  if (player?.ignored === true) {
+    return;
+  }
+
   await prisma.player.upsert({
     where: {
       id: data.player.id,

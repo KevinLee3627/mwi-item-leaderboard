@@ -4,6 +4,7 @@ import { getPlayerStats as getPlayerStatsService } from 'src/player/services/get
 import { getPlayerCollection as getPlayerCollectionService } from 'src/player/services/getPlayerCollection';
 import { getPlayer as getPlayerService } from 'src/player/services/getPlayer';
 import { searchPlayer as searchPlayerService } from 'src/player/services/searchPlayer';
+import { ignorePlayer as ignorePlayerService } from './services/ignorePlayer';
 import { existingStringSchema, positiveNumberSchema } from 'src/validators';
 import { asyncHandler } from 'src/asyncHandler';
 
@@ -54,6 +55,13 @@ const searchPlayer = asyncHandler(async (req, res, next) => {
   res.json(results);
 });
 
+const ignorePlayer = asyncHandler(async (req, res, next) => {
+  const playerId = positiveNumberSchema.parse(req.params.playerId);
+  await ignorePlayerService({ playerId });
+
+  res.json({ message: `Player ${playerId} is now ignored` });
+});
+
 export const controller = {
   getPlayer,
   getPlayerItems,
@@ -61,4 +69,5 @@ export const controller = {
   getPlayerStats,
   getPlayerCollection,
   searchPlayer,
+  ignorePlayer,
 };

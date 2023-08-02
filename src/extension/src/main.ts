@@ -32,15 +32,40 @@ export class CustomSocket extends WebSocket {
 
       // Ignore Trade channel
       if (data.message.channelTypeHrid === '/chat_channel_types/trade') return;
-
-      await parseItems(data);
-      await parseAbilities(data);
+      console.log(data.message);
+      if (data.message.channelTypeHrid === '/chat_channel_types/whisper') {
+        parseCommand(data.message);
+      }
+      if (data.message.linksMetadata.length > 0) {
+        await parseItems(data);
+        await parseAbilities(data);
+      }
     });
 
     // Only set the correct socket and skip the one Vite is using
     if (url.toString().includes('milkyway')) {
       unsafeWindow.customSocket = this;
     }
+  }
+}
+
+async function parseCommand(message: ChatMessageReceived['message']) {
+  // TODO: Make this cleaner/more extensible?
+  // probably won't add any more commands so this will do for now
+  if (message.message === '/ignore') {
+    console.log('Ignoring player');
+    await axios.post(
+      `${import.meta.env.VITE_API_BASE}/api/v1/player/${
+        message.characterID
+      }/ignore`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          token: import.meta.env.VITE_API_TOKEN,
+        },
+      }
+    );
   }
 }
 

@@ -4,6 +4,14 @@ import info from 'src/clientInfo.json';
 import { type ItemHrid } from 'src/clientInfoClean';
 
 export async function uploadItems(data: Payload): Promise<void> {
+  const player = await prisma.player.findUnique({
+    where: { id: data.player.id },
+  });
+
+  if (player?.ignored === true) {
+    return;
+  }
+
   await prisma.player.upsert({
     where: {
       id: data.player.id,
