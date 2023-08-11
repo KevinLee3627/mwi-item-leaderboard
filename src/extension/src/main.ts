@@ -177,7 +177,7 @@ async function request<Payload, Response extends any>({
   return await axios({
     url,
     method,
-    data: payload ?? null,
+    data: payload ?? {},
     headers: {
       'Content-Type': 'application/json',
       token: import.meta.env.VITE_API_TOKEN,
@@ -188,7 +188,7 @@ async function request<Payload, Response extends any>({
 async function updateScraperStatus() {
   await request({
     method: 'PUT',
-    url: `${import.meta.env.VITE_API_BASE}/api/v1/scraper/status`,
+    url: `${import.meta.env.VITE_API_BASE}/api/v1/status/scraper`,
   });
 }
 
