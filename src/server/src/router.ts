@@ -7,10 +7,6 @@ import { router as gameRouter } from 'src/game/router';
 
 export const router = Router();
 
-router.get('/status', (req, res, next) => {
-  res.json({ message: 'OK' });
-});
-
 router.use(playerRouter);
 router.use(leaderboardRouter);
 router.use(itemRouter);

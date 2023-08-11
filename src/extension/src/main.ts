@@ -161,7 +161,7 @@ function hridToDisplayName(str: string) {
     .join(' ');
 }
 
-type Method = 'POST';
+type Method = 'POST' | 'PUT';
 
 interface RequestParams<T> {
   url: string;
@@ -184,3 +184,12 @@ async function request<Payload, Response extends any>({
     },
   });
 }
+
+async function updateScraperStatus() {
+  await request({
+    method: 'PUT',
+    url: `${import.meta.env.VITE_API_BASE}/api/v1/scraper/status`,
+  });
+}
+
+setInterval(updateScraperStatus, 1000 * 30);
