@@ -1,6 +1,6 @@
 import { prisma } from 'src/db';
 
-type ScraperStatus = 'running' | 'down';
+export type ScraperStatus = 'running' | 'down';
 
 export async function getScraperStatus(): Promise<ScraperStatus> {
   const res = await prisma.serviceStatus.findUnique({

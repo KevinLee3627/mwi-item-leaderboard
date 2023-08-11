@@ -1,10 +1,49 @@
 import { Bars3Icon } from '@heroicons/react/24/solid';
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Changelog } from 'routes/home/Changelog';
 import { IssueModal } from 'routes/home/IssueModal';
 
-export function Header() {
+import { ScraperStatus } from 'server/src/status/services/getScraperStatus';
+
+const apiBase = import.meta.env.VITE_API_BASE as string;
+
+async function getStatus(): Promise<ScraperStatus> {
+  const res = await axios.get(`${apiBase}/api/v1/status/scraper`);
+  // return res.data.status;
+  return res.data.status;
+}
+
+function StatusBadge({
+  status,
+  className,
+}: {
+  status: ScraperStatus;
+  className?: string;
+}) {
+  const badgeClass = status === 'down' ? 'badge-error' : 'badge-success';
   return (
+    <div className={`badge ${badgeClass} ${className ?? ''}`}>
+      status: {status}
+    </div>
+  );
+}
+
+export function Header() {
+  const [status, setStatus] = useState<ScraperStatus>('running');
+
+  const updateState = useCallback(async () => {
+    const newStatus = await getStatus();
+    setStatus(newStatus);
+  }, []);
+
+  useEffect(() => {
+    setInterval(updateState, 30000);
+  }, [updateState]);
+
+  return (
+    // Mobile
     <div className='navbar w-full h-12 bg-primary flex items-center justify-between'>
       <div className='navbar-start'>
         <div className='dropdown'>
@@ -33,10 +72,18 @@ export function Header() {
             </li>
           </ul>
         </div>
-        <Link to='/' className='flex-1 font-bold text-white whitespace-nowrap'>
-          MWI Display Case
-        </Link>
+        <div>
+          <Link
+            to='/'
+            className='flex-1 font-bold text-white whitespace-nowrap'
+          >
+            MWI Display Case
+          </Link>
+          <StatusBadge status={status} className='ml-4' />
+        </div>
       </div>
+      <StatusBadge status={status} className='md:hidden' />
+      {/* Desktop */}
       <div className='navbar-center hidden md:flex'>
         <ul
           tabIndex={0}
