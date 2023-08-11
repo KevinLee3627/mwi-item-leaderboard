@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Changelog } from 'routes/home/Changelog';
 import { IssueModal } from 'routes/home/IssueModal';
 
-import { ScraperStatus } from 'server/src/status/services/getScraperStatus';
+import { ScraperStatus } from 'server';
 
 const apiBase = import.meta.env.VITE_API_BASE as string;
 

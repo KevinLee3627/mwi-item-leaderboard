@@ -103,3 +103,5 @@ export interface GetSingleAbilityLevelLeaderboardRes {
   >;
   title: string;
 }
+
+export type ScraperStatus = 'running' | 'down';
