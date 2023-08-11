@@ -54,18 +54,12 @@ async function parseCommand(message: ChatMessageReceived['message']) {
   // probably won't add any more commands so this will do for now
   if (message.message === '/ignore') {
     console.log('Ignoring player');
-    await axios.post(
-      `${import.meta.env.VITE_API_BASE}/api/v1/player/${
+    await request({
+      method: 'POST',
+      url: `${import.meta.env.VITE_API_BASE}/api/v1/player/${
         message.characterID
       }/ignore`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          token: import.meta.env.VITE_API_TOKEN,
-        },
-      }
-    );
+    });
   }
 }
 
@@ -99,17 +93,11 @@ async function parseItems({ message }: ChatMessageReceived) {
       ts: new Date().toISOString(),
     };
 
-    const res = await axios.post(
-      `${import.meta.env.VITE_API_BASE}/api/v1/item`,
+    const res = await request({
+      method: 'POST',
+      url: `${import.meta.env.VITE_API_BASE}/api/v1/item`,
       payload,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          token: import.meta.env.VITE_API_TOKEN,
-        },
-      }
-    );
-
+    });
     console.log(res);
   } catch (err) {
     console.error(err);
@@ -134,7 +122,7 @@ async function parseAbilities({ message }: ChatMessageReceived) {
     })
   );
 
-  console.log(`Abilities: ${payloadAbilities}`);
+  console.log(`Abilities uploaded: `);
   console.log(payloadAbilities);
 
   try {
@@ -147,16 +135,11 @@ async function parseAbilities({ message }: ChatMessageReceived) {
       ts: new Date().toISOString(),
     };
 
-    const res = await axios.post(
-      `${import.meta.env.VITE_API_BASE}/api/v1/ability`,
+    const res = await request({
+      method: 'POST',
+      url: `${import.meta.env.VITE_API_BASE}/api/v1/ability`,
       payload,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          token: import.meta.env.VITE_API_TOKEN,
-        },
-      }
-    );
+    });
 
     console.log(res);
   } catch (err) {
@@ -176,4 +159,28 @@ function hridToDisplayName(str: string) {
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+type Method = 'POST';
+
+interface RequestParams<T> {
+  url: string;
+  method: Method;
+  payload?: T;
+}
+
+async function request<Payload, Response extends any>({
+  url,
+  method,
+  payload,
+}: RequestParams<Payload>): Promise<AxiosResponse<Response>> {
+  return await axios({
+    url,
+    method,
+    data: payload ?? null,
+    headers: {
+      'Content-Type': 'application/json',
+      token: import.meta.env.VITE_API_TOKEN,
+    },
+  });
 }
