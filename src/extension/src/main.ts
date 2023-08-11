@@ -1,5 +1,5 @@
 import { unsafeWindow } from '$';
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import {
   ServerMessage,
   LinkMetadata,
@@ -81,11 +81,7 @@ async function parseItems({ message }: ChatMessageReceived) {
   const payloadItems: PayloadItem[] = linkedItems.map((item) => {
     return {
       itemHrid: item.itemHrid,
-      itemName: item.itemHrid
-        .replace('/items/', '')
-        .split('_')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' '),
+      itemName: hridToDisplayName(item.itemHrid),
       count: item.itemCount,
       enhancementLevel: item.itemEnhancementLevel,
     };
@@ -130,18 +126,12 @@ async function parseAbilities({ message }: ChatMessageReceived) {
   if (linkedAbilities.length === 0) return;
 
   const payloadAbilities: AbilityPayloadItem[] = linkedAbilities.map(
-    (ability) => {
-      return {
-        abilityHrid: ability.abilityHrid,
-        abilityName: ability.abilityHrid
-          .replace('/abilities/', '')
-          .split('_')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' '),
-        abilityXp: ability.abilityExperience,
-        abilityLevel: ability.abilityLevel,
-      };
-    }
+    (ability) => ({
+      abilityHrid: ability.abilityHrid,
+      abilityName: hridToDisplayName(ability.abilityHrid),
+      abilityXp: ability.abilityExperience,
+      abilityLevel: ability.abilityLevel,
+    })
   );
 
   console.log(`Abilities: ${payloadAbilities}`);
@@ -179,3 +169,11 @@ function isChatMessageReceived(msg: ServerMessage): msg is ChatMessageReceived {
 }
 
 unsafeWindow.WebSocket = CustomSocket;
+
+function hridToDisplayName(str: string) {
+  return str
+    .replace('/items/', '')
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
