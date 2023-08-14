@@ -15,7 +15,7 @@ export async function getScraperStatus(): Promise<ScraperStatus> {
   if (Math.abs(dateDifference) > ONE_MINUTE) {
     await prisma.serviceStatus.update({
       where: { name: 'scraper' },
-      data: { status: 'down', lastUpdate: new Date() },
+      data: { status: 'down' },
     });
     return 'down';
   } else {
