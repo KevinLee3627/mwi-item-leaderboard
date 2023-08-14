@@ -23,7 +23,7 @@ export function IssueModal({
       <dialog id={dialogId} className='modal'>
         <form method='dialog' className='modal-box'>
           <p className='whitespace-normal'>
-            For any issues, contact Granttank on Discord or Granttank2 in-game.
+            For any issues, contact Granttank on Discord or Granttank in-game.
           </p>
         </form>
         <form method='dialog' className='modal-backdrop'>

@@ -42,14 +42,14 @@ export function Home() {
       </div>
       <p className='text-center'>
         <strong>
-          To add your items here, whisper Granttank2 in game with your items
+          To add your items here, whisper Granttank in game with your items
           linked in chat!
         </strong>
       </p>
       <p className='text-center'>
         <strong>
           To opt-out of your linked items being collected and displayed, please
-          whisper '/ignore' to Granttank2 in-game.
+          whisper '/ignore' to Granttank in-game.
         </strong>
       </p>
       <Outlet />
